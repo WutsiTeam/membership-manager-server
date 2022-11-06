@@ -9,6 +9,7 @@ public data class RegisterMemberRequest(
     public val phoneNumber: String = "",
     @get:NotBlank
     public val displayName: String = "",
+    public val country: String = "",
     @get:NotBlank
     @get:Size(min = 6)
     public val pin: String = ""

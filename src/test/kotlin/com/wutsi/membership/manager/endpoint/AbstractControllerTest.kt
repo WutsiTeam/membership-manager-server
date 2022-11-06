@@ -19,7 +19,7 @@ abstract class AbstractControllerTest {
     protected var rest = RestTemplate()
 
     @BeforeEach
-    fun setUp() {
+    open fun setUp() {
         rest = RestTemplate()
         rest.interceptors.add(LanguageClientHttpRequestInterceptor(language))
     }

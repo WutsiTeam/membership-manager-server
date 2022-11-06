@@ -8,6 +8,8 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.membership.access.dto.CreateAccountRequest
 import com.wutsi.membership.access.dto.CreateAccountResponse
 import com.wutsi.membership.manager.dto.RegisterMemberRequest
+import com.wutsi.membership.manager.event.EventURN
+import com.wutsi.membership.manager.event.MemberEventPayload
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
@@ -33,6 +35,7 @@ class RegisterMemberControllerTest : AbstractControllerTest() {
         )
         val response = rest.postForEntity(url(), request, Any::class.java)
 
+        // THEN
         assertEquals(HttpStatus.OK, response.statusCode)
 
         val req = argumentCaptor<CreateAccountRequest>()
@@ -41,6 +44,15 @@ class RegisterMemberControllerTest : AbstractControllerTest() {
         assertEquals(request.displayName, req.firstValue.displayName)
         assertEquals("CM", req.firstValue.country)
         assertEquals(language, req.firstValue.language)
+
+        verify(eventStream).publish(
+            EventURN.MEMBER_REGISTERED.urn,
+            MemberEventPayload(
+                accountId = accountId,
+                phoneNumber = request.phoneNumber,
+                pin = request.pin
+            )
+        )
     }
 
     private fun url() = "http://localhost:$port/v1/members"
