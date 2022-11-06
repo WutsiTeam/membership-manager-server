@@ -1,38 +1,34 @@
 package com.wutsi.membership.manager.workflow
 
-import com.wutsi.membership.access.MembershipAccessApi
-import com.wutsi.membership.access.dto.SearchAccountRequest
-import com.wutsi.membership.manager.error.ErrorURN
 import com.wutsi.membership.manager.event.EventURN
 import com.wutsi.membership.manager.event.MemberEventPayload
-import com.wutsi.platform.core.error.Error
-import com.wutsi.platform.core.error.exception.ConflictException
-import com.wutsi.platform.core.stream.EventStream
+import com.wutsi.membership.manager.rule.RuleSet
+import com.wutsi.membership.manager.rule.impl.AccountShouldNotBeRegistered
 import org.springframework.stereotype.Service
 
 @Service
-class StartMemberRegistrationWorkflow(
-    private val membership: MembershipAccessApi,
-    private val eventStream: EventStream
-) {
-    fun execute(phoneNumber: String) {
-        val accounts = membership.searchAccount(
-            request = SearchAccountRequest(
-                phoneNumber = phoneNumber
-            )
-        ).accounts
-
-        if (accounts.isEmpty()) {
-            eventStream.publish(
-                EventURN.MEMBER_REGISTRATION_STARTED.urn,
-                MemberEventPayload(phoneNumber = phoneNumber)
-            )
-        } else {
-            throw ConflictException(
-                error = Error(
-                    code = ErrorURN.MEMBER_ALREADY_REGISTERED.urn
-                )
-            )
-        }
+class StartMemberRegistrationWorkflow : AbstractWorkflow() {
+    companion object {
+        const val REQUEST_PHONE_NUMBER = "phone-number"
     }
+
+    override fun getEventURN() = EventURN.MEMBER_REGISTRATION_STARTED
+
+    override fun toMemberEventPayload(context: WorkflowContext) = MemberEventPayload(
+        phoneNumber = getPhoneNumber(context)
+    )
+
+    override fun getValidationRules(context: WorkflowContext): RuleSet {
+        return RuleSet(
+            listOf(
+                AccountShouldNotBeRegistered(getPhoneNumber(context), membershipAccess)
+            )
+        )
+    }
+
+    override fun doExecute(context: WorkflowContext) {
+    }
+
+    private fun getPhoneNumber(context: WorkflowContext): String =
+        (context.request as Map<String, String>)[REQUEST_PHONE_NUMBER]!!
 }

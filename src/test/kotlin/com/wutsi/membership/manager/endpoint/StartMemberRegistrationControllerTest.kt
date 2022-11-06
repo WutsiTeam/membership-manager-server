@@ -3,6 +3,7 @@ package com.wutsi.membership.manager.endpoint
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.membership.access.dto.SearchAccountResponse
@@ -62,6 +63,8 @@ class StartMemberRegistrationControllerTest : AbstractControllerTest() {
 
         val response = ObjectMapper().readValue(ex.responseBodyAsString, ErrorResponse::class.java)
         assertEquals(ErrorURN.MEMBER_ALREADY_REGISTERED.urn, response.error.code)
+
+        verify(eventStream, never()).publish(any(), any())
     }
 
     private fun url() = "http://localhost:$port/v1/members/start-registration?phone-number=" +
