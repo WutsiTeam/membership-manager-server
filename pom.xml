@@ -33,7 +33,7 @@
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
     <libphonenumber.version>8.12.57</libphonenumber.version>
 
-    <wutsi-platform-core.version>0.0.182</wutsi-platform-core.version>
+    <wutsi-platform-core.version>0.0.183</wutsi-platform-core.version>
     <membership-access.version>1.0.11</membership-access.version>
   </properties>
 

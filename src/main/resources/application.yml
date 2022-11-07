@@ -64,10 +64,12 @@ wutsi:
     name: membership-manager
     jobs:
       import-category:
-        cron-en: "0 0 8 1 * *"   # Every month at 8AM
-        cron-fr: "0 15 8 1 * *"  # Every month at 8:15AM
+        cron: "0 0 8 1 * *"   # Every month at 8AM
         url: https://int-wutsi.s3.amazonaws.com/static/membership-manager-server/csv/business-categories.csv
   platform:
+    cache:
+      name: ${wutsi.application.name}
+      type: local
     security:
       type: jwt
       api-key: "--membership-manager-api-key--"

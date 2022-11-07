@@ -18,6 +18,7 @@ java -jar ${CODEGEN_JAR} server \
     -heroku ${API_NAME}-server \
     -service_logger \
     -service_mqueue \
+    -service_cache \
     -service_slack
 
 if [ $? -eq 0 ]

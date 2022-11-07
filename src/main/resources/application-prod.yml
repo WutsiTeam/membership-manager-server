@@ -17,6 +17,13 @@ wutsi:
       import-category:
         url: https://prod-wutsi.s3.amazonaws.com/static/membership-manager-server/csv/business-categories.csv
   platform:
+    cache:
+      type: memcached
+      memcached:
+        username: ${MEMCACHIER_USERNAME}
+        password: ${MEMCACHIER_PASSWORD}
+        servers: ${MEMCACHIER_SERVERS}
+        ttl: 86400
     security:
       type: jwt
 

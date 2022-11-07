@@ -30,37 +30,23 @@ internal class ImportCategoryJobTest {
     @Autowired
     private lateinit var job: ImportCategoryJob
 
+    val totalCategories = 1556
+    val totalLanguages = ImportCategoryJob.LANGUAGES.size
+
     @Test
     fun run() {
         // WHEN
-        val response = job.runEN()
+        job.run()
 
         // THEN
-        assertEquals(0, response.errors.size)
-        assertEquals(1556, response.imported)
-
         val request = argumentCaptor<SaveCategoryRequest>()
-        verify(membershipAccess, times(1556)).saveCategory(any(), request.capture())
+        verify(membershipAccess, times(totalLanguages * totalCategories)).saveCategory(any(), request.capture())
 
         assertEquals("Abortion Service", request.firstValue.title)
+        assertEquals("Service d'avortement", request.allValues[totalCategories].title)
         verify(eventStream, never()).publish(any(), any())
     }
 
-    @Test
-    fun runFR() {
-        // WHEN
-        val response = job.runFR()
-
-        // THEN
-        assertEquals(0, response.errors.size)
-        assertEquals(1556, response.imported)
-
-        val request = argumentCaptor<SaveCategoryRequest>()
-        verify(membershipAccess, times(1556)).saveCategory(any(), request.capture())
-
-        assertEquals("Service d'avortement", request.firstValue.title)
-        verify(eventStream, never()).publish(any(), any())
-    }
 
     @Test
     fun runWithError() {
@@ -70,16 +56,10 @@ internal class ImportCategoryJobTest {
         doThrow(ex).whenever(membershipAccess).saveCategory(eq(20000), any())
 
         // WHEN
-        val response = job.runEN()
+        job.run()
 
         // THEN
-        assertEquals(2, response.errors.size)
-        assertEquals(1554, response.imported)
-
         val request = argumentCaptor<SaveCategoryRequest>()
-        verify(membershipAccess, times(1556)).saveCategory(any(), request.capture())
-
-        assertEquals("Abortion Service", request.firstValue.title)
-        verify(eventStream, never()).publish(any(), any())
+        verify(membershipAccess, times(totalLanguages * totalCategories)).saveCategory(any(), request.capture())
     }
 }

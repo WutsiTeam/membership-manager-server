@@ -2,6 +2,8 @@ package com.wutsi.membership.manager.job
 
 import com.wutsi.membership.manager.util.csv.CsvImportResponse
 import com.wutsi.membership.manager.workflow.ImportCategoryWorkflow
+import com.wutsi.platform.core.cron.AbstractCronJob
+import com.wutsi.platform.core.cron.CronLockManager
 import com.wutsi.platform.core.logging.DefaultKVLogger
 import com.wutsi.workflow.WorkflowContext
 import org.springframework.beans.factory.annotation.Value
@@ -11,13 +13,27 @@ import org.springframework.stereotype.Service
 @Service
 class ImportCategoryJob(
     private val workflow: ImportCategoryWorkflow,
-    @Value("\${wutsi.application.jobs.import-category.url}") private val url: String
-) {
-    @Scheduled(cron = "\${wutsi.application.jobs.import-category.cron-en}")
-    fun runEN() = run("en")
+    lockManager: CronLockManager,
 
-    @Scheduled(cron = "\${wutsi.application.jobs.import-category.cron-fr}")
-    fun runFR() = run("fr")
+    @Value("\${wutsi.application.jobs.import-category.url}") private val url: String
+) : AbstractCronJob(lockManager) {
+    companion object {
+        val LANGUAGES = listOf("en", "fr")
+    }
+
+    @Scheduled(cron = "\${wutsi.application.jobs.import-category.cron}")
+    override fun run() {
+        super.run()
+    }
+
+    override fun doRun(): Long {
+        var result = 0L
+        LANGUAGES.forEach {
+            val response = run(it)
+            result += response.imported
+        }
+        return result
+    }
 
     private fun run(language: String): CsvImportResponse {
         val logger = DefaultKVLogger()
