@@ -2,7 +2,7 @@ package com.wutsi.membership.manager.`delegate`
 
 import com.wutsi.membership.manager.dto.RegisterMemberRequest
 import com.wutsi.membership.manager.workflow.RegisterMemberWorkflow
-import com.wutsi.membership.manager.workflow.WorkflowContext
+import com.wutsi.workflow.WorkflowContext
 import org.springframework.stereotype.Service
 
 @Service

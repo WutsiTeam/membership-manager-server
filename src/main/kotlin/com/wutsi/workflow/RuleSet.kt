@@ -1,4 +1,4 @@
-package com.wutsi.membership.manager.rule
+package com.wutsi.workflow
 
 class RuleSet(
     private val rules: List<Rule>

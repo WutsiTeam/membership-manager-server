@@ -4,14 +4,16 @@ import com.wutsi.membership.access.dto.CreateAccountRequest
 import com.wutsi.membership.manager.dto.RegisterMemberRequest
 import com.wutsi.membership.manager.event.EventURN
 import com.wutsi.membership.manager.event.MemberEventPayload
-import com.wutsi.membership.manager.rule.RuleSet
 import com.wutsi.membership.manager.util.PhoneUtil
+import com.wutsi.workflow.AbstractWorkflow
+import com.wutsi.workflow.RuleSet
+import com.wutsi.workflow.WorkflowContext
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.stereotype.Service
 
 @Service
 class RegisterMemberWorkflow : AbstractWorkflow() {
-    override fun getEventURN() = EventURN.MEMBER_REGISTERED
+    override fun getEventType() = EventURN.MEMBER_REGISTERED.urn
 
     override fun toMemberEventPayload(context: WorkflowContext): MemberEventPayload {
         val request = context.request as RegisterMemberRequest

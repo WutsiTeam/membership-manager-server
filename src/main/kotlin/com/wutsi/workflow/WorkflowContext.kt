@@ -1,4 +1,4 @@
-package com.wutsi.membership.manager.workflow
+package com.wutsi.workflow
 
 class WorkflowContext(
     val request: Any? = null
