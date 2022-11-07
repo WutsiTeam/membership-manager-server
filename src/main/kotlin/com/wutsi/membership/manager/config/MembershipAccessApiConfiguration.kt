@@ -3,6 +3,7 @@ package com.wutsi.membership.manager.config
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wutsi.membership.access.MembershipAccessApi
 import com.wutsi.membership.access.MembershipAccessApiBuilder
+import com.wutsi.membership.manager.service.FeignAcceptLanguageInterceptor
 import com.wutsi.platform.core.security.feign.FeignApiKeyRequestInterceptor
 import com.wutsi.platform.core.security.feign.FeignAuthorizationRequestInterceptor
 import com.wutsi.platform.core.tracing.feign.FeignTracingRequestInterceptor
@@ -17,6 +18,7 @@ class MembershipAccessApiConfiguration(
     private val authorizationRequestInterceptor: FeignAuthorizationRequestInterceptor,
     private val tracingRequestInterceptor: FeignTracingRequestInterceptor,
     private val apiKeyInterceptor: FeignApiKeyRequestInterceptor,
+    private val acceptLanguageInterceptor: FeignAcceptLanguageInterceptor,
     private val mapper: ObjectMapper,
     private val env: Environment
 ) {
@@ -28,7 +30,8 @@ class MembershipAccessApiConfiguration(
             interceptors = listOf(
                 tracingRequestInterceptor,
                 authorizationRequestInterceptor,
-                apiKeyInterceptor
+                apiKeyInterceptor,
+                acceptLanguageInterceptor
             ),
             errorDecoder = Custom5XXErrorDecoder()
         )

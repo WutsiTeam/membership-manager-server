@@ -14,6 +14,7 @@ import feign.FeignException
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 import org.apache.commons.csv.CSVRecord
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.stereotype.Service
 import java.net.URL
@@ -21,11 +22,12 @@ import java.util.Locale
 
 @Service
 class ImportCategoryWorkflow(
-    private val mapper: ObjectMapper
+    private val mapper: ObjectMapper,
+
+    @Value("\${wutsi.application.jobs.import-category.url}") private val csvUrl: String
 ) : AbstractWorkflow() {
     companion object {
         const val REQUEST_LANGUAGE = "language"
-        const val REQUEST_URL = "url"
     }
 
     override fun getEventType(): String? = null
@@ -35,25 +37,11 @@ class ImportCategoryWorkflow(
     override fun getValidationRules(context: WorkflowContext) = RuleSet.NONE
 
     override fun doExecute(context: WorkflowContext) {
-        val request = context.request as Map<String, String>
-        val language = request[REQUEST_LANGUAGE]
-        val url = request[REQUEST_URL]
-
-        // Set language
-        if (language != null) {
-            LocaleContextHolder.setLocale(Locale(language))
-        }
-
-        // Load
-        context.response = doImport(URL(url))
-    }
-
-    private fun doImport(url: URL): CsvImportResponse {
         var row = 1
         var imported = 0
         val errors = mutableListOf<CsvError>()
         val parser = CSVParser.parse(
-            url,
+            URL(csvUrl),
             Charsets.UTF_8,
             CSVFormat.Builder.create()
                 .setSkipHeaderRecord(true)
@@ -61,6 +49,8 @@ class ImportCategoryWorkflow(
                 .setHeader("id", "title", "title_fr")
                 .build()
         )
+
+        setImportLanguage(context)
         for (record in parser) {
             try {
                 doImport(row, record)
@@ -72,10 +62,17 @@ class ImportCategoryWorkflow(
             }
         }
 
-        return CsvImportResponse(
+        context.response = CsvImportResponse(
             imported = imported,
             errors = errors
         )
+    }
+
+    private fun setImportLanguage(context: WorkflowContext) {
+        val language = (context.request as Map<String, String?>)?.get(REQUEST_LANGUAGE)
+        if (language != null) {
+            LocaleContextHolder.setLocale(Locale(language))
+        }
     }
 
     private fun doImport(row: Int, record: CSVRecord) {
