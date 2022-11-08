@@ -22,4 +22,8 @@ wutsi:
         ttl: 86400
     security:
       type: jwt
+    stream:
+      type: rabbitmq
+      rabbitmq:
+        url: ${CLOUDAMQP_URL}
 
