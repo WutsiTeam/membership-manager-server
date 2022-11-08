@@ -24,9 +24,9 @@ paths:
             type: string
       responses:
         200:
-          description: The member exist
+          description: Registration process started. OTP sent to user
         409:
-          description: The member already registered
+          description: The phone already assigned to another member
       tags:
         - Member
 
@@ -150,6 +150,10 @@ components:
           type: string
           description: User's Personal Identification Number
           minLength: 6
+        cityId:
+          type: integer
+          format: int64
+          description: ID of the location of the member
       required:
         - phoneNumber
         - displayName

@@ -33,7 +33,8 @@ class RegisterMemberWorkflow : AbstractWorkflow() {
                 phoneNumber = request.phoneNumber,
                 displayName = request.displayName,
                 country = PhoneUtil.detectCountry(request.phoneNumber),
-                language = LocaleContextHolder.getLocale().language
+                language = LocaleContextHolder.getLocale().language,
+                cityId = request.cityId
             )
         ).accountId
     }

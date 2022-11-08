@@ -31,7 +31,8 @@ class RegisterMemberControllerTest : AbstractControllerTest() {
         val request = RegisterMemberRequest(
             phoneNumber = "+237670000010",
             displayName = "Ray Sponsible",
-            pin = "123456"
+            pin = "123456",
+            cityId = 111L
         )
         val response = rest.postForEntity(url(), request, Any::class.java)
 
@@ -42,6 +43,7 @@ class RegisterMemberControllerTest : AbstractControllerTest() {
         verify(membershipAccess).createAccount(req.capture())
         assertEquals(request.phoneNumber, req.firstValue.phoneNumber)
         assertEquals(request.displayName, req.firstValue.displayName)
+        assertEquals(request.cityId, req.firstValue.cityId)
         assertEquals("CM", req.firstValue.country)
         assertEquals(language, req.firstValue.language)
 
