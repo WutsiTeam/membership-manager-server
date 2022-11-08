@@ -2,13 +2,13 @@ package com.wutsi.membership.manager.workflow
 
 import com.wutsi.membership.access.MembershipAccessApi
 import com.wutsi.membership.access.dto.Account
-import com.wutsi.membership.manager.error.ErrorURN
 import com.wutsi.membership.manager.event.MemberEventPayload
 import com.wutsi.membership.manager.util.SecurityUtil
 import com.wutsi.platform.core.error.Error
 import com.wutsi.platform.core.error.exception.NotFoundException
 import com.wutsi.platform.core.stream.EventStream
 import com.wutsi.workflow.AbstractWorkflow
+import com.wutsi.workflow.error.ErrorURN
 import feign.FeignException
 import org.springframework.beans.factory.annotation.Autowired
 

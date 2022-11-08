@@ -2,10 +2,10 @@ package com.wutsi.membership.manager.workflow
 
 import com.wutsi.membership.manager.event.EventURN
 import com.wutsi.membership.manager.event.MemberEventPayload
-import com.wutsi.membership.manager.rule.AccountShouldNotBeRegistered
 import com.wutsi.platform.core.stream.EventStream
 import com.wutsi.workflow.RuleSet
 import com.wutsi.workflow.WorkflowContext
+import com.wutsi.workflow.rule.account.AccountShouldNotBeRegistered
 import org.springframework.stereotype.Service
 
 @Service

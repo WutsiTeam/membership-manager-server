@@ -8,10 +8,10 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.membership.access.dto.SearchAccountResponse
 import com.wutsi.membership.manager.Fixtures
-import com.wutsi.membership.manager.error.ErrorURN
 import com.wutsi.membership.manager.event.EventURN
 import com.wutsi.membership.manager.event.MemberEventPayload
 import com.wutsi.platform.core.error.ErrorResponse
+import com.wutsi.workflow.error.ErrorURN
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.boot.test.context.SpringBootTest

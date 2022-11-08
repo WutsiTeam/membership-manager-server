@@ -12,10 +12,10 @@ import com.wutsi.membership.access.dto.UpdateAccountAttributeRequest
 import com.wutsi.membership.access.enums.AccountStatus
 import com.wutsi.membership.manager.Fixtures
 import com.wutsi.membership.manager.dto.UpdateMemberAttributeRequest
-import com.wutsi.membership.manager.error.ErrorURN
 import com.wutsi.membership.manager.event.EventURN
 import com.wutsi.membership.manager.event.MemberEventPayload
 import com.wutsi.platform.core.error.ErrorResponse
+import com.wutsi.workflow.error.ErrorURN
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.boot.test.context.SpringBootTest

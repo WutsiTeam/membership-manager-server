@@ -4,11 +4,11 @@ import com.wutsi.membership.access.dto.UpdateAccountStatusRequest
 import com.wutsi.membership.access.enums.AccountStatus
 import com.wutsi.membership.manager.event.EventURN
 import com.wutsi.membership.manager.event.MemberEventPayload
-import com.wutsi.membership.manager.rule.AccountShouldNotBeSuspendedRule
 import com.wutsi.membership.manager.util.SecurityUtil
 import com.wutsi.platform.core.stream.EventStream
 import com.wutsi.workflow.RuleSet
 import com.wutsi.workflow.WorkflowContext
+import com.wutsi.workflow.rule.account.AccountShouldNotBeSuspendedRule
 import org.springframework.stereotype.Service
 
 @Service
