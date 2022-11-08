@@ -8,8 +8,12 @@ object Fixtures {
     fun createAccountSummary() = AccountSummary()
 
     fun createAccount(
-        status: AccountStatus = AccountStatus.ACTIVE
+        status: AccountStatus = AccountStatus.ACTIVE,
+        business: Boolean = false,
+        country: String = "CM"
     ) = Account(
-        status = status.name
+        status = status.name,
+        business = business,
+        country = country
     )
 }
