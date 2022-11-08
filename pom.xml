@@ -34,7 +34,7 @@
     <libphonenumber.version>8.12.57</libphonenumber.version>
 
     <wutsi-platform-core.version>0.0.183</wutsi-platform-core.version>
-    <membership-access.version>1.0.11</membership-access.version>
+    <membership-access.version>1.0.12</membership-access.version>
   </properties>
 
   <dependencies>

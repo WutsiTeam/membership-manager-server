@@ -14,5 +14,5 @@ public data class RegisterMemberRequest(
     @get:NotBlank
     @get:Size(min = 6)
     public val pin: String = "",
-    public val cityId: Long = 0
+    public val cityId: Long? = null
 )

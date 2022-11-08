@@ -154,6 +154,7 @@ components:
           type: integer
           format: int64
           description: ID of the location of the member
+          nullable: true
       required:
         - phoneNumber
         - displayName
