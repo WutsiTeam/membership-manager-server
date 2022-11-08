@@ -13,9 +13,11 @@ spring:
 wutsi:
   client-id: membership-manager
   application:
-    jobs:
-      import-category:
+    services:
+      category:
         url: https://prod-wutsi.s3.amazonaws.com/static/membership-manager-server/csv/business-categories.csv
+      place:
+        url-prefix: https://prod-wutsi.s3.amazonaws.com/static/membership-manager-server/csv
   platform:
     cache:
       type: memcached

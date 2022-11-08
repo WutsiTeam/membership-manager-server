@@ -62,10 +62,12 @@ wutsi:
   client-id: membership-manager
   application:
     name: membership-manager
-    jobs:
-      import-category:
-        cron: "0 0 8 1 * *"   # Every month at 8AM
+    services:
+      category:
         url: https://int-wutsi.s3.amazonaws.com/static/membership-manager-server/csv/business-categories.csv
+      place:
+        url-prefix: https://int-wutsi.s3.amazonaws.com/static/membership-manager-server/csv
+        min-population: 10000
   platform:
     cache:
       name: ${wutsi.application.name}
