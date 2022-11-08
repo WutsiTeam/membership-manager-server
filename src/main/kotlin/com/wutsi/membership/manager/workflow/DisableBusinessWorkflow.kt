@@ -5,16 +5,17 @@ import com.wutsi.membership.manager.event.MemberEventPayload
 import com.wutsi.membership.manager.rule.AccountShouldBeActiveRule
 import com.wutsi.membership.manager.rule.AccountShouldBeBusinessRule
 import com.wutsi.membership.manager.util.SecurityUtil
+import com.wutsi.platform.core.stream.EventStream
 import com.wutsi.regulation.CountryRegulations
-import com.wutsi.workflow.AbstractWorkflow
 import com.wutsi.workflow.RuleSet
 import com.wutsi.workflow.WorkflowContext
 import org.springframework.stereotype.Service
 
 @Service
 class DisableBusinessWorkflow(
-    private val countryRegulations: CountryRegulations
-) : AbstractWorkflow() {
+    private val countryRegulations: CountryRegulations,
+    eventStream: EventStream
+) : AbstractMembershipWorkflow(eventStream) {
     override fun getEventType() = EventURN.BUSINESS_ACCOUNT_DISABLED.urn
 
     override fun toMemberEventPayload(context: WorkflowContext) = MemberEventPayload(

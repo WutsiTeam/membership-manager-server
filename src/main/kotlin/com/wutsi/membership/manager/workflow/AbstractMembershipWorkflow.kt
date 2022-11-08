@@ -1,4 +1,4 @@
-package com.wutsi.workflow
+package com.wutsi.membership.manager.workflow
 
 import com.wutsi.membership.access.MembershipAccessApi
 import com.wutsi.membership.access.dto.Account
@@ -8,35 +8,14 @@ import com.wutsi.membership.manager.util.SecurityUtil
 import com.wutsi.platform.core.error.Error
 import com.wutsi.platform.core.error.exception.NotFoundException
 import com.wutsi.platform.core.stream.EventStream
+import com.wutsi.workflow.AbstractWorkflow
 import feign.FeignException
 import org.springframework.beans.factory.annotation.Autowired
 
-abstract class AbstractWorkflow : Workflow {
-    @Autowired
-    private lateinit var eventStream: EventStream
-
+abstract class AbstractMembershipWorkflow(val eventStream: EventStream) :
+    AbstractWorkflow<MemberEventPayload>(eventStream) {
     @Autowired
     protected lateinit var membershipAccess: MembershipAccessApi
-
-    protected abstract fun getEventType(): String?
-    protected abstract fun toMemberEventPayload(context: WorkflowContext): MemberEventPayload?
-    protected abstract fun getValidationRules(context: WorkflowContext): RuleSet
-    protected abstract fun doExecute(context: WorkflowContext)
-
-    override fun execute(context: WorkflowContext) {
-        validate(context)
-        doExecute(context)
-        val urn = getEventType()
-        if (urn != null) {
-            toMemberEventPayload(context)?.let {
-                eventStream.publish(urn, it)
-            }
-        }
-    }
-
-    private fun validate(context: WorkflowContext) {
-        getValidationRules(context).check()
-    }
 
     protected fun getCurrentAccount(): Account {
         val accountId = SecurityUtil.getAccountId()

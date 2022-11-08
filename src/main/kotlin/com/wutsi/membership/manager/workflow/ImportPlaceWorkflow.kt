@@ -6,6 +6,7 @@ import com.wutsi.membership.manager.util.csv.CsvError
 import com.wutsi.membership.manager.util.csv.CsvImportResponse
 import com.wutsi.platform.core.logging.DefaultKVLogger
 import com.wutsi.platform.core.logging.KVLogger
+import com.wutsi.platform.core.stream.EventStream
 import com.wutsi.workflow.WorkflowContext
 import feign.FeignException
 import org.apache.commons.csv.CSVFormat
@@ -17,9 +18,9 @@ import java.net.URL
 
 @Service
 class ImportPlaceWorkflow(
-    @Value("\${wutsi.application.services.place.url-prefix}") private val csvUrlPrefix: String,
-    @Value("\${wutsi.application.services.place.min-population}") private val minPopulation: Int
-) : AbstractCsvImportWorkflow() {
+    eventStream: EventStream,
+    @Value("\${wutsi.application.services.place.url-prefix}") private val csvUrlPrefix: String
+) : AbstractCsvImportWorkflow(eventStream) {
     companion object {
         const val REQUEST_COUNTRY = "country"
         private const val RECORD_ID = 0

@@ -3,13 +3,13 @@ package com.wutsi.membership.manager.workflow
 import com.wutsi.membership.manager.event.EventURN
 import com.wutsi.membership.manager.event.MemberEventPayload
 import com.wutsi.membership.manager.rule.AccountShouldNotBeRegistered
-import com.wutsi.workflow.AbstractWorkflow
+import com.wutsi.platform.core.stream.EventStream
 import com.wutsi.workflow.RuleSet
 import com.wutsi.workflow.WorkflowContext
 import org.springframework.stereotype.Service
 
 @Service
-class StartMemberRegistrationWorkflow : AbstractWorkflow() {
+class StartMemberRegistrationWorkflow(eventStream: EventStream) : AbstractMembershipWorkflow(eventStream) {
     companion object {
         const val REQUEST_PHONE_NUMBER = "phone-number"
     }

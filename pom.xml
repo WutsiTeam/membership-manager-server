@@ -34,7 +34,9 @@
     <libphonenumber.version>8.12.57</libphonenumber.version>
 
     <wutsi-platform-core.version>0.0.183</wutsi-platform-core.version>
-    <membership-access.version>1.0.12</membership-access.version>
+    <wutsi-membership-access.version>1.0.12</wutsi-membership-access.version>
+    <wutsi-workflow.version>1.0.0</wutsi-workflow.version>
+    <wutsi-regulation.version>1.0.0</wutsi-regulation.version>
   </properties>
 
   <dependencies>
@@ -44,9 +46,19 @@
       <version>${wutsi-platform-core.version}</version>
     </dependency>
     <dependency>
+      <groupId>com.wutsi.workflow</groupId>
+      <artifactId>workflow-engine</artifactId>
+      <version>${wutsi-workflow.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.wutsi.regulation</groupId>
+      <artifactId>regulation-engine</artifactId>
+      <version>${wutsi-regulation.version}</version>
+    </dependency>
+    <dependency>
       <groupId>com.wutsi.membership.access</groupId>
       <artifactId>membership-access-sdk-kotlin</artifactId>
-      <version>${membership-access.version}</version>
+      <version>${wutsi-membership-access.version}</version>
     </dependency>
 
     <dependency>

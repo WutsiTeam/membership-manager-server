@@ -5,6 +5,7 @@ import com.wutsi.membership.manager.util.csv.CsvError
 import com.wutsi.membership.manager.util.csv.CsvImportResponse
 import com.wutsi.platform.core.logging.DefaultKVLogger
 import com.wutsi.platform.core.logging.KVLogger
+import com.wutsi.platform.core.stream.EventStream
 import com.wutsi.workflow.WorkflowContext
 import feign.FeignException
 import org.apache.commons.csv.CSVFormat
@@ -18,8 +19,9 @@ import java.util.Locale
 
 @Service
 class ImportCategoryWorkflow(
+    eventStream: EventStream,
     @Value("\${wutsi.application.services.category.url}") private val csvUrl: String
-) : AbstractCsvImportWorkflow() {
+) : AbstractCsvImportWorkflow(eventStream) {
     companion object {
         const val REQUEST_LANGUAGE = "language"
     }
