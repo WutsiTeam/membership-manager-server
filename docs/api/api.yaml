@@ -1,0 +1,196 @@
+openapi: "3.0.0"
+info:
+  title: "Wutsi Membership Manager API"
+  description: Membership Business layer
+  version: "1.0.0"
+
+servers:
+  - url: https://membership-manager-server-test.herokuapp.com
+    description: Sandbox
+  - url: https://membership-manager-server-prod.herokuapp.com
+    description: Production
+
+paths:
+  /v1/members/start-registration:
+    get:
+      operationId: "start-member-registration"
+      description: Check if a member exists
+      parameters:
+        - in: query
+          name: phone-number
+          description: Phone number of the member to check
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: The member exist
+        409:
+          description: The member already registered
+      tags:
+        - Member
+
+  /v1/members:
+    post:
+      operationId: "register-member"
+      description: Register a new member
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterMemberRequest'
+      responses:
+        200:
+          description: Success
+      tags:
+        - Member
+
+    delete:
+      operationId: "delete-member"
+      description: Delete a member
+      responses:
+        200:
+          description: Success
+      tags:
+        - Member
+
+  /v1/members/attributes:
+    post:
+      operationId: "update-member-attribute"
+      description: Update the attribute of a member
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMemberAttributeRequest'
+      responses:
+        200:
+          description: Success
+      tags:
+        - Member
+
+  /v1/members/business:
+    post:
+      operationId: "enable-business"
+      description: Enable business account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnableBusinessRequest'
+      responses:
+        200:
+          description: Success
+      tags:
+        - Member
+
+    delete:
+      operationId: "disable-business"
+      description: Disable business account
+      responses:
+        200:
+          description: Success
+      tags:
+        - Member
+
+  /v1/categories/import:
+    get:
+      operationId: "import-category"
+      description: Import all the categories
+      parameters:
+        - in: query
+          name: language
+          description: 2 letter code of the language of the categories
+          required: true
+          schema:
+            type: string
+            required: true
+      responses:
+        200:
+          description: Success
+      tags:
+        - Category
+
+  /v1/places/import:
+    get:
+      operationId: "import-place"
+      description: Import all the places
+      parameters:
+        - in: query
+          name: country
+          description: 2 letter code of the country
+          required: true
+          schema:
+            type: string
+            required: true
+      responses:
+        200:
+          description: Success
+      tags:
+        - Place
+
+components:
+  schemas:
+    RegisterMemberRequest:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          description: Phone number in the [E164](https://en.wikipedia.org/wiki/E.164) format
+        displayName:
+          type: string
+          description: Name of the member
+        country:
+          type: string
+          description: Country
+        pin:
+          type: string
+          description: User's Personal Identification Number
+          minLength: 6
+      required:
+        - phoneNumber
+        - displayName
+        - pin
+
+    UpdateMemberAttributeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the attribute
+        value:
+          type: string
+          description: Value of the attribute
+          nullable: true
+      required:
+        - name
+
+    EnableBusinessRequest:
+      type: object
+      properties:
+        displayName:
+          type: string
+          description: Account's display name
+          maxLength: 50
+        categoryId:
+          type: number
+          format: int64
+          description: ID of the business category
+        cityId:
+          type: number
+          format: int64
+          description: ID of the city
+        biography:
+          type: string
+          nullable: true
+        whatsapp:
+          type: string
+          description: Whatsapp phone number to use to contact the user
+          nullable: true
+      required:
+        - displayName
+        - categoryId
+        - cityId
