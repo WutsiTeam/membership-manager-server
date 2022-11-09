@@ -140,16 +140,21 @@ components:
         phoneNumber:
           type: string
           description: Phone number in the [E164](https://en.wikipedia.org/wiki/E.164) format
+          maxLength: 30
         displayName:
           type: string
           description: Name of the member
         country:
           type: string
-          description: Country
+          description: |
+            2 letter code of the account's conntry ([ISO_3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+          minLength: 2
+          maxLength: 2
         pin:
           type: string
           description: User's Personal Identification Number
-          minLength: 6
+          minLength: 4
+          maxLength: 30
         cityId:
           type: integer
           format: int64
@@ -191,10 +196,12 @@ components:
         biography:
           type: string
           nullable: true
+          maxLength: 160
         whatsapp:
           type: string
           description: Whatsapp phone number to use to contact the user
           nullable: true
+          maxLength: 30
       required:
         - displayName
         - categoryId

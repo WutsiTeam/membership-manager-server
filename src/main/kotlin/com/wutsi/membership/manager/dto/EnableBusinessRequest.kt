@@ -14,6 +14,8 @@ public data class EnableBusinessRequest(
     public val categoryId: Long = 0,
     @get:NotNull
     public val cityId: Long = 0,
+    @get:Size(max = 160)
     public val biography: String? = null,
+    @get:Size(max = 30)
     public val whatsapp: String? = null
 )
