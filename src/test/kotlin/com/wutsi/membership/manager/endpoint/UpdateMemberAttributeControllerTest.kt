@@ -81,7 +81,7 @@ class UpdateMemberAttributeControllerTest : AbstractSecuredControllerTest() {
     @Test
     fun notFound() {
         // GIVEN
-        val notFoundEx = createFeignNotException(com.wutsi.membership.access.error.ErrorURN.ACCOUNT_NOT_FOUND.urn)
+        val notFoundEx = createFeignNotFoundException(com.wutsi.membership.access.error.ErrorURN.ACCOUNT_NOT_FOUND.urn)
         doThrow(notFoundEx).whenever(membershipAccess).getAccount(any())
 
         // WHEN

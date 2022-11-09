@@ -28,25 +28,35 @@ abstract class AbstractControllerTest {
         rest.interceptors.add(LanguageClientHttpRequestInterceptor(language))
     }
 
-    protected fun createFeignNotException(
-        errorCode: String
-    ) = FeignException.NotFound(
+    protected fun createFeignNotFoundException(code: String) = FeignException.NotFound(
         "",
-        Request.create(
-            Request.HttpMethod.POST,
-            "https://www.google.ca",
-            emptyMap(),
-            "".toByteArray(),
-            Charset.defaultCharset(),
-            RequestTemplate()
-        ),
+        createFeignRequest(),
+        createFeignBody(code),
+        emptyMap()
+    )
+
+    protected fun createFeignConflictException(code: String) = FeignException.Conflict(
+        "",
+        createFeignRequest(),
+        createFeignBody(code),
+        emptyMap()
+    )
+
+    private fun createFeignRequest() = Request.create(
+        Request.HttpMethod.POST,
+        "https://www.google.ca",
+        emptyMap(),
+        "".toByteArray(),
+        Charset.defaultCharset(),
+        RequestTemplate()
+    )
+
+    private fun createFeignBody(code: String) =
         """
             {
                 "error":{
-                    "code": "$errorCode"
+                    "code": "$code"
                 }
             }
-        """.trimIndent().toByteArray(),
-        emptyMap()
-    )
+        """.trimIndent().toByteArray()
 }

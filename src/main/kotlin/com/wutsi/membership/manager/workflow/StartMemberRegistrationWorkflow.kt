@@ -5,7 +5,7 @@ import com.wutsi.membership.manager.event.MemberEventPayload
 import com.wutsi.platform.core.stream.EventStream
 import com.wutsi.workflow.RuleSet
 import com.wutsi.workflow.WorkflowContext
-import com.wutsi.workflow.rule.account.AccountShouldNotBeRegistered
+import com.wutsi.workflow.rule.account.PhoneNumberShouldNotBeAssignedRule
 import org.springframework.stereotype.Service
 
 @Service
@@ -23,7 +23,7 @@ class StartMemberRegistrationWorkflow(eventStream: EventStream) : AbstractMember
     override fun getValidationRules(context: WorkflowContext): RuleSet {
         return RuleSet(
             listOf(
-                AccountShouldNotBeRegistered(getPhoneNumber(context), membershipAccess)
+                PhoneNumberShouldNotBeAssignedRule(getPhoneNumber(context), membershipAccess)
             )
         )
     }

@@ -62,7 +62,7 @@ class StartMemberRegistrationControllerTest : AbstractControllerTest() {
         assertEquals(HttpStatus.CONFLICT, ex.statusCode)
 
         val response = ObjectMapper().readValue(ex.responseBodyAsString, ErrorResponse::class.java)
-        assertEquals(ErrorURN.MEMBER_ALREADY_REGISTERED.urn, response.error.code)
+        assertEquals(ErrorURN.PHONE_NUMBER_ALREADY_ASSIGNED.urn, response.error.code)
 
         verify(eventStream, never()).publish(any(), any())
     }

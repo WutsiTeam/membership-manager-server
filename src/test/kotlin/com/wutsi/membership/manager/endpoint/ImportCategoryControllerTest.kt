@@ -55,7 +55,7 @@ class ImportCategoryControllerTest : AbstractSecuredControllerTest() {
     @Test
     fun error() {
         // GIVEN
-        val ex = createFeignNotException(errorCode = "foo")
+        val ex = createFeignNotFoundException(code = "foo")
         doThrow(ex).whenever(membershipAccess).saveCategory(eq(10000), any())
 
         // WHEN
