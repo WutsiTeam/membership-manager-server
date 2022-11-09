@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service
 class UpdateMemberAttributeWorkflow(eventStream: EventStream) : AbstractMembershipWorkflow(eventStream) {
     override fun getEventType() = EventURN.MEMBER_ATTRIBUTE_UPDATED.urn
 
-    override fun toMemberEventPayload(context: WorkflowContext) = MemberEventPayload(
+    override fun toEventPayload(context: WorkflowContext) = MemberEventPayload(
         accountId = SecurityUtil.getAccountId()
     )
 

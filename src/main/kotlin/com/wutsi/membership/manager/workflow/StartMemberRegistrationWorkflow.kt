@@ -16,7 +16,7 @@ class StartMemberRegistrationWorkflow(eventStream: EventStream) : AbstractMember
 
     override fun getEventType() = EventURN.MEMBER_REGISTRATION_STARTED.urn
 
-    override fun toMemberEventPayload(context: WorkflowContext) = MemberEventPayload(
+    override fun toEventPayload(context: WorkflowContext) = MemberEventPayload(
         phoneNumber = getPhoneNumber(context)
     )
 

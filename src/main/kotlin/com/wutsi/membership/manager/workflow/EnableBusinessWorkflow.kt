@@ -20,7 +20,7 @@ class EnableBusinessWorkflow(
 ) : AbstractMembershipWorkflow(eventStream) {
     override fun getEventType() = EventURN.BUSINESS_ACCOUNT_ENABLED.urn
 
-    override fun toMemberEventPayload(context: WorkflowContext) = MemberEventPayload(
+    override fun toEventPayload(context: WorkflowContext) = MemberEventPayload(
         accountId = SecurityUtil.getAccountId()
     )
 

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service
 class RegisterMemberWorkflow(eventStream: EventStream) : AbstractMembershipWorkflow(eventStream) {
     override fun getEventType() = EventURN.MEMBER_REGISTERED.urn
 
-    override fun toMemberEventPayload(context: WorkflowContext): MemberEventPayload {
+    override fun toEventPayload(context: WorkflowContext): MemberEventPayload {
         val request = context.request as RegisterMemberRequest
         return MemberEventPayload(
             accountId = context.response as Long,

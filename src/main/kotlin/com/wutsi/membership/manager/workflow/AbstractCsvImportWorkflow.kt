@@ -16,7 +16,7 @@ abstract class AbstractCsvImportWorkflow(eventStream: EventStream) : AbstractMem
 
     override fun getEventType(): String? = null
 
-    override fun toMemberEventPayload(context: WorkflowContext): MemberEventPayload? = null
+    override fun toEventPayload(context: WorkflowContext): MemberEventPayload? = null
 
     override fun getValidationRules(context: WorkflowContext) = RuleSet.NONE
 
