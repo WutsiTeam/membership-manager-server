@@ -1,214 +1,228 @@
 openapi: "3.0.0"
 info:
-    title: "Wutsi Membership Manager API"
-    description: Membership Business layer
-    version: "1.0.0"
+  title: "Wutsi Membership Manager API"
+  description: Membership Business layer
+  version: "1.0.0"
 
 servers:
-    -   url: https://membership-manager-test.herokuapp.com
-        description: Sandbox
-    -   url: https://membership-manager-prod.herokuapp.com
-        description: Production
+  - url: https://membership-manager-test.herokuapp.com
+    description: Sandbox
+  - url: https://membership-manager-prod.herokuapp.com
+    description: Production
 
 paths:
-    /v1/members/start-registration:
-        get:
-            operationId: "start-member-registration"
-            description: Check if a member exists
-            parameters:
-                -   in: query
-                    name: phone-number
-                    description: Phone number of the member to check
-                    required: true
-                    schema:
-                        type: string
-            responses:
-                200:
-                    description: Registration process started. OTP sent to user
-                409:
-                    description: The phone already assigned to another member
-            tags:
-                - Member
+  /v1/members/start-registration:
+    get:
+      operationId: "start-member-registration"
+      description: Check if a member exists
+      parameters:
+        - in: query
+          name: phone-number
+          description: Phone number of the member to check
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Registration process started. OTP sent to user
+        409:
+          description: The phone already assigned to another member
+      tags:
+        - Member
+      security:
+        - api_key: []
 
-    /v1/members:
-        post:
-            operationId: "register-member"
-            description: Register a new member
-            requestBody:
-                required: true
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/RegisterMemberRequest'
-            responses:
-                200:
-                    description: Success
-            tags:
-                - Member
+  /v1/members:
+    post:
+      operationId: "register-member"
+      description: Register a new member
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterMemberRequest'
+      responses:
+        200:
+          description: Success
+      tags:
+        - Member
+      security:
+        - api_key: []
 
-        delete:
-            operationId: "delete-member"
-            description: Delete a member
-            responses:
-                200:
-                    description: Success
-            tags:
-                - Member
+    delete:
+      operationId: "delete-member"
+      description: Delete a member
+      responses:
+        200:
+          description: Success
+      tags:
+        - Member
+      security:
+        - api_key: []
 
-    /v1/members/attributes:
-        post:
-            operationId: "update-member-attribute"
-            description: Update the attribute of a member
-            requestBody:
-                required: true
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/UpdateMemberAttributeRequest'
-            responses:
-                200:
-                    description: Success
-            tags:
-                - Member
+  /v1/members/attributes:
+    post:
+      operationId: "update-member-attribute"
+      description: Update the attribute of a member
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMemberAttributeRequest'
+      responses:
+        200:
+          description: Success
+      tags:
+        - Member
+      security:
+        - api_key: []
 
-    /v1/members/business:
-        post:
-            operationId: "enable-business"
-            description: Enable business account
-            requestBody:
-                required: true
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/EnableBusinessRequest'
-            responses:
-                200:
-                    description: Success
-            tags:
-                - Member
+  /v1/members/business:
+    post:
+      operationId: "enable-business"
+      description: Enable business account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnableBusinessRequest'
+      responses:
+        200:
+          description: Success
+      tags:
+        - Member
 
-        delete:
-            operationId: "disable-business"
-            description: Disable business account
-            responses:
-                200:
-                    description: Success
-            tags:
-                - Member
+    delete:
+      operationId: "disable-business"
+      description: Disable business account
+      responses:
+        200:
+          description: Success
+      tags:
+        - Member
+      security:
+        - api_key: []
 
-    /v1/categories/import:
-        get:
-            operationId: "import-category"
-            description: Import all the categories
-            parameters:
-                -   in: query
-                    name: language
-                    description: 2 letter code of the language of the categories
-                    required: true
-                    schema:
-                        type: string
-                        required: true
-            responses:
-                200:
-                    description: Success
-            tags:
-                - Category
+  /v1/categories/import:
+    get:
+      operationId: "import-category"
+      description: Import all the categories
+      parameters:
+        - in: query
+          name: language
+          description: 2 letter code of the language of the categories
+          required: true
+          schema:
+            type: string
+            required: true
+      responses:
+        200:
+          description: Success
+      tags:
+        - Category
+      security:
+        - api_key: []
 
-    /v1/places/import:
-        get:
-            operationId: "import-place"
-            description: Import all the places
-            parameters:
-                -   in: query
-                    name: country
-                    description: 2 letter code of the country
-                    required: true
-                    schema:
-                        type: string
-                        required: true
-            responses:
-                200:
-                    description: Success
-            tags:
-                - Place
+  /v1/places/import:
+    get:
+      operationId: "import-place"
+      description: Import all the places
+      parameters:
+        - in: query
+          name: country
+          description: 2 letter code of the country
+          required: true
+          schema:
+            type: string
+            required: true
+      responses:
+        200:
+          description: Success
+      tags:
+        - Place
+      security:
+        - api_key: []
 
 components:
-    securitySchemes:
-        api_key:
-            type: apiKey
-            in: header
-            name: Authorization
+  securitySchemes:
+    api_key:
+      type: apiKey
+      in: header
+      name: Authorization
 
-    schemas:
-        RegisterMemberRequest:
-            type: object
-            properties:
-                phoneNumber:
-                    type: string
-                    description: Phone number in the [E164](https://en.wikipedia.org/wiki/E.164) format
-                    maxLength: 30
-                displayName:
-                    type: string
-                    description: Name of the member
-                country:
-                    type: string
-                    description: |
-                        2 letter code of the account's conntry ([ISO_3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
-                    minLength: 2
-                    maxLength: 2
-                pin:
-                    type: string
-                    description: User's Personal Identification Number
-                    minLength: 4
-                    maxLength: 30
-                cityId:
-                    type: integer
-                    format: int64
-                    description: ID of the location of the member
-                    nullable: true
-            required:
-                - phoneNumber
-                - displayName
-                - pin
+  schemas:
+    RegisterMemberRequest:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          description: Phone number in the [E164](https://en.wikipedia.org/wiki/E.164) format
+          maxLength: 30
+        displayName:
+          type: string
+          description: Name of the member
+        country:
+          type: string
+          description: |
+            2 letter code of the account's conntry ([ISO_3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+          minLength: 2
+          maxLength: 2
+        pin:
+          type: string
+          description: User's Personal Identification Number
+          minLength: 4
+          maxLength: 30
+        cityId:
+          type: integer
+          format: int64
+          description: ID of the location of the member
+          nullable: true
+      required:
+        - phoneNumber
+        - displayName
+        - pin
 
-        UpdateMemberAttributeRequest:
-            type: object
-            properties:
-                name:
-                    type: string
-                    description: Name of the attribute
-                value:
-                    type: string
-                    description: Value of the attribute
-                    nullable: true
-            required:
-                - name
+    UpdateMemberAttributeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the attribute
+        value:
+          type: string
+          description: Value of the attribute
+          nullable: true
+      required:
+        - name
 
-        EnableBusinessRequest:
-            type: object
-            properties:
-                displayName:
-                    type: string
-                    description: Account's display name
-                    maxLength: 50
-                categoryId:
-                    type: number
-                    format: int64
-                    description: ID of the business category
-                cityId:
-                    type: number
-                    format: int64
-                    description: ID of the city
-                biography:
-                    type: string
-                    nullable: true
-                    maxLength: 160
-                whatsapp:
-                    type: string
-                    description: Whatsapp phone number to use to contact the user
-                    nullable: true
-                    maxLength: 30
-            required:
-                - displayName
-                - categoryId
-                - cityId
+    EnableBusinessRequest:
+      type: object
+      properties:
+        displayName:
+          type: string
+          description: Account's display name
+          maxLength: 50
+        categoryId:
+          type: number
+          format: int64
+          description: ID of the business category
+        cityId:
+          type: number
+          format: int64
+          description: ID of the city
+        biography:
+          type: string
+          nullable: true
+          maxLength: 160
+        whatsapp:
+          type: string
+          description: Whatsapp phone number to use to contact the user
+          nullable: true
+          maxLength: 30
+      required:
+        - displayName
+        - categoryId
+        - cityId
