@@ -16,7 +16,7 @@ import org.springframework.http.HttpStatus
 import kotlin.test.assertEquals
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ImportCategoryControllerTest : AbstractControllerTest() {
+class ImportCategoryControllerTest : AbstractSecuredControllerTest() {
     @LocalServerPort
     val port: Int = 0
 

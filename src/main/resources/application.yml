@@ -79,8 +79,6 @@ wutsi:
       public-endpoints:
         - "POST /v1/members"
         - "GET /v1/members/start-registration"
-        - "GET /v1/places/import"
-        - "GET /v1/categories/import"
     stream:
       name: ${wutsi.application.name}
       type: local
