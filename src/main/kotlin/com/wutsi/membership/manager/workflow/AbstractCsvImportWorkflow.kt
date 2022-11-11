@@ -10,15 +10,16 @@ import com.wutsi.workflow.WorkflowContext
 import feign.FeignException
 import org.springframework.beans.factory.annotation.Autowired
 
-abstract class AbstractCsvImportWorkflow(eventStream: EventStream) : AbstractMembershipWorkflow(eventStream) {
+abstract class AbstractCsvImportWorkflow<Req, Resp>(eventStream: EventStream) :
+    AbstractMembershipWorkflow<Req, Resp>(eventStream) {
     @Autowired
     private lateinit var mapper: ObjectMapper
 
     override fun getEventType(): String? = null
 
-    override fun toEventPayload(context: WorkflowContext): MemberEventPayload? = null
+    override fun toEventPayload(request: Req, response: Resp, context: WorkflowContext): MemberEventPayload? = null
 
-    override fun getValidationRules(context: WorkflowContext) = RuleSet.NONE
+    override fun getValidationRules(request: Req, context: WorkflowContext) = RuleSet.NONE
 
     protected fun toCsvError(row: Int, ex: FeignException): CsvError =
         try {

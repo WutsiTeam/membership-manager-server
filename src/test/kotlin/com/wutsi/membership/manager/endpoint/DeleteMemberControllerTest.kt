@@ -3,7 +3,6 @@ package com.wutsi.membership.manager.endpoint
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.doThrow
 import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
@@ -67,27 +66,6 @@ class DeleteMemberControllerTest : AbstractSecuredControllerTest() {
 
         val response = ObjectMapper().readValue(ex.responseBodyAsString, ErrorResponse::class.java)
         assertEquals(ErrorURN.MEMBER_SUSPENDED.urn, response.error.code)
-
-        verify(membershipAccess, never()).updateAccountStatus(any(), any())
-        verify(eventStream, never()).publish(any(), any())
-    }
-
-    @Test
-    fun notFound() {
-        // GIVEN
-        val notFoundEx = createFeignNotFoundException(com.wutsi.membership.access.error.ErrorURN.ACCOUNT_NOT_FOUND.urn)
-        doThrow(notFoundEx).whenever(membershipAccess).getAccount(any())
-
-        // WHEN
-        val ex = assertThrows<HttpClientErrorException> {
-            rest.delete(url())
-        }
-
-        // THEN
-        assertEquals(HttpStatus.NOT_FOUND, ex.statusCode)
-
-        val response = ObjectMapper().readValue(ex.responseBodyAsString, ErrorResponse::class.java)
-        assertEquals(ErrorURN.MEMBER_NOT_FOUND.urn, response.error.code)
 
         verify(membershipAccess, never()).updateAccountStatus(any(), any())
         verify(eventStream, never()).publish(any(), any())

@@ -12,14 +12,14 @@ import com.wutsi.workflow.rule.account.AccountShouldNotBeSuspendedRule
 import org.springframework.stereotype.Service
 
 @Service
-class DeleteMemberWorkflow(eventStream: EventStream) : AbstractMembershipWorkflow(eventStream) {
+class DeleteMemberWorkflow(eventStream: EventStream) : AbstractMembershipWorkflow<Void?, Unit>(eventStream) {
     override fun getEventType() = EventURN.MEMBER_DELETED.urn
 
-    override fun toEventPayload(context: WorkflowContext) = MemberEventPayload(
+    override fun toEventPayload(request: Void?, response: Unit, context: WorkflowContext) = MemberEventPayload(
         accountId = SecurityUtil.getAccountId()
     )
 
-    override fun getValidationRules(context: WorkflowContext): RuleSet {
+    override fun getValidationRules(request: Void?, context: WorkflowContext): RuleSet {
         val account = getCurrentAccount()
         return RuleSet(
             listOf(
@@ -28,8 +28,8 @@ class DeleteMemberWorkflow(eventStream: EventStream) : AbstractMembershipWorkflo
         )
     }
 
-    override fun doExecute(context: WorkflowContext) {
-        membershipAccess.updateAccountStatus(
+    override fun doExecute(request: Void?, context: WorkflowContext) {
+        membershipAccessApi.updateAccountStatus(
             id = SecurityUtil.getAccountId(),
             request = UpdateAccountStatusRequest(
                 status = AccountStatus.SUSPENDED.name

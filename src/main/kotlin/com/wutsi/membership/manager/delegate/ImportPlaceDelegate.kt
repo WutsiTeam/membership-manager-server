@@ -1,6 +1,5 @@
 package com.wutsi.membership.manager.`delegate`
 
-import com.wutsi.membership.manager.util.csv.CsvImportResponse
 import com.wutsi.membership.manager.workflow.ImportPlaceWorkflow
 import com.wutsi.platform.core.logging.DefaultKVLogger
 import com.wutsi.workflow.WorkflowContext
@@ -14,15 +13,8 @@ class ImportPlaceDelegate(
     @Async
     fun invoke(country: String) {
         val logger = DefaultKVLogger()
-        logger.add("request_country", country)
         try {
-            val context = WorkflowContext(
-                request = mapOf(
-                    ImportPlaceWorkflow.REQUEST_COUNTRY to country
-                )
-            )
-            workflow.execute(context = context)
-            val response = context.response as CsvImportResponse
+            val response = workflow.execute(country, WorkflowContext())
 
             logger.add("import_count", response.imported)
             logger.add("error_count", response.errors.size)

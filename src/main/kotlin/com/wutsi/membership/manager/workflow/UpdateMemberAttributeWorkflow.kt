@@ -12,14 +12,16 @@ import com.wutsi.workflow.rule.account.AccountShouldBeActiveRule
 import org.springframework.stereotype.Service
 
 @Service
-class UpdateMemberAttributeWorkflow(eventStream: EventStream) : AbstractMembershipWorkflow(eventStream) {
+class UpdateMemberAttributeWorkflow(eventStream: EventStream) :
+    AbstractMembershipWorkflow<UpdateMemberAttributeRequest, Unit>(eventStream) {
     override fun getEventType() = EventURN.MEMBER_ATTRIBUTE_UPDATED.urn
 
-    override fun toEventPayload(context: WorkflowContext) = MemberEventPayload(
-        accountId = SecurityUtil.getAccountId()
-    )
+    override fun toEventPayload(request: UpdateMemberAttributeRequest, response: Unit, context: WorkflowContext) =
+        MemberEventPayload(
+            accountId = SecurityUtil.getAccountId()
+        )
 
-    override fun getValidationRules(context: WorkflowContext): RuleSet {
+    override fun getValidationRules(request: UpdateMemberAttributeRequest, context: WorkflowContext): RuleSet {
         val account = getCurrentAccount()
         return RuleSet(
             listOf(
@@ -28,9 +30,8 @@ class UpdateMemberAttributeWorkflow(eventStream: EventStream) : AbstractMembersh
         )
     }
 
-    override fun doExecute(context: WorkflowContext) {
-        val request = context.request as UpdateMemberAttributeRequest
-        membershipAccess.updateAccountAttribute(
+    override fun doExecute(request: UpdateMemberAttributeRequest, context: WorkflowContext) {
+        membershipAccessApi.updateAccountAttribute(
             id = SecurityUtil.getAccountId(),
             request = UpdateAccountAttributeRequest(
                 name = request.name,

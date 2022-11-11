@@ -120,7 +120,7 @@ class EnableBusinessControllerTest : AbstractSecuredControllerTest() {
         assertEquals(HttpStatus.CONFLICT, ex.statusCode)
 
         val response = ObjectMapper().readValue(ex.responseBodyAsString, ErrorResponse::class.java)
-        assertEquals(ErrorURN.COUNTRY_NOT_SUPPORTED.urn, response.error.code)
+        assertEquals(ErrorURN.BUSINESS_ACCOUNT_NOT_SUPPORTED_IN_COUNTRY.urn, response.error.code)
 
         verify(membershipAccess, never()).updateAccountAttribute(any(), any())
         verify(eventStream, never()).publish(any(), any())

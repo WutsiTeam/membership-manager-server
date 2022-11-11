@@ -5,8 +5,8 @@ import com.wutsi.workflow.WorkflowContext
 import org.springframework.stereotype.Service
 
 @Service
-public class DeleteMemberDelegate(private val workflow: DeleteMemberWorkflow) {
-    public fun invoke() {
-        workflow.execute(WorkflowContext())
+class DeleteMemberDelegate(private val workflow: DeleteMemberWorkflow) {
+    fun invoke() {
+        workflow.execute(null, WorkflowContext())
     }
 }

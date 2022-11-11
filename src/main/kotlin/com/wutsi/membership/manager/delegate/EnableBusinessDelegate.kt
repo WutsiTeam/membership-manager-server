@@ -18,8 +18,6 @@ public class EnableBusinessDelegate(
         logger.add("request_whatsapp", request.whatsapp)
         logger.add("request_category_id", request.categoryId)
 
-        workflow.execute(
-            WorkflowContext(request = request)
-        )
+        workflow.execute(request, WorkflowContext())
     }
 }

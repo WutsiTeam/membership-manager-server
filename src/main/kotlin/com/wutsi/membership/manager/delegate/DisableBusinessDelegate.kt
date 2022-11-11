@@ -5,8 +5,8 @@ import com.wutsi.workflow.WorkflowContext
 import org.springframework.stereotype.Service
 
 @Service
-public class DisableBusinessDelegate(private val workflow: DisableBusinessWorkflow) {
-    public fun invoke() {
-        workflow.execute(WorkflowContext())
+class DisableBusinessDelegate(private val workflow: DisableBusinessWorkflow) {
+    fun invoke() {
+        workflow.execute(null, WorkflowContext())
     }
 }

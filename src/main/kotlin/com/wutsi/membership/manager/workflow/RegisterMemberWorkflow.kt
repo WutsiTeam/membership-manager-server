@@ -21,24 +21,26 @@ import org.springframework.stereotype.Service
 class RegisterMemberWorkflow(
     private val mapper: ObjectMapper,
     eventStream: EventStream
-) : AbstractMembershipWorkflow(eventStream) {
+) : AbstractMembershipWorkflow<RegisterMemberRequest, Long>(eventStream) {
     override fun getEventType() = EventURN.MEMBER_REGISTERED.urn
 
-    override fun toEventPayload(context: WorkflowContext): MemberEventPayload {
-        val request = context.request as RegisterMemberRequest
+    override fun toEventPayload(
+        request: RegisterMemberRequest,
+        accountId: Long,
+        context: WorkflowContext
+    ): MemberEventPayload {
         return MemberEventPayload(
-            accountId = context.response as Long,
+            accountId = accountId,
             phoneNumber = request.phoneNumber,
             pin = request.pin
         )
     }
 
-    override fun getValidationRules(context: WorkflowContext) = RuleSet.NONE
+    override fun getValidationRules(request: RegisterMemberRequest, context: WorkflowContext) = RuleSet.NONE
 
-    override fun doExecute(context: WorkflowContext) {
-        val request = context.request as RegisterMemberRequest
+    override fun doExecute(request: RegisterMemberRequest, context: WorkflowContext): Long {
         try {
-            context.response = membershipAccess.createAccount(
+            return membershipAccessApi.createAccount(
                 request = CreateAccountRequest(
                     phoneNumber = request.phoneNumber,
                     displayName = request.displayName,

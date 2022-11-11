@@ -20,9 +20,8 @@ import java.net.URL
 class ImportPlaceWorkflow(
     eventStream: EventStream,
     @Value("\${wutsi.application.services.place.url-prefix}") private val csvUrlPrefix: String
-) : AbstractCsvImportWorkflow(eventStream) {
+) : AbstractCsvImportWorkflow<String, CsvImportResponse>(eventStream) {
     companion object {
-        const val REQUEST_COUNTRY = "country"
         private const val RECORD_ID = 0
         private const val RECORD_NAME = 1
         private const val RECORD_LATITUDE = 4
@@ -34,12 +33,12 @@ class ImportPlaceWorkflow(
         private const val RECORD_TIMEZONE = 17
     }
 
-    override fun doExecute(context: WorkflowContext) {
+    override fun doExecute(country: String, context: WorkflowContext): CsvImportResponse {
         var row = 1
         var imported = 0
         val errors = mutableListOf<CsvError>()
         val parser = CSVParser.parse(
-            URL("$csvUrlPrefix/${getCountry(context)}.txt"),
+            URL("$csvUrlPrefix/$country.txt"),
             Charsets.UTF_8,
             CSVFormat.Builder.create()
                 .setDelimiter("\t")
@@ -48,7 +47,7 @@ class ImportPlaceWorkflow(
 
         for (record in parser) {
             try {
-                if (accept(record, context)) {
+                if (accept(record, country)) {
                     val logger = DefaultKVLogger()
                     log(row, record, logger)
                     doImport(record)
@@ -62,24 +61,20 @@ class ImportPlaceWorkflow(
             }
         }
 
-        context.response = CsvImportResponse(
+        return CsvImportResponse(
             imported = imported,
             errors = errors
         )
     }
 
-    private fun accept(record: CSVRecord, context: WorkflowContext): Boolean {
-        val country = getCountry(context)
+    private fun accept(record: CSVRecord, country: String): Boolean {
         return country == record.get(RECORD_COUNTRY) &&
             record.get(RECORD_FEATURE_CLASS) == "P" &&
             listOf("PPL", "PPLC", "PPLA", "PPLA2", "PPLA3", "PPLA4", "PPLA5").contains(record.get(RECORD_FEATURE_CODE))
     }
 
-    private fun getCountry(context: WorkflowContext): String =
-        (context.request as Map<String, String>)?.get(REQUEST_COUNTRY)?.uppercase() ?: ""
-
     private fun doImport(record: CSVRecord) {
-        membershipAccess.savePlace(
+        membershipAccessApi.savePlace(
             request = SavePlaceRequest(
                 id = record.get(RECORD_ID).toLong(),
                 name = record.get(RECORD_NAME),

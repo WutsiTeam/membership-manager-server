@@ -15,8 +15,6 @@ class UpdateMemberAttributeDelegate(
         logger.add("request_value", request.value)
         logger.add("request_name", request.name)
 
-        workflow.execute(
-            WorkflowContext(request)
-        )
+        workflow.execute(request, WorkflowContext())
     }
 }

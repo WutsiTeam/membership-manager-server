@@ -21,12 +21,8 @@ import java.util.Locale
 class ImportCategoryWorkflow(
     eventStream: EventStream,
     @Value("\${wutsi.application.services.category.url}") private val csvUrl: String
-) : AbstractCsvImportWorkflow(eventStream) {
-    companion object {
-        const val REQUEST_LANGUAGE = "language"
-    }
-
-    override fun doExecute(context: WorkflowContext) {
+) : AbstractCsvImportWorkflow<String, CsvImportResponse>(eventStream) {
+    override fun doExecute(language: String, context: WorkflowContext): CsvImportResponse {
         var row = 1
         var imported = 0
         val errors = mutableListOf<CsvError>()
@@ -40,7 +36,7 @@ class ImportCategoryWorkflow(
                 .build()
         )
 
-        setImportLanguage(context)
+        LocaleContextHolder.setLocale(Locale(language))
         for (record in parser) {
             val logger = DefaultKVLogger()
             log(row, record, logger)
@@ -56,22 +52,15 @@ class ImportCategoryWorkflow(
             }
         }
 
-        context.response = CsvImportResponse(
+        return CsvImportResponse(
             imported = imported,
             errors = errors
         )
     }
 
-    private fun setImportLanguage(context: WorkflowContext) {
-        val language = (context.request as Map<String, String?>)[REQUEST_LANGUAGE]
-        if (language != null) {
-            LocaleContextHolder.setLocale(Locale(language))
-        }
-    }
-
     private fun doImport(record: CSVRecord) {
         val language = LocaleContextHolder.getLocale().language
-        membershipAccess.saveCategory(
+        membershipAccessApi.saveCategory(
             id = record.get("id").toLong(),
             request = SaveCategoryRequest(
                 title = if (language == "fr") {
