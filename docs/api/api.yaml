@@ -5,9 +5,9 @@ info:
   version: "1.0.0"
 
 servers:
-  - url: https://membership-manager-server-test.herokuapp.com
+  - url: https://membership-manager-test.herokuapp.com
     description: Sandbox
-  - url: https://membership-manager-server-prod.herokuapp.com
+  - url: https://membership-manager-prod.herokuapp.com
     description: Production
 
 paths:
