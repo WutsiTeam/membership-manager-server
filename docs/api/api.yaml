@@ -11,20 +11,23 @@ servers:
     description: Production
 
 paths:
-  /v1/members/start-registration:
-    get:
-      operationId: "start-member-registration"
-      description: Check if a member exists
-      parameters:
-        - in: query
-          name: phone-number
-          description: Phone number of the member to check
-          required: true
-          schema:
-            type: string
+  /v1/members/search:
+    post:
+      operationId: "search-member"
+      description: Search Members
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchMemberRequest'
       responses:
         200:
           description: Registration process started. OTP sent to user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchMemberResponse'
         409:
           description: The phone already assigned to another member
       tags:
@@ -226,3 +229,63 @@ components:
         - displayName
         - categoryId
         - cityId
+
+    SearchMemberRequest:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          description: |
+            Phone number in the [E164](https://en.wikipedia.org/wiki/E.164) format
+          nullable: true
+        limit:
+          type: integer
+          default: 100
+        offset:
+          type: integer
+          default: 0
+
+    SearchMemberResponse:
+      type: object
+      properties:
+        members:
+          type: array
+          items:
+            $ref: "#/components/schemas/MemberSummary"
+
+    MemberSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier of the member
+        pictureUrl:
+          type: string
+          format: url
+          description: URL of the member picture
+          nullable: true
+        displayName:
+          type: string
+          description: Display Name
+        active:
+          type: boolean
+          description: Is the membe active
+        language:
+          type: string
+        country:
+          type: string
+        cityId:
+          type: integer
+          format: int64
+          description: ID of the city
+          nullable: true
+        categoryId:
+          type: integer
+          format: int64
+          description: ID of the category - for Business Member
+          nullable: true
+        business:
+          type: boolean
+          default: false
+          description: TRUE if this is a business member

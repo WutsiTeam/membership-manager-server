@@ -78,7 +78,7 @@ wutsi:
       verify-token: false
       public-endpoints:
         - "POST /v1/members"
-        - "GET /v1/members/start-registration"
+        - "POST /v1/members/search"
     stream:
       name: ${wutsi.application.name}
       type: local
