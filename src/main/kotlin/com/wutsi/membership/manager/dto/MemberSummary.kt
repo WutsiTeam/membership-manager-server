@@ -13,5 +13,6 @@ public data class MemberSummary(
     public val country: String = "",
     public val cityId: Long? = null,
     public val categoryId: Long? = null,
-    public val business: Boolean = false
+    public val business: Boolean = false,
+    public val superUser: Boolean = false
 )

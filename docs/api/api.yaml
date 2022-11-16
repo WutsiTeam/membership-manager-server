@@ -289,3 +289,7 @@ components:
           type: boolean
           default: false
           description: TRUE if this is a business member
+        superUser:
+          type: boolean
+          default: false
+          description: TRUE if this is a super user

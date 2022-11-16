@@ -44,7 +44,8 @@ class SearchMemberWorkflow(eventStream: EventStream) :
                     country = it.country,
                     cityId = it.cityId,
                     language = it.language,
-                    active = it.status == AccountStatus.ACTIVE.name
+                    active = it.status == AccountStatus.ACTIVE.name,
+                    superUser = it.superUser
                 )
             }
         )
