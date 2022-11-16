@@ -26,7 +26,7 @@ class EnableBusinessWorkflow(
         )
 
     override fun getValidationRules(request: EnableBusinessRequest, context: WorkflowContext): RuleSet {
-        val account = getCurrentAccount()
+        val account = getCurrentAccount(context)
         return RuleSet(
             listOf(
                 AccountShouldBeActiveRule(account),
@@ -37,7 +37,7 @@ class EnableBusinessWorkflow(
     }
 
     override fun doExecute(request: EnableBusinessRequest, context: WorkflowContext) {
-        val account = getCurrentAccount()
+        val account = getCurrentAccount(context)
         membershipAccessApi.enableBusiness(
             id = SecurityUtil.getAccountId(),
             request = com.wutsi.membership.access.dto.EnableBusinessRequest(

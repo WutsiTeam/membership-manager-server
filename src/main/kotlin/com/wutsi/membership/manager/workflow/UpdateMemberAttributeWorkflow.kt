@@ -22,7 +22,7 @@ class UpdateMemberAttributeWorkflow(eventStream: EventStream) :
         )
 
     override fun getValidationRules(request: UpdateMemberAttributeRequest, context: WorkflowContext): RuleSet {
-        val account = getCurrentAccount()
+        val account = getCurrentAccount(context)
         return RuleSet(
             listOf(
                 AccountShouldBeActiveRule(account)

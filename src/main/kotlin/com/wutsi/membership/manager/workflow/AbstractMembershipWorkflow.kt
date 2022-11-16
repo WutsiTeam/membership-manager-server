@@ -6,6 +6,7 @@ import com.wutsi.membership.manager.event.MemberEventPayload
 import com.wutsi.membership.manager.util.SecurityUtil
 import com.wutsi.platform.core.stream.EventStream
 import com.wutsi.workflow.AbstractWorkflow
+import com.wutsi.workflow.WorkflowContext
 import org.springframework.beans.factory.annotation.Autowired
 
 abstract class AbstractMembershipWorkflow<Req, Resp>(val eventStream: EventStream) :
@@ -13,8 +14,11 @@ abstract class AbstractMembershipWorkflow<Req, Resp>(val eventStream: EventStrea
     @Autowired
     protected lateinit var membershipAccessApi: MembershipAccessApi
 
-    protected fun getCurrentAccount(): Account {
-        val accountId = SecurityUtil.getAccountId()
+    protected fun getCurrentAccountId(context: WorkflowContext): Long =
+        context.accountId ?: SecurityUtil.getAccountId()
+
+    protected fun getCurrentAccount(context: WorkflowContext): Account {
+        val accountId = getCurrentAccountId(context)
         return membershipAccessApi.getAccount(accountId).account
     }
 }

@@ -21,7 +21,7 @@ class DisableBusinessWorkflow(
     )
 
     override fun getValidationRules(request: Void?, context: WorkflowContext): RuleSet {
-        val account = getCurrentAccount()
+        val account = getCurrentAccount(context)
         return RuleSet(
             listOf(
                 AccountShouldBeActiveRule(account),

@@ -23,7 +23,7 @@ paths:
               $ref: '#/components/schemas/SearchMemberRequest'
       responses:
         200:
-          description: Registration process started. OTP sent to user
+          description: Success
           content:
             application/json:
               schema:
@@ -36,6 +36,23 @@ paths:
         - api_key: []
 
   /v1/members:
+    get:
+      operationId: "get-member"
+      description: Return the current member
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMemberResponse'
+        409:
+          description: The phone already assigned to another member
+      tags:
+        - Member
+      security:
+        - api_key: []
+
     post:
       operationId: "register-member"
       description: Register a new member
@@ -293,3 +310,146 @@ components:
           type: boolean
           default: false
           description: TRUE if this is a super user
+
+    GetMemberResponse:
+      type: object
+      properties:
+        member:
+          type: object
+          $ref: "#/components/schemas/Member"
+
+    Member:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier of the member
+        phoneNumber:
+          type: string
+          description: Phone number
+        email:
+          type: string
+          format: email
+          description: Email
+          nullable: true
+        pictureUrl:
+          type: string
+          format: url
+          description: URL of the member picture
+          nullable: true
+        displayName:
+          type: string
+          description: Display Name
+        active:
+          type: boolean
+          description: Is the membe active
+        language:
+          type: string
+        country:
+          type: string
+        business:
+          type: boolean
+          default: false
+          description: TRUE if this is a business member
+        superUser:
+          type: boolean
+          default: false
+          description: TRUE if this is a super user
+        biography:
+          type: string
+          nullable: true
+        website:
+          type: string
+          nullable: true
+        whatsapp:
+          type: string
+          description: Whatsapp phone number to use to contact the user
+          nullable: true
+        street:
+          type: string
+          description: Street of the address
+          nullable: true
+        timezoneId:
+          type: string
+          nullable: true
+          description: Timezone
+        facebookId:
+          type: string
+          description: Facebook identifier
+          nullable: true
+        instagramId:
+          type: string
+          description: Instagram identifier
+          nullable: true
+        twitterId:
+          type: string
+          description: Twitter identifier
+          nullable: true
+        youtubeId:
+          type: string
+          description: YouTue identifier
+          nullable: true
+        storeId:
+          type: integer
+          format: int64
+          description: ID of the store
+          nullable: true
+        businessId:
+          type: integer
+          format: int64
+          description: ID of the account's business
+          nullable: true
+        city:
+          type: object
+          $ref: "#/components/schemas/Place"
+          nullable: true
+        category:
+          type: object
+          $ref: "#/components/schemas/Category"
+          nullable: true
+
+    Place:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Place ID
+        name:
+          type: string
+          description: Name of the place
+        longName:
+          type: string
+          description: Long version of the name, including city + country
+        country:
+          type: string
+          description: Country code
+        type:
+          type: string
+          enum:
+            - CITY
+            - STATE
+            - COUNTRY
+        longitude:
+          type: number
+          format: double
+          nullable: true
+        latitude:
+          type: number
+          format: double
+          nullable: true
+        timezoneId:
+          type: string
+          nullable: true
+
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+          description: Category title
+
