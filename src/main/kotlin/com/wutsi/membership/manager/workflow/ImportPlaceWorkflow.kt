@@ -19,7 +19,8 @@ import java.net.URL
 @Service
 class ImportPlaceWorkflow(
     eventStream: EventStream,
-    @Value("\${wutsi.application.services.place.url-prefix}") private val csvUrlPrefix: String
+    @Value("\${wutsi.application.services.place.url-prefix}") private val csvUrlPrefix: String,
+    @Value("\${wutsi.application.services.place.min-population}") private val minPopulation: Int
 ) : AbstractCsvImportWorkflow<String, CsvImportResponse>(eventStream) {
     companion object {
         private const val RECORD_ID = 0
@@ -70,7 +71,17 @@ class ImportPlaceWorkflow(
     private fun accept(record: CSVRecord, country: String): Boolean {
         return country == record.get(RECORD_COUNTRY) &&
             record.get(RECORD_FEATURE_CLASS) == "P" &&
-            listOf("PPL", "PPLC", "PPLA", "PPLA2", "PPLA3", "PPLA4", "PPLA5").contains(record.get(RECORD_FEATURE_CODE))
+            listOf(
+                "PPL",
+                "PPLC",
+                "PPLA",
+                "PPLA2",
+                "PPLA3",
+                "PPLA4",
+                "PPLA5"
+            ).contains(record.get(RECORD_FEATURE_CODE)) &&
+            record.get(RECORD_POPULATION) != null &&
+            record.get(RECORD_POPULATION).toInt() > minPopulation
     }
 
     private fun doImport(record: CSVRecord) {

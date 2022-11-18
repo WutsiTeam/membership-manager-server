@@ -67,7 +67,7 @@ wutsi:
         url: https://int-wutsi.s3.amazonaws.com/static/membership-manager-server/csv/business-categories.csv
       place:
         url-prefix: https://int-wutsi.s3.amazonaws.com/static/membership-manager-server/csv
-        min-population: 10000
+        min-population: 1000
   platform:
     cache:
       name: ${wutsi.application.name}

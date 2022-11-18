@@ -27,7 +27,7 @@ class ImportPlaceControllerTest : AbstractSecuredControllerTest() {
 
         Thread.sleep(10000)
         val request = argumentCaptor<SavePlaceRequest>()
-        verify(membershipAccess, times(13442)).savePlace(request.capture())
+        verify(membershipAccess, times(122)).savePlace(request.capture())
         verify(eventStream, never()).publish(any(), any())
     }
 
