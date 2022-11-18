@@ -4,6 +4,7 @@ import com.wutsi.membership.access.dto.Account
 import com.wutsi.membership.access.dto.AccountSummary
 import com.wutsi.membership.access.dto.Category
 import com.wutsi.membership.access.dto.Place
+import com.wutsi.membership.access.dto.PlaceSummary
 import com.wutsi.membership.access.enums.AccountStatus
 
 object Fixtures {
@@ -45,5 +46,10 @@ object Fixtures {
             id = 555,
             title = "Ads"
         )
+    )
+
+    fun createPlaceSummary(id: Long = -1, name: String = "Yaounde") = PlaceSummary(
+        id = id,
+        name = name
     )
 }

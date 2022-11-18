@@ -126,6 +126,7 @@ paths:
       security:
         - api_key: []
 
+
   /v1/categories/import:
     get:
       operationId: "import-category"
@@ -146,6 +147,7 @@ paths:
       security:
         - api_key: []
 
+
   /v1/places/import:
     get:
       operationId: "import-place"
@@ -165,6 +167,26 @@ paths:
         - Place
       security:
         - api_key: []
+
+  /v1/places/search:
+    post:
+      operationId: "search-place"
+      description: Search places
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchPlaceRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchPlaceResponse'
+      tags:
+        - Place
 
 components:
   securitySchemes:
@@ -453,3 +475,58 @@ components:
           type: string
           description: Category title
 
+    SearchPlaceRequest:
+      type: object
+      properties:
+        keyword:
+          type: string
+          nullable: true
+        type:
+          type: string
+          enum:
+            - CITY
+            - STATE
+            - COUNTRY
+          nullable: true
+        country:
+          type: string
+          description: Country code
+          nullable: true
+        limit:
+          type: integer
+          default: 100
+        offset:
+          type: integer
+          default: 0
+
+    SearchPlaceResponse:
+      type: object
+      properties:
+        places:
+          type: array
+          items:
+            type: array
+            $ref: "#/components/schemas/PlaceSummary"
+
+    PlaceSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Place ID
+        name:
+          type: string
+          description: Name of the place
+        longName:
+          type: string
+          description: Long version of the name, including city + country
+        country:
+          type: string
+          description: Country code
+        type:
+          type: string
+          enum:
+            - CITY
+            - STATE
+            - COUNTRY
