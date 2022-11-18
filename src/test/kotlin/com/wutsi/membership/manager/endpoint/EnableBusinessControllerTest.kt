@@ -32,7 +32,7 @@ class EnableBusinessControllerTest : AbstractSecuredControllerTest() {
     private val request = EnableBusinessRequest(
         cityId = 99999L,
         displayName = "Yo Man",
-        whatsapp = "32003290329",
+        whatsapp = true,
         biography = "This is a description",
         categoryId = 1213232L
     )

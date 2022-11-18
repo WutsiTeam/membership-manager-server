@@ -260,10 +260,9 @@ components:
           nullable: true
           maxLength: 160
         whatsapp:
-          type: string
-          description: Whatsapp phone number to use to contact the user
-          nullable: true
-          maxLength: 30
+          type: boolean
+          default: false
+          description: TRUE this account is associated with WhatsApp
       required:
         - displayName
         - categoryId
@@ -385,9 +384,9 @@ components:
           type: string
           nullable: true
         whatsapp:
-          type: string
-          description: Whatsapp phone number to use to contact the user
-          nullable: true
+          type: boolean
+          default: false
+          description: TRUE this account is associated with WhatsApp
         street:
           type: string
           description: Street of the address
