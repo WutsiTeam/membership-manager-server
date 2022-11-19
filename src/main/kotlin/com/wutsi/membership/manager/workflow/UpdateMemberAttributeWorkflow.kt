@@ -4,7 +4,6 @@ import com.wutsi.membership.access.dto.UpdateAccountAttributeRequest
 import com.wutsi.membership.manager.dto.UpdateMemberAttributeRequest
 import com.wutsi.membership.manager.event.EventURN
 import com.wutsi.membership.manager.event.MemberEventPayload
-import com.wutsi.membership.manager.util.SecurityUtil
 import com.wutsi.platform.core.stream.EventStream
 import com.wutsi.workflow.RuleSet
 import com.wutsi.workflow.WorkflowContext
@@ -18,7 +17,7 @@ class UpdateMemberAttributeWorkflow(eventStream: EventStream) :
 
     override fun toEventPayload(request: UpdateMemberAttributeRequest, response: Unit, context: WorkflowContext) =
         MemberEventPayload(
-            accountId = SecurityUtil.getAccountId()
+            accountId = getCurrentAccountId(context)
         )
 
     override fun getValidationRules(request: UpdateMemberAttributeRequest, context: WorkflowContext): RuleSet {
@@ -32,7 +31,7 @@ class UpdateMemberAttributeWorkflow(eventStream: EventStream) :
 
     override fun doExecute(request: UpdateMemberAttributeRequest, context: WorkflowContext) {
         membershipAccessApi.updateAccountAttribute(
-            id = SecurityUtil.getAccountId(),
+            id = getCurrentAccountId(context),
             request = UpdateAccountAttributeRequest(
                 name = request.name,
                 value = request.value

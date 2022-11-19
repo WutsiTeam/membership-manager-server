@@ -82,6 +82,8 @@ wutsi:
     stream:
       name: ${wutsi.application.name}
       type: local
+      subscriptions:
+        - marketplace-manager
     tracing:
       client-id: ${wutsi.application.name}
 

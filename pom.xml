@@ -34,6 +34,7 @@
     <libphonenumber.version>8.12.57</libphonenumber.version>
 
     <wutsi-platform-core.version>0.0.188</wutsi-platform-core.version>
+    <wutsi-marketplace-manager.version>1.0.0</wutsi-marketplace-manager.version>
     <wutsi-membership-access.version>1.0.16</wutsi-membership-access.version>
     <wutsi-workflow.version>1.0.12</wutsi-workflow.version>
     <wutsi-regulation.version>1.0.7</wutsi-regulation.version>
@@ -54,6 +55,11 @@
       <groupId>com.wutsi.regulation</groupId>
       <artifactId>regulation-engine</artifactId>
       <version>${wutsi-regulation.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.wutsi.marketplace.manager</groupId>
+      <artifactId>marketplace-manager-sdk-kotlin</artifactId>
+      <version>${wutsi-marketplace-manager.version}</version>
     </dependency>
     <dependency>
       <groupId>com.wutsi.membership.access</groupId>
