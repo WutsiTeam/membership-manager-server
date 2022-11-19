@@ -3,6 +3,7 @@ package com.wutsi.membership.manager
 import com.wutsi.membership.access.dto.Account
 import com.wutsi.membership.access.dto.AccountSummary
 import com.wutsi.membership.access.dto.Category
+import com.wutsi.membership.access.dto.CategorySummary
 import com.wutsi.membership.access.dto.Place
 import com.wutsi.membership.access.dto.PlaceSummary
 import com.wutsi.membership.access.enums.AccountStatus
@@ -51,5 +52,10 @@ object Fixtures {
     fun createPlaceSummary(id: Long = -1, name: String = "Yaounde") = PlaceSummary(
         id = id,
         name = name
+    )
+
+    fun createCategorySummary(id: Long = -1, title: String = "Foo") = CategorySummary(
+        id = id,
+        title = title
     )
 }

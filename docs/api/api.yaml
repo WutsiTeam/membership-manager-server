@@ -147,6 +147,26 @@ paths:
       security:
         - api_key: []
 
+  /v1/categories/search:
+    post:
+      operationId: "search-category"
+      description: Search Categories
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchCategoryRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchCategoryResponse'
+      tags:
+        - Category
+
 
   /v1/places/import:
     get:
@@ -529,3 +549,39 @@ components:
             - CITY
             - STATE
             - COUNTRY
+
+    SearchCategoryRequest:
+      type: object
+      properties:
+        categoryIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+        keyword:
+          type: string
+          nullable: true
+        limit:
+          type: integer
+          default: 100
+        offset:
+          type: integer
+          default: 0
+
+    SearchCategoryResponse:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: "#/components/schemas/CategorySummary"
+
+    CategorySummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+          description: Category title
