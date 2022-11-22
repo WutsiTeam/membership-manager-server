@@ -19,6 +19,9 @@ abstract class AbstractMembershipWorkflow<Req, Resp>(val eventStream: EventStrea
 
     protected fun getCurrentAccount(context: WorkflowContext): Account {
         val accountId = getCurrentAccountId(context)
-        return membershipAccessApi.getAccount(accountId).account
+        return getAccount(accountId)
     }
+
+    protected fun getAccount(accountId: Long): Account =
+        membershipAccessApi.getAccount(accountId).account
 }

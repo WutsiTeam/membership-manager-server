@@ -16,20 +16,20 @@ import org.springframework.stereotype.Service
 
 @Service
 class GetMemberWorkflow(eventStream: EventStream) :
-    AbstractMembershipWorkflow<Void?, GetMemberResponse>(eventStream) {
+    AbstractMembershipWorkflow<Long?, GetMemberResponse>(eventStream) {
     override fun getEventType(): String? = null
 
     override fun toEventPayload(
-        request: Void?,
+        memberId: Long?,
         response: GetMemberResponse,
         context: WorkflowContext
     ): MemberEventPayload? = null
 
-    override fun getValidationRules(request: Void?, context: WorkflowContext) = RuleSet.NONE
+    override fun getValidationRules(memberId: Long?, context: WorkflowContext) = RuleSet.NONE
 
-    override fun doExecute(request: Void?, context: WorkflowContext): GetMemberResponse {
+    override fun doExecute(memberId: Long?, context: WorkflowContext): GetMemberResponse {
         try {
-            val account = getCurrentAccount(context)
+            val account = getAccount(memberId ?: getCurrentAccountId(context))
             return GetMemberResponse(
                 member = Member(
                     id = account.id,

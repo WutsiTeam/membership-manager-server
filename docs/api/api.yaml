@@ -38,7 +38,18 @@ paths:
   /v1/members:
     get:
       operationId: "get-member"
-      description: Return the current member
+      description: Return a member
+      parameters:
+        - in: query
+          name: id
+          description: ID of the member
+          required: false
+          nullable: true
+          schema:
+            type: integer
+            format: int64
+            required: false
+            nullable: true
       responses:
         200:
           description: Success
@@ -46,8 +57,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetMemberResponse'
-        409:
-          description: The phone already assigned to another member
       tags:
         - Member
       security:

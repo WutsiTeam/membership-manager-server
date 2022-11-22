@@ -36,8 +36,8 @@
     <wutsi-platform-core.version>0.0.188</wutsi-platform-core.version>
     <wutsi-marketplace-manager.version>1.0.0</wutsi-marketplace-manager.version>
     <wutsi-membership-access.version>1.0.16</wutsi-membership-access.version>
-    <wutsi-workflow.version>1.0.12</wutsi-workflow.version>
-    <wutsi-regulation.version>1.0.7</wutsi-regulation.version>
+    <wutsi-workflow.version>1.0.15</wutsi-workflow.version>
+    <wutsi-regulation.version>1.0.8</wutsi-regulation.version>
   </properties>
 
   <dependencies>

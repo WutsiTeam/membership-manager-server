@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 
 @Service
 public class GetMemberDelegate(private val workflow: GetMemberWorkflow) {
-    public fun invoke(): GetMemberResponse {
-        return workflow.execute(null, WorkflowContext())
+    public fun invoke(id: Long?): GetMemberResponse {
+        return workflow.execute(id, WorkflowContext(id))
     }
 }

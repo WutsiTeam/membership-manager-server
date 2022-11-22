@@ -22,13 +22,14 @@ object Fixtures {
     )
 
     fun createAccount(
+        id: Long = -1,
         status: AccountStatus = AccountStatus.ACTIVE,
         business: Boolean = false,
         storeId: Long? = null,
         businessId: Long? = null,
         country: String = "CM"
     ) = Account(
-        id = 100L,
+        id = id,
         status = status.name,
         business = business,
         storeId = storeId,
