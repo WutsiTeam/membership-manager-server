@@ -77,7 +77,7 @@ wutsi:
       api-key: "--membership-manager-api-key--"
       verify-token: false
       public-endpoints:
-        - "GET /v1/members"
+        - "GET /v1/members/*"
         - "POST /v1/members"
         - "POST /v1/members/search"
     stream:
