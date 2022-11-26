@@ -1,7 +1,7 @@
 package com.wutsi.membership.manager.workflow
 
+import com.wutsi.enums.AccountStatus
 import com.wutsi.membership.access.dto.SearchAccountRequest
-import com.wutsi.membership.access.enums.AccountStatus
 import com.wutsi.membership.manager.dto.MemberSummary
 import com.wutsi.membership.manager.dto.SearchMemberRequest
 import com.wutsi.membership.manager.dto.SearchMemberResponse

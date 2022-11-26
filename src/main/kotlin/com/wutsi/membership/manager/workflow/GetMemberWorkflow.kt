@@ -1,6 +1,6 @@
 package com.wutsi.membership.manager.workflow
 
-import com.wutsi.membership.access.enums.AccountStatus
+import com.wutsi.enums.AccountStatus
 import com.wutsi.membership.manager.dto.Category
 import com.wutsi.membership.manager.dto.GetMemberResponse
 import com.wutsi.membership.manager.dto.Member

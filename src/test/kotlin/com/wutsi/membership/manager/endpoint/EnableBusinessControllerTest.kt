@@ -8,8 +8,8 @@ import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
+import com.wutsi.enums.AccountStatus
 import com.wutsi.membership.access.dto.GetAccountResponse
-import com.wutsi.membership.access.enums.AccountStatus
 import com.wutsi.membership.manager.Fixtures
 import com.wutsi.membership.manager.dto.EnableBusinessRequest
 import com.wutsi.membership.manager.event.EventURN

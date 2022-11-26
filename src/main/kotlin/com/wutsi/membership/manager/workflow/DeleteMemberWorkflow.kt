@@ -1,7 +1,7 @@
 package com.wutsi.membership.manager.workflow
 
+import com.wutsi.enums.AccountStatus
 import com.wutsi.membership.access.dto.UpdateAccountStatusRequest
-import com.wutsi.membership.access.enums.AccountStatus
 import com.wutsi.membership.manager.event.EventURN
 import com.wutsi.membership.manager.event.MemberEventPayload
 import com.wutsi.membership.manager.util.SecurityUtil

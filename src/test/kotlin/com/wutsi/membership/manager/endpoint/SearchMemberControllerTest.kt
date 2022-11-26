@@ -4,9 +4,9 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
+import com.wutsi.enums.AccountStatus
 import com.wutsi.membership.access.dto.SearchAccountRequest
 import com.wutsi.membership.access.dto.SearchAccountResponse
-import com.wutsi.membership.access.enums.AccountStatus
 import com.wutsi.membership.manager.Fixtures
 import com.wutsi.membership.manager.dto.SearchMemberRequest
 import com.wutsi.membership.manager.dto.SearchMemberResponse

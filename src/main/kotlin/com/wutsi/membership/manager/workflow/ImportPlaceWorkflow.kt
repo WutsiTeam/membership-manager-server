@@ -1,7 +1,7 @@
 package com.wutsi.membership.manager.workflow
 
+import com.wutsi.enums.PlaceType
 import com.wutsi.membership.access.dto.SavePlaceRequest
-import com.wutsi.membership.access.enums.PlaceType
 import com.wutsi.membership.manager.util.csv.CsvError
 import com.wutsi.membership.manager.util.csv.CsvImportResponse
 import com.wutsi.platform.core.logging.DefaultKVLogger

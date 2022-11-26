@@ -1,12 +1,12 @@
 package com.wutsi.membership.manager
 
+import com.wutsi.enums.AccountStatus
 import com.wutsi.membership.access.dto.Account
 import com.wutsi.membership.access.dto.AccountSummary
 import com.wutsi.membership.access.dto.Category
 import com.wutsi.membership.access.dto.CategorySummary
 import com.wutsi.membership.access.dto.Place
 import com.wutsi.membership.access.dto.PlaceSummary
-import com.wutsi.membership.access.enums.AccountStatus
 
 object Fixtures {
     fun createAccountSummary() = AccountSummary(
