@@ -80,7 +80,7 @@ class RegisterMemberControllerTest : AbstractControllerTest() {
         assertEquals(HttpStatus.CONFLICT, ex.statusCode)
 
         val response = ObjectMapper().readValue(ex.responseBodyAsString, ErrorResponse::class.java)
-        assertEquals(com.wutsi.workflow.error.ErrorURN.PHONE_NUMBER_ALREADY_ASSIGNED.urn, response.error.code)
+        assertEquals(com.wutsi.error.ErrorURN.PHONE_NUMBER_ALREADY_ASSIGNED.urn, response.error.code)
     }
 
     private fun url() = "http://localhost:$port/v1/members"

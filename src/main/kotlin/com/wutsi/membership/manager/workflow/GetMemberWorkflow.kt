@@ -1,6 +1,7 @@
 package com.wutsi.membership.manager.workflow
 
 import com.wutsi.enums.AccountStatus
+import com.wutsi.error.ErrorURN
 import com.wutsi.event.MemberEventPayload
 import com.wutsi.membership.manager.dto.Category
 import com.wutsi.membership.manager.dto.GetMemberResponse
@@ -11,7 +12,6 @@ import com.wutsi.platform.core.error.exception.NotFoundException
 import com.wutsi.platform.core.stream.EventStream
 import com.wutsi.workflow.RuleSet
 import com.wutsi.workflow.WorkflowContext
-import com.wutsi.workflow.error.ErrorURN
 import org.springframework.stereotype.Service
 
 @Service

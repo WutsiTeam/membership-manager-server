@@ -54,7 +54,7 @@ class RegisterMemberWorkflow(
             if (errorResponse?.error?.code == ErrorURN.PHONE_NUMBER_ALREADY_ASSIGNED.urn) {
                 throw ConflictException(
                     error = Error(
-                        code = com.wutsi.workflow.error.ErrorURN.PHONE_NUMBER_ALREADY_ASSIGNED.urn,
+                        code = com.wutsi.error.ErrorURN.PHONE_NUMBER_ALREADY_ASSIGNED.urn,
                         data = mapOf(
                             "phone-number" to request.phoneNumber
                         )
