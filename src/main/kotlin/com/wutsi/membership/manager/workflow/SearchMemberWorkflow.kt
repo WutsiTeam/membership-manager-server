@@ -1,11 +1,11 @@
 package com.wutsi.membership.manager.workflow
 
 import com.wutsi.enums.AccountStatus
+import com.wutsi.event.MemberEventPayload
 import com.wutsi.membership.access.dto.SearchAccountRequest
 import com.wutsi.membership.manager.dto.MemberSummary
 import com.wutsi.membership.manager.dto.SearchMemberRequest
 import com.wutsi.membership.manager.dto.SearchMemberResponse
-import com.wutsi.membership.manager.event.MemberEventPayload
 import com.wutsi.platform.core.stream.EventStream
 import com.wutsi.workflow.RuleSet
 import com.wutsi.workflow.WorkflowContext

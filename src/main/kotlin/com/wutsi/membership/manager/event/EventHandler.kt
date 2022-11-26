@@ -11,10 +11,10 @@ class EventHandler(
     @EventListener
     fun handleEvent(event: Event) {
         when (event.type) {
-            com.wutsi.marketplace.manager.event.EventURN.STORE_ENABLED.urn -> marketplaceEventHandler.onStoreEnabled(
+            com.wutsi.event.EventURN.STORE_ENABLED.urn -> marketplaceEventHandler.onStoreEnabled(
                 event
             )
-            com.wutsi.marketplace.manager.event.EventURN.STORE_SUSPENDED.urn -> marketplaceEventHandler.onStoreSuspended(
+            com.wutsi.event.EventURN.STORE_SUSPENDED.urn -> marketplaceEventHandler.onStoreSuspended(
                 event
             )
             else -> {}

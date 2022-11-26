@@ -1,7 +1,7 @@
 package com.wutsi.membership.manager.workflow
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wutsi.membership.manager.event.MemberEventPayload
+import com.wutsi.event.MemberEventPayload
 import com.wutsi.membership.manager.util.csv.CsvError
 import com.wutsi.platform.core.error.ErrorResponse
 import com.wutsi.platform.core.stream.EventStream

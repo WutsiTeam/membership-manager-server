@@ -1,11 +1,11 @@
 package com.wutsi.membership.manager.workflow
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.wutsi.event.EventURN
+import com.wutsi.event.MemberEventPayload
 import com.wutsi.membership.access.dto.CreateAccountRequest
 import com.wutsi.membership.access.error.ErrorURN
 import com.wutsi.membership.manager.dto.RegisterMemberRequest
-import com.wutsi.membership.manager.event.EventURN
-import com.wutsi.membership.manager.event.MemberEventPayload
 import com.wutsi.membership.manager.util.PhoneUtil
 import com.wutsi.platform.core.error.Error
 import com.wutsi.platform.core.error.ErrorResponse

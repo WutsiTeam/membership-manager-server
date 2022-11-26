@@ -34,11 +34,11 @@
     <libphonenumber.version>8.12.57</libphonenumber.version>
 
     <wutsi-platform-core.version>0.0.190</wutsi-platform-core.version>
-    <wutsi-marketplace-manager.version>1.0.7</wutsi-marketplace-manager.version>
+    <wutsi-enums.version>1.0.3</wutsi-enums.version>
+    <wutsi-events.version>1.0.0</wutsi-events.version>
     <wutsi-membership-access.version>1.0.18</wutsi-membership-access.version>
     <wutsi-workflow.version>1.0.17</wutsi-workflow.version>
     <wutsi-regulation.version>1.0.8</wutsi-regulation.version>
-    <wutsi-enums.version>1.0.3</wutsi-enums.version>
   </properties>
 
   <dependencies>
@@ -52,7 +52,11 @@
       <artifactId>wutsi-enums</artifactId>
       <version>${wutsi-enums.version}</version>
     </dependency>
-
+    <dependency>
+      <groupId>com.wutsi</groupId>
+      <artifactId>wutsi-events</artifactId>
+      <version>${wutsi-events.version}</version>
+    </dependency>
     <dependency>
       <groupId>com.wutsi.workflow</groupId>
       <artifactId>workflow-engine</artifactId>
@@ -62,11 +66,6 @@
       <groupId>com.wutsi.regulation</groupId>
       <artifactId>regulation-engine</artifactId>
       <version>${wutsi-regulation.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.wutsi.marketplace.manager</groupId>
-      <artifactId>marketplace-manager-sdk-kotlin</artifactId>
-      <version>${wutsi-marketplace-manager.version}</version>
     </dependency>
     <dependency>
       <groupId>com.wutsi.membership.access</groupId>

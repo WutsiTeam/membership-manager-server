@@ -9,11 +9,11 @@ import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.enums.AccountStatus
+import com.wutsi.event.EventURN
+import com.wutsi.event.MemberEventPayload
 import com.wutsi.membership.access.dto.GetAccountResponse
 import com.wutsi.membership.manager.Fixtures
 import com.wutsi.membership.manager.dto.EnableBusinessRequest
-import com.wutsi.membership.manager.event.EventURN
-import com.wutsi.membership.manager.event.MemberEventPayload
 import com.wutsi.platform.core.error.ErrorResponse
 import com.wutsi.workflow.error.ErrorURN
 import org.junit.jupiter.api.Test

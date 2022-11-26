@@ -1,9 +1,9 @@
 package com.wutsi.membership.manager.workflow
 
+import com.wutsi.event.MemberEventPayload
 import com.wutsi.membership.manager.dto.PlaceSummary
 import com.wutsi.membership.manager.dto.SearchPlaceRequest
 import com.wutsi.membership.manager.dto.SearchPlaceResponse
-import com.wutsi.membership.manager.event.MemberEventPayload
 import com.wutsi.platform.core.stream.EventStream
 import com.wutsi.workflow.RuleSet
 import com.wutsi.workflow.WorkflowContext

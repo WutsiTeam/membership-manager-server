@@ -1,9 +1,9 @@
 package com.wutsi.membership.manager.workflow
 
+import com.wutsi.event.EventURN
+import com.wutsi.event.MemberEventPayload
 import com.wutsi.membership.access.dto.UpdateAccountAttributeRequest
 import com.wutsi.membership.manager.dto.UpdateMemberAttributeRequest
-import com.wutsi.membership.manager.event.EventURN
-import com.wutsi.membership.manager.event.MemberEventPayload
 import com.wutsi.platform.core.stream.EventStream
 import com.wutsi.workflow.RuleSet
 import com.wutsi.workflow.WorkflowContext

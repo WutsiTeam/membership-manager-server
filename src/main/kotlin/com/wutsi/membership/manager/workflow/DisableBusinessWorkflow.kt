@@ -1,7 +1,7 @@
 package com.wutsi.membership.manager.workflow
 
-import com.wutsi.membership.manager.event.EventURN
-import com.wutsi.membership.manager.event.MemberEventPayload
+import com.wutsi.event.EventURN
+import com.wutsi.event.MemberEventPayload
 import com.wutsi.membership.manager.util.SecurityUtil
 import com.wutsi.platform.core.stream.EventStream
 import com.wutsi.workflow.RuleSet

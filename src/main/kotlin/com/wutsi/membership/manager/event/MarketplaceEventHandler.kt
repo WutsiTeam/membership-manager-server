@@ -1,7 +1,7 @@
 package com.wutsi.membership.manager.event
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wutsi.marketplace.manager.event.StoreEventPayload
+import com.wutsi.event.StoreEventPayload
 import com.wutsi.membership.manager.dto.UpdateMemberAttributeRequest
 import com.wutsi.membership.manager.workflow.UpdateMemberAttributeWorkflow
 import com.wutsi.platform.core.logging.KVLogger

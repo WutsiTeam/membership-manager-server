@@ -5,8 +5,8 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import com.wutsi.marketplace.manager.event.EventURN
-import com.wutsi.marketplace.manager.event.StoreEventPayload
+import com.wutsi.event.EventURN
+import com.wutsi.event.StoreEventPayload
 import com.wutsi.membership.access.MembershipAccessApi
 import com.wutsi.membership.access.dto.GetAccountResponse
 import com.wutsi.membership.access.dto.UpdateAccountAttributeRequest

@@ -23,7 +23,7 @@ public class SearchCategoryControllerTest : AbstractSecuredControllerTest() {
         // GIVEN
         val category1 = Fixtures.createCategorySummary()
         val category2 = Fixtures.createCategorySummary()
-        doReturn(SearchCategoryResponse(listOf(category1, category1))).whenever(membershipAccess).searchCategory(any())
+        doReturn(SearchCategoryResponse(listOf(category1, category2))).whenever(membershipAccess).searchCategory(any())
 
         // WHEN
         val request = SearchCategoryRequest(

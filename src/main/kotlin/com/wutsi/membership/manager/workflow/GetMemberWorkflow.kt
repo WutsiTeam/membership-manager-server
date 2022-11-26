@@ -1,11 +1,11 @@
 package com.wutsi.membership.manager.workflow
 
 import com.wutsi.enums.AccountStatus
+import com.wutsi.event.MemberEventPayload
 import com.wutsi.membership.manager.dto.Category
 import com.wutsi.membership.manager.dto.GetMemberResponse
 import com.wutsi.membership.manager.dto.Member
 import com.wutsi.membership.manager.dto.Place
-import com.wutsi.membership.manager.event.MemberEventPayload
 import com.wutsi.platform.core.error.Error
 import com.wutsi.platform.core.error.exception.NotFoundException
 import com.wutsi.platform.core.stream.EventStream

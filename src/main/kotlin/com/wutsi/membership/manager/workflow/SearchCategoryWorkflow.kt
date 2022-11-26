@@ -1,9 +1,9 @@
 package com.wutsi.membership.manager.workflow
 
+import com.wutsi.event.MemberEventPayload
 import com.wutsi.membership.manager.dto.CategorySummary
 import com.wutsi.membership.manager.dto.SearchCategoryRequest
 import com.wutsi.membership.manager.dto.SearchCategoryResponse
-import com.wutsi.membership.manager.event.MemberEventPayload
 import com.wutsi.platform.core.stream.EventStream
 import com.wutsi.workflow.RuleSet
 import com.wutsi.workflow.WorkflowContext

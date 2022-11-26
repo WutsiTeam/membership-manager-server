@@ -7,12 +7,12 @@ import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.doThrow
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
+import com.wutsi.event.EventURN
+import com.wutsi.event.MemberEventPayload
 import com.wutsi.membership.access.dto.CreateAccountRequest
 import com.wutsi.membership.access.dto.CreateAccountResponse
 import com.wutsi.membership.access.error.ErrorURN
 import com.wutsi.membership.manager.dto.RegisterMemberRequest
-import com.wutsi.membership.manager.event.EventURN
-import com.wutsi.membership.manager.event.MemberEventPayload
 import com.wutsi.platform.core.error.ErrorResponse
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
