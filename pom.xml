@@ -34,10 +34,11 @@
     <libphonenumber.version>8.12.57</libphonenumber.version>
 
     <wutsi-platform-core.version>0.0.190</wutsi-platform-core.version>
-    <wutsi-marketplace-manager.version>1.0.0</wutsi-marketplace-manager.version>
-    <wutsi-membership-access.version>1.0.16</wutsi-membership-access.version>
-    <wutsi-workflow.version>1.0.15</wutsi-workflow.version>
+    <wutsi-marketplace-manager.version>1.0.7</wutsi-marketplace-manager.version>
+    <wutsi-membership-access.version>1.0.18</wutsi-membership-access.version>
+    <wutsi-workflow.version>1.0.16</wutsi-workflow.version>
     <wutsi-regulation.version>1.0.8</wutsi-regulation.version>
+    <wutsi-enums.version>1.0.3</wutsi-enums.version>
   </properties>
 
   <dependencies>
@@ -46,6 +47,12 @@
       <artifactId>wutsi-platform-core</artifactId>
       <version>${wutsi-platform-core.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.wutsi</groupId>
+      <artifactId>wutsi-enums</artifactId>
+      <version>${wutsi-enums.version}</version>
+    </dependency>
+
     <dependency>
       <groupId>com.wutsi.workflow</groupId>
       <artifactId>workflow-engine</artifactId>
