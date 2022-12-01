@@ -9,7 +9,7 @@ import com.wutsi.workflow.AbstractWorkflow
 import com.wutsi.workflow.WorkflowContext
 import org.springframework.beans.factory.annotation.Autowired
 
-abstract class AbstractMembershipWorkflow<Req, Resp>(val eventStream: EventStream) :
+abstract class AbstractMembershipWorkflow<Req, Resp>(eventStream: EventStream) :
     AbstractWorkflow<Req, Resp, MemberEventPayload>(eventStream) {
     @Autowired
     protected lateinit var membershipAccessApi: MembershipAccessApi

@@ -34,10 +34,10 @@
     <libphonenumber.version>8.12.57</libphonenumber.version>
 
     <wutsi-platform-core.version>0.0.190</wutsi-platform-core.version>
-    <wutsi-enums.version>1.0.3</wutsi-enums.version>
-    <wutsi-events.version>1.0.0</wutsi-events.version>
+    <wutsi-enums.version>1.0.10</wutsi-enums.version>
+    <wutsi-events.version>1.0.8</wutsi-events.version>
     <wutsi-membership-access.version>1.0.18</wutsi-membership-access.version>
-    <wutsi-workflow.version>1.0.18</wutsi-workflow.version>
+    <wutsi-workflow.version>1.0.21</wutsi-workflow.version>
     <wutsi-regulation.version>1.0.8</wutsi-regulation.version>
   </properties>
 
