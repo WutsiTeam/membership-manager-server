@@ -1,5 +1,6 @@
 package com.wutsi.membership.manager.event
 
+import com.wutsi.event.EventURN
 import com.wutsi.platform.core.stream.Event
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Service
@@ -11,12 +12,8 @@ class EventHandler(
     @EventListener
     fun handleEvent(event: Event) {
         when (event.type) {
-            com.wutsi.event.EventURN.STORE_ENABLED.urn -> marketplaceEventHandler.onStoreEnabled(
-                event
-            )
-            com.wutsi.event.EventURN.STORE_SUSPENDED.urn -> marketplaceEventHandler.onStoreSuspended(
-                event
-            )
+            EventURN.STORE_ACTIVATED.urn -> marketplaceEventHandler.onStoreActivated(event)
+            EventURN.STORE_DEACTIVATED.urn -> marketplaceEventHandler.onStoreDeactivated(event)
             else -> {}
         }
     }

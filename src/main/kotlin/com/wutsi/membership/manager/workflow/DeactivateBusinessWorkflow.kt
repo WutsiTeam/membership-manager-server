@@ -11,10 +11,10 @@ import com.wutsi.workflow.rule.account.AccountShouldBeBusinessRule
 import org.springframework.stereotype.Service
 
 @Service
-class DisableBusinessWorkflow(
+class DeactivateBusinessWorkflow(
     eventStream: EventStream
 ) : AbstractMembershipWorkflow<Void?, Unit>(eventStream) {
-    override fun getEventType() = EventURN.BUSINESS_ACCOUNT_DISABLED.urn
+    override fun getEventType() = EventURN.BUSINESS_DEACTIVATED.urn
 
     override fun toEventPayload(request: Void?, response: Unit, context: WorkflowContext) = MemberEventPayload(
         accountId = SecurityUtil.getAccountId()

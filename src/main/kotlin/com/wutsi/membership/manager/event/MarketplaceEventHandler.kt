@@ -15,7 +15,7 @@ class MarketplaceEventHandler(
     private val mapper: ObjectMapper,
     private val logger: KVLogger
 ) {
-    fun onStoreEnabled(event: Event) {
+    fun onStoreActivated(event: Event) {
         val payload = toStorePayload(event)
         log(payload)
 
@@ -30,7 +30,7 @@ class MarketplaceEventHandler(
         )
     }
 
-    fun onStoreSuspended(event: Event) {
+    fun onStoreDeactivated(event: Event) {
         val payload = toStorePayload(event)
         log(payload)
 

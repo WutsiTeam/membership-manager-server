@@ -85,6 +85,7 @@ wutsi:
       type: local
       subscriptions:
         - marketplace-manager
+        - checkout-manager
     tracing:
       client-id: ${wutsi.application.name}
 

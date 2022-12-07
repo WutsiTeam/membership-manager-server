@@ -41,7 +41,7 @@ internal class EventHandlerTest {
 
         // WHEN
         val event = Event(
-            type = EventURN.STORE_ENABLED.urn,
+            type = EventURN.STORE_ACTIVATED.urn,
             payload = mapper.writeValueAsString(payload)
         )
         handler.handleEvent(event)
@@ -64,7 +64,7 @@ internal class EventHandlerTest {
 
         // WHEN
         val event = Event(
-            type = EventURN.STORE_SUSPENDED.urn,
+            type = EventURN.STORE_DEACTIVATED.urn,
             payload = mapper.writeValueAsString(payload)
         )
         handler.handleEvent(event)

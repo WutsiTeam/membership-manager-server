@@ -75,8 +75,8 @@ paths:
         - api_key: []
 
     delete:
-      operationId: "delete-member"
-      description: Delete a member
+      operationId: "deactivate-member"
+      description: Deactivate a member account
       responses:
         200:
           description: Success
@@ -105,14 +105,14 @@ paths:
 
   /v1/members/business:
     post:
-      operationId: "enable-business"
-      description: Enable business account
+      operationId: "activate-business"
+      description: Activate business account
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EnableBusinessRequest'
+              $ref: '#/components/schemas/ActivateBusinessRequest'
       responses:
         200:
           description: Success
@@ -120,8 +120,8 @@ paths:
         - Member
 
     delete:
-      operationId: "disable-business"
-      description: Disable business account
+      operationId: "deactivate-business"
+      description: Deactivate business account
       responses:
         200:
           description: Success
@@ -264,7 +264,7 @@ components:
       required:
         - name
 
-    EnableBusinessRequest:
+    ActivateBusinessRequest:
       type: object
       properties:
         displayName:

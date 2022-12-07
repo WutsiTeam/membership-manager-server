@@ -7,7 +7,7 @@ import kotlin.Boolean
 import kotlin.Long
 import kotlin.String
 
-public data class EnableBusinessRequest(
+public data class ActivateBusinessRequest(
     @get:NotBlank
     @get:Size(max = 50)
     public val displayName: String = "",

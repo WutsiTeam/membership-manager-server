@@ -59,7 +59,7 @@ class UpdateMemberAttributeControllerTest : AbstractSecuredControllerTest() {
     @Test
     fun memberNotActive() {
         // GIVEN
-        val account = Fixtures.createAccount(status = AccountStatus.SUSPENDED)
+        val account = Fixtures.createAccount(status = AccountStatus.INACTIVE)
         doReturn(GetAccountResponse(account)).whenever(membershipAccess).getAccount(any())
 
         // WHEN

@@ -2,7 +2,7 @@ package com.wutsi.membership.manager.workflow
 
 import com.wutsi.event.EventURN
 import com.wutsi.event.MemberEventPayload
-import com.wutsi.membership.manager.dto.EnableBusinessRequest
+import com.wutsi.membership.manager.dto.ActivateBusinessRequest
 import com.wutsi.membership.manager.util.SecurityUtil
 import com.wutsi.platform.core.stream.EventStream
 import com.wutsi.regulation.RegulationEngine
@@ -14,18 +14,18 @@ import com.wutsi.workflow.rule.account.CountryShouldSupportBusinessAccountRule
 import org.springframework.stereotype.Service
 
 @Service
-class EnableBusinessWorkflow(
+class ActivateBusinessWorkflow(
     private val regulationEngine: RegulationEngine,
     eventStream: EventStream
-) : AbstractMembershipWorkflow<EnableBusinessRequest, Unit>(eventStream) {
-    override fun getEventType() = EventURN.BUSINESS_ACCOUNT_ENABLED.urn
+) : AbstractMembershipWorkflow<ActivateBusinessRequest, Unit>(eventStream) {
+    override fun getEventType() = EventURN.BUSINESS_ACTIVATED.urn
 
-    override fun toEventPayload(request: EnableBusinessRequest, response: Unit, context: WorkflowContext) =
+    override fun toEventPayload(request: ActivateBusinessRequest, response: Unit, context: WorkflowContext) =
         MemberEventPayload(
             accountId = SecurityUtil.getAccountId()
         )
 
-    override fun getValidationRules(request: EnableBusinessRequest, context: WorkflowContext): RuleSet {
+    override fun getValidationRules(request: ActivateBusinessRequest, context: WorkflowContext): RuleSet {
         val account = getCurrentAccount(context)
         return RuleSet(
             listOf(
@@ -36,7 +36,7 @@ class EnableBusinessWorkflow(
         )
     }
 
-    override fun doExecute(request: EnableBusinessRequest, context: WorkflowContext) {
+    override fun doExecute(request: ActivateBusinessRequest, context: WorkflowContext) {
         val account = getCurrentAccount(context)
         membershipAccessApi.enableBusiness(
             id = SecurityUtil.getAccountId(),
