@@ -7,13 +7,15 @@ import org.springframework.stereotype.Service
 
 @Service
 class EventHandler(
-    private val marketplaceEventHandler: MarketplaceEventHandler
+    private val store: StoreEventHandler,
+    private val business: BusinessEventHandler
 ) {
     @EventListener
     fun handleEvent(event: Event) {
         when (event.type) {
-            EventURN.STORE_ACTIVATED.urn -> marketplaceEventHandler.onStoreActivated(event)
-            EventURN.STORE_DEACTIVATED.urn -> marketplaceEventHandler.onStoreDeactivated(event)
+            EventURN.STORE_ACTIVATED.urn -> store.onStoreActivated(event)
+            EventURN.STORE_DEACTIVATED.urn -> store.onStoreDeactivated(event)
+            EventURN.BUSINESS_CREATED.urn -> business.onBusinessCreated(event)
             else -> {}
         }
     }

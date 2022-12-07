@@ -5,6 +5,7 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
+import com.wutsi.event.BusinessEventPayload
 import com.wutsi.event.EventURN
 import com.wutsi.event.StoreEventPayload
 import com.wutsi.membership.access.MembershipAccessApi
@@ -28,14 +29,14 @@ internal class EventHandlerTest {
     @Autowired
     private lateinit var mapper: ObjectMapper
 
-    private val payload = StoreEventPayload(
-        accountId = 11L,
-        storeId = 22L
-    )
-
     @Test
     fun onStoreEnabled() {
-        // THEN
+        // GIVEN
+        val payload = StoreEventPayload(
+            accountId = 11L,
+            storeId = 22L
+        )
+
         val account = Fixtures.createAccount(storeId = null)
         doReturn(GetAccountResponse(account)).whenever(membershipAccessApi).getAccount(any())
 
@@ -58,7 +59,12 @@ internal class EventHandlerTest {
 
     @Test
     fun onStoreSuspended() {
-        // THEN
+        // GIVEN
+        val payload = StoreEventPayload(
+            accountId = 11L,
+            storeId = 22L
+        )
+
         val account = Fixtures.createAccount(storeId = payload.storeId)
         doReturn(GetAccountResponse(account)).whenever(membershipAccessApi).getAccount(any())
 
@@ -75,6 +81,34 @@ internal class EventHandlerTest {
             UpdateAccountAttributeRequest(
                 name = "store-id",
                 value = null
+            )
+        )
+    }
+
+    @Test
+    fun onStoreCreated() {
+        // GIVEN
+        val payload = BusinessEventPayload(
+            accountId = 11L,
+            businessId = 22L
+        )
+
+        val account = Fixtures.createAccount(businessId = payload.businessId)
+        doReturn(GetAccountResponse(account)).whenever(membershipAccessApi).getAccount(any())
+
+        // WHEN
+        val event = Event(
+            type = EventURN.BUSINESS_CREATED.urn,
+            payload = mapper.writeValueAsString(payload)
+        )
+        handler.handleEvent(event)
+
+        // THEN
+        verify(membershipAccessApi).updateAccountAttribute(
+            id = payload.accountId,
+            UpdateAccountAttributeRequest(
+                name = "business-id",
+                value = payload.businessId.toString()
             )
         )
     }

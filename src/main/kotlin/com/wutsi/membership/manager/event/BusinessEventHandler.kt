@@ -1,7 +1,7 @@
 package com.wutsi.membership.manager.event
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wutsi.event.StoreEventPayload
+import com.wutsi.event.BusinessEventPayload
 import com.wutsi.membership.manager.dto.UpdateMemberAttributeRequest
 import com.wutsi.membership.manager.workflow.UpdateMemberAttributeWorkflow
 import com.wutsi.platform.core.logging.KVLogger
@@ -10,19 +10,19 @@ import com.wutsi.workflow.WorkflowContext
 import org.springframework.stereotype.Service
 
 @Service
-class MarketplaceEventHandler(
+class BusinessEventHandler(
     private val updateMemberAttributeWorkflow: UpdateMemberAttributeWorkflow,
     private val mapper: ObjectMapper,
     private val logger: KVLogger
 ) {
-    fun onStoreActivated(event: Event) {
-        val payload = toStorePayload(event)
+    fun onBusinessCreated(event: Event) {
+        val payload = toBusinessEvent(event)
         log(payload)
 
         updateMemberAttributeWorkflow.execute(
             request = UpdateMemberAttributeRequest(
-                name = "store-id",
-                value = payload.storeId.toString()
+                name = "business-id",
+                value = payload.businessId.toString()
             ),
             context = WorkflowContext(
                 accountId = payload.accountId
@@ -30,26 +30,11 @@ class MarketplaceEventHandler(
         )
     }
 
-    fun onStoreDeactivated(event: Event) {
-        val payload = toStorePayload(event)
-        log(payload)
+    private fun toBusinessEvent(event: Event): BusinessEventPayload =
+        mapper.readValue(event.payload, BusinessEventPayload::class.java)
 
-        updateMemberAttributeWorkflow.execute(
-            request = UpdateMemberAttributeRequest(
-                name = "store-id",
-                value = null
-            ),
-            context = WorkflowContext(
-                accountId = payload.accountId
-            )
-        )
-    }
-
-    private fun toStorePayload(event: Event): StoreEventPayload =
-        mapper.readValue(event.payload, StoreEventPayload::class.java)
-
-    private fun log(payload: StoreEventPayload) {
+    private fun log(payload: BusinessEventPayload) {
         logger.add("payload_account_id", payload.accountId)
-        logger.add("payload_store_id", payload.storeId)
+        logger.add("payload_business_id", payload.businessId)
     }
 }
