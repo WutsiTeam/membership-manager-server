@@ -12,7 +12,11 @@ import org.springframework.stereotype.Service
 class SaveDeviceWorkflow(
     eventStream: EventStream
 ) : AbstractMembershipWorkflow<SaveDeviceRequest, Unit>(eventStream) {
-    override fun getEventType(): String? = null
+    override fun getEventType(
+        request: SaveDeviceRequest,
+        response: Unit,
+        context: WorkflowContext
+    ): String? = null
 
     override fun toEventPayload(
         request: SaveDeviceRequest,

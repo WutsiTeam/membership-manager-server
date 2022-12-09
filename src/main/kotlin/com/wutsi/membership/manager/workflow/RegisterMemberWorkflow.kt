@@ -22,7 +22,11 @@ class RegisterMemberWorkflow(
     private val mapper: ObjectMapper,
     eventStream: EventStream
 ) : AbstractMembershipWorkflow<RegisterMemberRequest, Long>(eventStream) {
-    override fun getEventType() = EventURN.MEMBER_REGISTERED.urn
+    override fun getEventType(
+        request: RegisterMemberRequest,
+        accountId: Long,
+        context: WorkflowContext
+    ) = EventURN.MEMBER_REGISTERED.urn
 
     override fun toEventPayload(
         request: RegisterMemberRequest,

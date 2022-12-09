@@ -17,7 +17,11 @@ import org.springframework.stereotype.Service
 @Service
 class GetMemberWorkflow(eventStream: EventStream) :
     AbstractMembershipWorkflow<Long, GetMemberResponse>(eventStream) {
-    override fun getEventType(): String? = null
+    override fun getEventType(
+        memberId: Long,
+        response: GetMemberResponse,
+        context: WorkflowContext
+    ): String? = null
 
     override fun toEventPayload(
         memberId: Long,

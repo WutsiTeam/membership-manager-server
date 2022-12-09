@@ -18,7 +18,8 @@ class ActivateBusinessWorkflow(
     private val regulationEngine: RegulationEngine,
     eventStream: EventStream
 ) : AbstractMembershipWorkflow<ActivateBusinessRequest, Unit>(eventStream) {
-    override fun getEventType() = EventURN.BUSINESS_ACTIVATED.urn
+    override fun getEventType(request: ActivateBusinessRequest, response: Unit, context: WorkflowContext) =
+        EventURN.BUSINESS_ACTIVATED.urn
 
     override fun toEventPayload(request: ActivateBusinessRequest, response: Unit, context: WorkflowContext) =
         MemberEventPayload(

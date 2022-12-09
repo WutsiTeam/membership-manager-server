@@ -12,7 +12,11 @@ import org.springframework.stereotype.Service
 @Service
 class SearchPlaceWorkflow(eventStream: EventStream) :
     AbstractMembershipWorkflow<SearchPlaceRequest, SearchPlaceResponse>(eventStream) {
-    override fun getEventType(): String? = null
+    override fun getEventType(
+        request: SearchPlaceRequest,
+        response: SearchPlaceResponse,
+        context: WorkflowContext
+    ): String? = null
 
     override fun toEventPayload(
         request: SearchPlaceRequest,

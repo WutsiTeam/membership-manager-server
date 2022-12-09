@@ -15,7 +15,7 @@ abstract class AbstractCsvImportWorkflow<Req, Resp>(eventStream: EventStream) :
     @Autowired
     private lateinit var mapper: ObjectMapper
 
-    override fun getEventType(): String? = null
+    override fun getEventType(request: Req, response: Resp, context: WorkflowContext): String? = null
 
     override fun toEventPayload(request: Req, response: Resp, context: WorkflowContext): MemberEventPayload? = null
 

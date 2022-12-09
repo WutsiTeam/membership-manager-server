@@ -14,7 +14,8 @@ import org.springframework.stereotype.Service
 class DeactivateBusinessWorkflow(
     eventStream: EventStream
 ) : AbstractMembershipWorkflow<Void?, Unit>(eventStream) {
-    override fun getEventType() = EventURN.BUSINESS_DEACTIVATED.urn
+    override fun getEventType(request: Void?, response: Unit, context: WorkflowContext) =
+        EventURN.BUSINESS_DEACTIVATED.urn
 
     override fun toEventPayload(request: Void?, response: Unit, context: WorkflowContext) = MemberEventPayload(
         accountId = SecurityUtil.getAccountId()
