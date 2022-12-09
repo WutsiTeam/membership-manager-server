@@ -130,6 +130,21 @@ paths:
       security:
         - api_key: []
 
+  /v1/members/device:
+    post:
+      operationId: "save-member-device"
+      description: Update the device of an account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveAccountDeviceRequest'
+      responses:
+        200:
+          description: Success
+      tags:
+        - Member
 
   /v1/categories/import:
     get:
@@ -589,3 +604,28 @@ components:
         title:
           type: string
           description: Category title
+
+    SaveAccountDeviceRequest:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Device token
+        type:
+          type: string
+          description: Device type
+          nullable: true
+        osName:
+          type: string
+          description: operating system
+          nullable: true
+        osVersion:
+          type: string
+          description: operating system version
+          nullable: true
+        model:
+          type: string
+          description: Device model
+          nullable: true
+      required:
+        - token
