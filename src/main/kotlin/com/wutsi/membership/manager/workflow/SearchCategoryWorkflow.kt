@@ -15,13 +15,13 @@ class SearchCategoryWorkflow(eventStream: EventStream) :
     override fun getEventType(
         request: SearchCategoryRequest,
         response: SearchCategoryResponse,
-        context: WorkflowContext
+        context: WorkflowContext,
     ): String? = null
 
     override fun toEventPayload(
         request: SearchCategoryRequest,
         response: SearchCategoryResponse,
-        context: WorkflowContext
+        context: WorkflowContext,
     ): MemberEventPayload? = null
 
     override fun getValidationRules(request: SearchCategoryRequest, context: WorkflowContext) = RuleSet.NONE
@@ -32,16 +32,16 @@ class SearchCategoryWorkflow(eventStream: EventStream) :
                 keyword = request.keyword,
                 categoryIds = request.categoryIds,
                 limit = request.limit,
-                offset = request.offset
-            )
+                offset = request.offset,
+            ),
         ).categories
         return SearchCategoryResponse(
             categories = categories.map {
                 CategorySummary(
                     id = it.id,
-                    title = it.title
+                    title = it.title,
                 )
-            }
+            },
         )
     }
 }

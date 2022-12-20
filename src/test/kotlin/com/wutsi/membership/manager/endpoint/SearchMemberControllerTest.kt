@@ -32,7 +32,7 @@ public class SearchMemberControllerTest : AbstractControllerTest() {
         val request = SearchMemberRequest(
             phoneNumber = "+237990000001",
             limit = 3,
-            offset = 100
+            offset = 100,
         )
         val response = rest.postForEntity(url(), request, SearchMemberResponse::class.java)
 
@@ -44,8 +44,8 @@ public class SearchMemberControllerTest : AbstractControllerTest() {
                 phoneNumber = request.phoneNumber,
                 limit = request.limit,
                 offset = request.offset,
-                status = AccountStatus.ACTIVE.name
-            )
+                status = AccountStatus.ACTIVE.name,
+            ),
         )
 
         val members = response.body!!.members

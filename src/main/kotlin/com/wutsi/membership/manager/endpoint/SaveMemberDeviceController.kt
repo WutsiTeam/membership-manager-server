@@ -9,12 +9,12 @@ import javax.validation.Valid
 
 @RestController
 public class SaveMemberDeviceController(
-    public val `delegate`: SaveMemberDeviceDelegate
+    public val `delegate`: SaveMemberDeviceDelegate,
 ) {
     @PostMapping("/v1/members/device")
     public fun invoke(
         @Valid @RequestBody
-        request: SaveDeviceRequest
+        request: SaveDeviceRequest,
     ) {
         delegate.invoke(request)
     }

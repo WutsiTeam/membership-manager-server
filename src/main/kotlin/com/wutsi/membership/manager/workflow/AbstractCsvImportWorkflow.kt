@@ -27,13 +27,13 @@ abstract class AbstractCsvImportWorkflow<Req, Resp>(eventStream: EventStream) :
             CsvError(
                 row = row,
                 code = response.error.code,
-                description = response.error.message
+                description = response.error.message,
             )
         } catch (e: Exception) {
             CsvError(
                 row = row,
                 code = ex.status().toString(),
-                description = ex.message
+                description = ex.message,
             )
         }
 }

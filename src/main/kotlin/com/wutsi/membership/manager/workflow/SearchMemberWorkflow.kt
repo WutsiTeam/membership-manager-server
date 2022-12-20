@@ -17,13 +17,13 @@ class SearchMemberWorkflow(eventStream: EventStream) :
     override fun getEventType(
         request: SearchMemberRequest,
         response: SearchMemberResponse,
-        context: WorkflowContext
+        context: WorkflowContext,
     ): String? = null
 
     override fun toEventPayload(
         request: SearchMemberRequest,
         response: SearchMemberResponse,
-        context: WorkflowContext
+        context: WorkflowContext,
     ): MemberEventPayload? = null
 
     override fun getValidationRules(request: SearchMemberRequest, context: WorkflowContext) = RuleSet.NONE
@@ -34,8 +34,8 @@ class SearchMemberWorkflow(eventStream: EventStream) :
                 phoneNumber = request.phoneNumber,
                 status = AccountStatus.ACTIVE.name,
                 limit = request.limit,
-                offset = request.offset
-            )
+                offset = request.offset,
+            ),
         ).accounts
         return SearchMemberResponse(
             members = accounts.map {
@@ -49,9 +49,9 @@ class SearchMemberWorkflow(eventStream: EventStream) :
                     cityId = it.cityId,
                     language = it.language,
                     active = it.status == AccountStatus.ACTIVE.name,
-                    superUser = it.superUser
+                    superUser = it.superUser,
                 )
-            }
+            },
         )
     }
 }

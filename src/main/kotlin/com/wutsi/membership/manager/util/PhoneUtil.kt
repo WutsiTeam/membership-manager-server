@@ -14,7 +14,7 @@ object PhoneUtil {
         226, 249, 289, 343, 365, 416, 437, 519, 548, 613, 647, 705, 807, 905,
         367, 418, 438, 450, 514, 579, 581, 819, 873,
         306, 639,
-        867
+        867,
     ).map { "+1$it" }
 
     private val phoneNumberUtil = PhoneNumberUtil.getInstance()

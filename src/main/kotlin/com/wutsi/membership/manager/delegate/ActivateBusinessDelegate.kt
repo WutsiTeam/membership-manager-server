@@ -1,4 +1,4 @@
-package com.wutsi.membership.manager.`delegate`
+package com.wutsi.membership.manager.delegate
 
 import com.wutsi.membership.manager.dto.ActivateBusinessRequest
 import com.wutsi.membership.manager.workflow.ActivateBusinessWorkflow
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 @Service
 public class ActivateBusinessDelegate(
     private val workflow: ActivateBusinessWorkflow,
-    private val logger: KVLogger
+    private val logger: KVLogger,
 ) {
     public fun invoke(request: ActivateBusinessRequest) {
         logger.add("request_display_name", request.displayName)

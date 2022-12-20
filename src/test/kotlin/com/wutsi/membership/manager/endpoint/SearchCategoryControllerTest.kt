@@ -30,7 +30,7 @@ public class SearchCategoryControllerTest : AbstractSecuredControllerTest() {
             keyword = "332",
             categoryIds = listOf(11L, 33L),
             limit = 3,
-            offset = 100
+            offset = 100,
         )
         val response =
             rest.postForEntity(url(), request, com.wutsi.membership.manager.dto.SearchCategoryResponse::class.java)
@@ -43,8 +43,8 @@ public class SearchCategoryControllerTest : AbstractSecuredControllerTest() {
                 keyword = request.keyword,
                 categoryIds = request.categoryIds,
                 limit = request.limit,
-                offset = request.offset
-            )
+                offset = request.offset,
+            ),
         )
 
         val categories = response.body!!.categories

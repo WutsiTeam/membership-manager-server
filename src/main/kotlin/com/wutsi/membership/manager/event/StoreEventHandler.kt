@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service
 class StoreEventHandler(
     private val updateMemberAttributeWorkflow: UpdateMemberAttributeWorkflow,
     private val mapper: ObjectMapper,
-    private val logger: KVLogger
+    private val logger: KVLogger,
 ) {
     fun onStoreActivated(event: Event) {
         val payload = toStorePayload(event)
@@ -22,11 +22,11 @@ class StoreEventHandler(
         updateMemberAttributeWorkflow.execute(
             request = UpdateMemberAttributeRequest(
                 name = "store-id",
-                value = payload.storeId.toString()
+                value = payload.storeId.toString(),
             ),
             context = WorkflowContext(
-                accountId = payload.accountId
-            )
+                accountId = payload.accountId,
+            ),
         )
     }
 
@@ -37,11 +37,11 @@ class StoreEventHandler(
         updateMemberAttributeWorkflow.execute(
             request = UpdateMemberAttributeRequest(
                 name = "store-id",
-                value = null
+                value = null,
             ),
             context = WorkflowContext(
-                accountId = payload.accountId
-            )
+                accountId = payload.accountId,
+            ),
         )
     }
 

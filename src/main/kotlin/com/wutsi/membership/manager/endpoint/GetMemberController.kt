@@ -9,7 +9,7 @@ import kotlin.Long
 
 @RestController
 public class GetMemberController(
-    public val `delegate`: GetMemberDelegate
+    public val `delegate`: GetMemberDelegate,
 ) {
     @GetMapping("/v1/members/{id}")
     public fun invoke(@PathVariable(name = "id") id: Long): GetMemberResponse = delegate.invoke(id)

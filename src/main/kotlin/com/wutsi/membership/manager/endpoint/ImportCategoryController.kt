@@ -8,7 +8,7 @@ import kotlin.String
 
 @RestController
 public class ImportCategoryController(
-    public val `delegate`: ImportCategoryDelegate
+    public val `delegate`: ImportCategoryDelegate,
 ) {
     @GetMapping("/v1/categories/import")
     public fun invoke(@RequestParam(name = "language", required = false) language: String) {

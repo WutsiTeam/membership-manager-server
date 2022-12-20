@@ -34,7 +34,7 @@ internal class EventHandlerTest {
         // GIVEN
         val payload = StoreEventPayload(
             accountId = 11L,
-            storeId = 22L
+            storeId = 22L,
         )
 
         val account = Fixtures.createAccount(storeId = null)
@@ -43,7 +43,7 @@ internal class EventHandlerTest {
         // WHEN
         val event = Event(
             type = EventURN.STORE_ACTIVATED.urn,
-            payload = mapper.writeValueAsString(payload)
+            payload = mapper.writeValueAsString(payload),
         )
         handler.handleEvent(event)
 
@@ -52,8 +52,8 @@ internal class EventHandlerTest {
             id = payload.accountId,
             UpdateAccountAttributeRequest(
                 name = "store-id",
-                value = payload.storeId.toString()
-            )
+                value = payload.storeId.toString(),
+            ),
         )
     }
 
@@ -62,7 +62,7 @@ internal class EventHandlerTest {
         // GIVEN
         val payload = StoreEventPayload(
             accountId = 11L,
-            storeId = 22L
+            storeId = 22L,
         )
 
         val account = Fixtures.createAccount(storeId = payload.storeId)
@@ -71,7 +71,7 @@ internal class EventHandlerTest {
         // WHEN
         val event = Event(
             type = EventURN.STORE_DEACTIVATED.urn,
-            payload = mapper.writeValueAsString(payload)
+            payload = mapper.writeValueAsString(payload),
         )
         handler.handleEvent(event)
 
@@ -80,8 +80,8 @@ internal class EventHandlerTest {
             id = payload.accountId,
             UpdateAccountAttributeRequest(
                 name = "store-id",
-                value = null
-            )
+                value = null,
+            ),
         )
     }
 
@@ -90,7 +90,7 @@ internal class EventHandlerTest {
         // GIVEN
         val payload = BusinessEventPayload(
             accountId = 11L,
-            businessId = 22L
+            businessId = 22L,
         )
 
         val account = Fixtures.createAccount(businessId = payload.businessId)
@@ -99,7 +99,7 @@ internal class EventHandlerTest {
         // WHEN
         val event = Event(
             type = EventURN.BUSINESS_CREATED.urn,
-            payload = mapper.writeValueAsString(payload)
+            payload = mapper.writeValueAsString(payload),
         )
         handler.handleEvent(event)
 
@@ -108,8 +108,8 @@ internal class EventHandlerTest {
             id = payload.accountId,
             UpdateAccountAttributeRequest(
                 name = "business-id",
-                value = payload.businessId.toString()
-            )
+                value = payload.businessId.toString(),
+            ),
         )
     }
 }

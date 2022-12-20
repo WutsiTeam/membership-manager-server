@@ -6,7 +6,7 @@ import org.springframework.web.bind.`annotation`.RestController
 
 @RestController
 public class DeactivateMemberController(
-    public val `delegate`: DeactivateMemberDelegate
+    public val `delegate`: DeactivateMemberDelegate,
 ) {
     @DeleteMapping("/v1/members")
     public fun invoke() {

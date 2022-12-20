@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service
 class BusinessEventHandler(
     private val updateMemberAttributeWorkflow: UpdateMemberAttributeWorkflow,
     private val mapper: ObjectMapper,
-    private val logger: KVLogger
+    private val logger: KVLogger,
 ) {
     fun onBusinessCreated(event: Event) {
         val payload = toBusinessEvent(event)
@@ -22,11 +22,11 @@ class BusinessEventHandler(
         updateMemberAttributeWorkflow.execute(
             request = UpdateMemberAttributeRequest(
                 name = "business-id",
-                value = payload.businessId.toString()
+                value = payload.businessId.toString(),
             ),
             context = WorkflowContext(
-                accountId = payload.accountId
-            )
+                accountId = payload.accountId,
+            ),
         )
     }
 

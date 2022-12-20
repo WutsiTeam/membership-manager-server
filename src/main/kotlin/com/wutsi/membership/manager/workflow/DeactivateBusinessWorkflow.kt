@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service
 
 @Service
 class DeactivateBusinessWorkflow(
-    eventStream: EventStream
+    eventStream: EventStream,
 ) : AbstractMembershipWorkflow<Void?, Unit>(eventStream) {
     override fun getEventType(request: Void?, response: Unit, context: WorkflowContext) =
         EventURN.BUSINESS_DEACTIVATED.urn
 
     override fun toEventPayload(request: Void?, response: Unit, context: WorkflowContext) = MemberEventPayload(
-        accountId = SecurityUtil.getAccountId()
+        accountId = SecurityUtil.getAccountId(),
     )
 
     override fun getValidationRules(request: Void?, context: WorkflowContext): RuleSet {
@@ -26,14 +26,14 @@ class DeactivateBusinessWorkflow(
         return RuleSet(
             listOf(
                 AccountShouldBeActiveRule(account),
-                AccountShouldBeBusinessRule(account)
-            )
+                AccountShouldBeBusinessRule(account),
+            ),
         )
     }
 
     override fun doExecute(request: Void?, context: WorkflowContext) {
         membershipAccessApi.disableBusiness(
-            id = SecurityUtil.getAccountId()
+            id = SecurityUtil.getAccountId(),
         )
     }
 }

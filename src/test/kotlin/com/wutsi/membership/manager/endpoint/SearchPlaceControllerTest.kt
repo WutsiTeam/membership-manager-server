@@ -31,7 +31,7 @@ public class SearchPlaceControllerTest : AbstractSecuredControllerTest() {
             type = PlaceType.CITY.name,
             country = "CM",
             limit = 3,
-            offset = 100
+            offset = 100,
         )
         val response =
             rest.postForEntity(url(), request, com.wutsi.membership.manager.dto.SearchPlaceResponse::class.java)
@@ -44,8 +44,8 @@ public class SearchPlaceControllerTest : AbstractSecuredControllerTest() {
                 type = request.type,
                 country = request.country,
                 limit = request.limit,
-                offset = request.offset
-            )
+                offset = request.offset,
+            ),
         )
 
         val places = response.body!!.places

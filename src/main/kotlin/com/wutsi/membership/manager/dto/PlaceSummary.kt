@@ -8,5 +8,5 @@ public data class PlaceSummary(
     public val name: String = "",
     public val longName: String = "",
     public val country: String = "",
-    public val type: String = ""
+    public val type: String = "",
 )

@@ -9,7 +9,7 @@ class LanguageClientHttpRequestInterceptor(private val language: String = "en") 
     override fun intercept(
         request: HttpRequest,
         body: ByteArray,
-        execution: ClientHttpRequestExecution
+        execution: ClientHttpRequestExecution,
     ): ClientHttpResponse {
         request.headers["Accept-Language"] = language
         return execution.execute(request, body)

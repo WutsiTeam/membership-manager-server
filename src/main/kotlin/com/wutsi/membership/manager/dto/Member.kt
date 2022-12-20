@@ -23,5 +23,5 @@ public data class Member(
     public val storeId: Long? = null,
     public val businessId: Long? = null,
     public val city: Place? = null,
-    public val category: Category? = null
+    public val category: Category? = null,
 )

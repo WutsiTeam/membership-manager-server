@@ -25,8 +25,8 @@ abstract class AbstractSecuredControllerTest : AbstractControllerTest() {
                 subject = accountId.toString(),
                 name = "Account",
                 subjectType = USER,
-                keyProvider = TestRSAKeyProvider()
-            ).build()
+                keyProvider = TestRSAKeyProvider(),
+            ).build(),
         )
 
         return SpringAuthorizationRequestInterceptor(tokenProvider)

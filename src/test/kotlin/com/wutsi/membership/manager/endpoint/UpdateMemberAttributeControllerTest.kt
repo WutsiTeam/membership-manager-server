@@ -27,7 +27,7 @@ class UpdateMemberAttributeControllerTest : AbstractSecuredControllerTest() {
 
     val request = UpdateMemberAttributeRequest(
         name = "display-name",
-        value = "Yo Man"
+        value = "Yo Man",
     )
 
     @Test
@@ -46,13 +46,13 @@ class UpdateMemberAttributeControllerTest : AbstractSecuredControllerTest() {
             ACCOUNT_ID,
             UpdateAccountAttributeRequest(
                 name = request.name,
-                value = request.value
-            )
+                value = request.value,
+            ),
         )
 
         verify(eventStream).publish(
             EventURN.MEMBER_ATTRIBUTE_UPDATED.urn,
-            MemberEventPayload(accountId = ACCOUNT_ID)
+            MemberEventPayload(accountId = ACCOUNT_ID),
         )
     }
 

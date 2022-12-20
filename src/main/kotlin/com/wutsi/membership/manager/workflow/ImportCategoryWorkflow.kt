@@ -20,7 +20,7 @@ import java.util.Locale
 @Service
 class ImportCategoryWorkflow(
     eventStream: EventStream,
-    @Value("\${wutsi.application.services.category.url}") private val csvUrl: String
+    @Value("\${wutsi.application.services.category.url}") private val csvUrl: String,
 ) : AbstractCsvImportWorkflow<String, CsvImportResponse>(eventStream) {
     override fun doExecute(language: String, context: WorkflowContext): CsvImportResponse {
         var row = 1
@@ -33,7 +33,7 @@ class ImportCategoryWorkflow(
                 .setSkipHeaderRecord(true)
                 .setDelimiter(",")
                 .setHeader("id", "title", "title_fr")
-                .build()
+                .build(),
         )
 
         LocaleContextHolder.setLocale(Locale(language))
@@ -54,7 +54,7 @@ class ImportCategoryWorkflow(
 
         return CsvImportResponse(
             imported = imported,
-            errors = errors
+            errors = errors,
         )
     }
 
@@ -67,8 +67,8 @@ class ImportCategoryWorkflow(
                     record.get("title_fr")
                 } else {
                     record.get("title")
-                }
-            )
+                },
+            ),
         )
     }
 

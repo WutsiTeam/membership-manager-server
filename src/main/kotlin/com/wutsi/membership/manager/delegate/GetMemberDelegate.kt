@@ -1,4 +1,4 @@
-package com.wutsi.membership.manager.`delegate`
+package com.wutsi.membership.manager.delegate
 
 import com.wutsi.membership.manager.dto.GetMemberResponse
 import com.wutsi.membership.manager.workflow.GetMemberWorkflow

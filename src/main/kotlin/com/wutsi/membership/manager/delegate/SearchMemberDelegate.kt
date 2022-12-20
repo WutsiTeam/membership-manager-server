@@ -1,4 +1,4 @@
-package com.wutsi.membership.manager.`delegate`
+package com.wutsi.membership.manager.delegate
 
 import com.wutsi.membership.manager.dto.SearchMemberRequest
 import com.wutsi.membership.manager.dto.SearchMemberResponse
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 @Service
 public class SearchMemberDelegate(
     private val workflow: SearchMemberWorkflow,
-    private val logger: KVLogger
+    private val logger: KVLogger,
 ) {
     public fun invoke(request: SearchMemberRequest): SearchMemberResponse {
         logger.add("request_phone_number", request.phoneNumber)

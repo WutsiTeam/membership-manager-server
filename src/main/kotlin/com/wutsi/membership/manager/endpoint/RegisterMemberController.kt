@@ -9,12 +9,12 @@ import javax.validation.Valid
 
 @RestController
 public class RegisterMemberController(
-    public val `delegate`: RegisterMemberDelegate
+    public val `delegate`: RegisterMemberDelegate,
 ) {
     @PostMapping("/v1/members")
     public fun invoke(
         @Valid @RequestBody
-        request: RegisterMemberRequest
+        request: RegisterMemberRequest,
     ) {
         delegate.invoke(request)
     }

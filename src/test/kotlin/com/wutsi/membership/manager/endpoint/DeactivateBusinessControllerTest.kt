@@ -41,7 +41,7 @@ public class DeactivateBusinessControllerTest : AbstractSecuredControllerTest() 
 
         verify(eventStream).publish(
             EventURN.BUSINESS_DEACTIVATED.urn,
-            MemberEventPayload(accountId = ACCOUNT_ID)
+            MemberEventPayload(accountId = ACCOUNT_ID),
         )
     }
 

@@ -12,5 +12,5 @@ public data class Place(
     public val type: String = "",
     public val longitude: Double? = null,
     public val latitude: Double? = null,
-    public val timezoneId: String? = null
+    public val timezoneId: String? = null,
 )

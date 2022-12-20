@@ -10,18 +10,18 @@ import org.springframework.stereotype.Service
 
 @Service
 class SaveDeviceWorkflow(
-    eventStream: EventStream
+    eventStream: EventStream,
 ) : AbstractMembershipWorkflow<SaveDeviceRequest, Unit>(eventStream) {
     override fun getEventType(
         request: SaveDeviceRequest,
         response: Unit,
-        context: WorkflowContext
+        context: WorkflowContext,
     ): String? = null
 
     override fun toEventPayload(
         request: SaveDeviceRequest,
         response: Unit,
-        context: WorkflowContext
+        context: WorkflowContext,
     ): MemberEventPayload? = null
 
     override fun getValidationRules(request: SaveDeviceRequest, context: WorkflowContext) = RuleSet.NONE
@@ -34,8 +34,8 @@ class SaveDeviceWorkflow(
                 type = request.type,
                 osVersion = request.osVersion,
                 osName = request.osName,
-                model = request.model
-            )
+                model = request.model,
+            ),
         )
     }
 }

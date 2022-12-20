@@ -20,23 +20,23 @@ import org.springframework.stereotype.Service
 @Service
 class RegisterMemberWorkflow(
     private val mapper: ObjectMapper,
-    eventStream: EventStream
+    eventStream: EventStream,
 ) : AbstractMembershipWorkflow<RegisterMemberRequest, Long>(eventStream) {
     override fun getEventType(
         request: RegisterMemberRequest,
         accountId: Long,
-        context: WorkflowContext
+        context: WorkflowContext,
     ) = EventURN.MEMBER_REGISTERED.urn
 
     override fun toEventPayload(
         request: RegisterMemberRequest,
         accountId: Long,
-        context: WorkflowContext
+        context: WorkflowContext,
     ): MemberEventPayload {
         return MemberEventPayload(
             accountId = accountId,
             phoneNumber = request.phoneNumber,
-            pin = request.pin
+            pin = request.pin,
         )
     }
 
@@ -50,8 +50,8 @@ class RegisterMemberWorkflow(
                     displayName = request.displayName,
                     country = PhoneUtil.detectCountry(request.phoneNumber),
                     language = LocaleContextHolder.getLocale().language,
-                    cityId = request.cityId
-                )
+                    cityId = request.cityId,
+                ),
             ).accountId
         } catch (ex: FeignException) {
             val errorResponse = toErrorResponse(ex)
@@ -60,9 +60,9 @@ class RegisterMemberWorkflow(
                     error = Error(
                         code = com.wutsi.error.ErrorURN.PHONE_NUMBER_ALREADY_ASSIGNED.urn,
                         data = mapOf(
-                            "phone-number" to request.phoneNumber
-                        )
-                    )
+                            "phone-number" to request.phoneNumber,
+                        ),
+                    ),
                 )
             } else {
                 throw ex

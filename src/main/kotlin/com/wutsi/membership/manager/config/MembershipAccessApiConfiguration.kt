@@ -21,7 +21,7 @@ class MembershipAccessApiConfiguration(
     private val tracingRequestInterceptor: FeignTracingRequestInterceptor,
     private val apiKeyInterceptor: FeignApiKeyRequestInterceptor,
     private val mapper: ObjectMapper,
-    private val env: Environment
+    private val env: Environment,
 ) {
     companion object {
         private val LOGGER = LoggerFactory.getLogger(MembershipAccessApiConfiguration::class.java)
@@ -42,9 +42,9 @@ class MembershipAccessApiConfiguration(
                 tracingRequestInterceptor,
                 authorizationRequestInterceptor,
                 apiKeyInterceptor,
-                FeignAcceptLanguageInterceptor()
+                FeignAcceptLanguageInterceptor(),
             ),
-            errorDecoder = Custom5XXErrorDecoder()
+            errorDecoder = Custom5XXErrorDecoder(),
         )
 
     private fun environment(): com.wutsi.membership.access.Environment =

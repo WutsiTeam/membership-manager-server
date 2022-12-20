@@ -18,15 +18,15 @@ class UpdateMemberAttributeWorkflow(eventStream: EventStream) :
 
     override fun toEventPayload(request: UpdateMemberAttributeRequest, response: Unit, context: WorkflowContext) =
         MemberEventPayload(
-            accountId = getCurrentAccountId(context)
+            accountId = getCurrentAccountId(context),
         )
 
     override fun getValidationRules(request: UpdateMemberAttributeRequest, context: WorkflowContext): RuleSet {
         val account = getCurrentAccount(context)
         return RuleSet(
             listOf(
-                AccountShouldBeActiveRule(account)
-            )
+                AccountShouldBeActiveRule(account),
+            ),
         )
     }
 
@@ -35,8 +35,8 @@ class UpdateMemberAttributeWorkflow(eventStream: EventStream) :
             id = getCurrentAccountId(context),
             request = UpdateAccountAttributeRequest(
                 name = request.name,
-                value = request.value
-            )
+                value = request.value,
+            ),
         )
     }
 }

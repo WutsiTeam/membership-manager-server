@@ -9,12 +9,12 @@ import javax.validation.Valid
 
 @RestController
 public class UpdateMemberAttributeController(
-    public val `delegate`: UpdateMemberAttributeDelegate
+    public val `delegate`: UpdateMemberAttributeDelegate,
 ) {
     @PostMapping("/v1/members/attributes")
     public fun invoke(
         @Valid @RequestBody
-        request: UpdateMemberAttributeRequest
+        request: UpdateMemberAttributeRequest,
     ) {
         delegate.invoke(request)
     }

@@ -20,13 +20,13 @@ class GetMemberWorkflow(eventStream: EventStream) :
     override fun getEventType(
         memberId: Long,
         response: GetMemberResponse,
-        context: WorkflowContext
+        context: WorkflowContext,
     ): String? = null
 
     override fun toEventPayload(
         memberId: Long,
         response: GetMemberResponse,
-        context: WorkflowContext
+        context: WorkflowContext,
     ): MemberEventPayload? = null
 
     override fun getValidationRules(memberId: Long, context: WorkflowContext) = RuleSet.NONE
@@ -61,7 +61,7 @@ class GetMemberWorkflow(eventStream: EventStream) :
                         ?.let {
                             Category(
                                 id = it.id,
-                                title = it.title
+                                title = it.title,
                             )
                         },
                     city = account.city
@@ -73,19 +73,19 @@ class GetMemberWorkflow(eventStream: EventStream) :
                                 longitude = it.longitude,
                                 latitude = it.latitude,
                                 type = it.type,
-                                timezoneId = it.timezoneId
+                                timezoneId = it.timezoneId,
                             )
-                        }
-                )
+                        },
+                ),
             )
         } catch (ex: NotFoundException) {
             throw NotFoundException(
                 error = Error(
                     code = ErrorURN.MEMBER_NOT_FOUND.urn,
                     data = mapOf(
-                        "account-id" to getCurrentAccount(context)
-                    )
-                )
+                        "account-id" to getCurrentAccount(context),
+                    ),
+                ),
             )
         }
     }

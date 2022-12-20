@@ -17,5 +17,5 @@ public data class ActivateBusinessRequest(
     public val cityId: Long = 0,
     @get:Size(max = 160)
     public val biography: String? = null,
-    public val whatsapp: Boolean = false
+    public val whatsapp: Boolean = false,
 )

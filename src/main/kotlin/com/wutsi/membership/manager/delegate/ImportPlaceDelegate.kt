@@ -1,4 +1,4 @@
-package com.wutsi.membership.manager.`delegate`
+package com.wutsi.membership.manager.delegate
 
 import com.wutsi.membership.manager.workflow.ImportPlaceWorkflow
 import com.wutsi.platform.core.logging.DefaultKVLogger
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class ImportPlaceDelegate(
-    private val workflow: ImportPlaceWorkflow
+    private val workflow: ImportPlaceWorkflow,
 ) {
     @Async
     fun invoke(country: String) {

@@ -22,7 +22,7 @@ public class SaveMemberDeviceControllerTest : AbstractSecuredControllerTest() {
             type = DeviceType.MOBILE.name,
             osName = "Android",
             osVersion = "1.3.232",
-            model = "Tablet"
+            model = "Tablet",
         )
         val response = rest.postForEntity(url(), request, Any::class.java)
 
@@ -35,8 +35,8 @@ public class SaveMemberDeviceControllerTest : AbstractSecuredControllerTest() {
                 type = request.type,
                 osName = request.osName,
                 osVersion = request.osVersion,
-                model = request.model
-            )
+                model = request.model,
+            ),
         )
     }
 

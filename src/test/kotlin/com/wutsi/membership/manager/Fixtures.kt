@@ -18,7 +18,7 @@ object Fixtures {
         business = false,
         categoryId = 2222L,
         status = AccountStatus.ACTIVE.name,
-        pictureUrl = "https://www.img.com/100.png"
+        pictureUrl = "https://www.img.com/100.png",
     )
 
     fun createAccount(
@@ -27,7 +27,7 @@ object Fixtures {
         business: Boolean = false,
         storeId: Long? = null,
         businessId: Long? = null,
-        country: String = "CM"
+        country: String = "CM",
     ) = Account(
         id = id,
         status = status.name,
@@ -42,21 +42,21 @@ object Fixtures {
         city = Place(
             id = 111,
             name = "Yaounde",
-            longName = "Yaounde, Cameroun"
+            longName = "Yaounde, Cameroun",
         ),
         category = Category(
             id = 555,
-            title = "Ads"
-        )
+            title = "Ads",
+        ),
     )
 
     fun createPlaceSummary(id: Long = -1, name: String = "Yaounde") = PlaceSummary(
         id = id,
-        name = name
+        name = name,
     )
 
     fun createCategorySummary(id: Long = -1, title: String = "Foo") = CategorySummary(
         id = id,
-        title = title
+        title = title,
     )
 }

@@ -8,7 +8,7 @@ import kotlin.String
 
 @RestController
 public class ImportPlaceController(
-    public val `delegate`: ImportPlaceDelegate
+    public val `delegate`: ImportPlaceDelegate,
 ) {
     @GetMapping("/v1/places/import")
     public fun invoke(@RequestParam(name = "country", required = false) country: String) {

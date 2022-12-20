@@ -32,7 +32,7 @@ class RegisterMemberControllerTest : AbstractControllerTest() {
         displayName = "Ray Sponsible",
         pin = "123456",
         cityId = 111L,
-        country = "CM"
+        country = "CM",
     )
 
     @Test
@@ -60,8 +60,8 @@ class RegisterMemberControllerTest : AbstractControllerTest() {
             MemberEventPayload(
                 accountId = accountId,
                 phoneNumber = request.phoneNumber,
-                pin = request.pin
-            )
+                pin = request.pin,
+            ),
         )
     }
 

@@ -16,14 +16,14 @@ import org.springframework.stereotype.Service
 @Service
 class ActivateBusinessWorkflow(
     private val regulationEngine: RegulationEngine,
-    eventStream: EventStream
+    eventStream: EventStream,
 ) : AbstractMembershipWorkflow<ActivateBusinessRequest, Unit>(eventStream) {
     override fun getEventType(request: ActivateBusinessRequest, response: Unit, context: WorkflowContext) =
         EventURN.BUSINESS_ACTIVATED.urn
 
     override fun toEventPayload(request: ActivateBusinessRequest, response: Unit, context: WorkflowContext) =
         MemberEventPayload(
-            accountId = SecurityUtil.getAccountId()
+            accountId = SecurityUtil.getAccountId(),
         )
 
     override fun getValidationRules(request: ActivateBusinessRequest, context: WorkflowContext): RuleSet {
@@ -32,8 +32,8 @@ class ActivateBusinessWorkflow(
             listOf(
                 AccountShouldBeActiveRule(account),
                 AccountShouldNotBeBusinessRule(account),
-                CountryShouldSupportBusinessAccountRule(account, regulationEngine)
-            )
+                CountryShouldSupportBusinessAccountRule(account, regulationEngine),
+            ),
         )
     }
 
@@ -47,8 +47,8 @@ class ActivateBusinessWorkflow(
                 cityId = request.cityId,
                 categoryId = request.categoryId,
                 biography = request.biography,
-                whatsapp = request.whatsapp
-            )
+                whatsapp = request.whatsapp,
+            ),
         )
     }
 }

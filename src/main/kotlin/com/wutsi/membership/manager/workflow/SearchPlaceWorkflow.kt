@@ -15,13 +15,13 @@ class SearchPlaceWorkflow(eventStream: EventStream) :
     override fun getEventType(
         request: SearchPlaceRequest,
         response: SearchPlaceResponse,
-        context: WorkflowContext
+        context: WorkflowContext,
     ): String? = null
 
     override fun toEventPayload(
         request: SearchPlaceRequest,
         response: SearchPlaceResponse,
-        context: WorkflowContext
+        context: WorkflowContext,
     ): MemberEventPayload? = null
 
     override fun getValidationRules(request: SearchPlaceRequest, context: WorkflowContext) = RuleSet.NONE
@@ -33,8 +33,8 @@ class SearchPlaceWorkflow(eventStream: EventStream) :
                 type = request.type,
                 country = request.country,
                 limit = request.limit,
-                offset = request.offset
-            )
+                offset = request.offset,
+            ),
         ).places
         return SearchPlaceResponse(
             places = places.map {
@@ -42,9 +42,9 @@ class SearchPlaceWorkflow(eventStream: EventStream) :
                     id = it.id,
                     type = it.type,
                     name = it.name,
-                    longName = it.longName
+                    longName = it.longName,
                 )
-            }
+            },
         )
     }
 }

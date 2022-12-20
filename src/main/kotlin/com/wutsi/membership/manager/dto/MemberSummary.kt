@@ -14,5 +14,5 @@ public data class MemberSummary(
     public val cityId: Long? = null,
     public val categoryId: Long? = null,
     public val business: Boolean = false,
-    public val superUser: Boolean = false
+    public val superUser: Boolean = false,
 )

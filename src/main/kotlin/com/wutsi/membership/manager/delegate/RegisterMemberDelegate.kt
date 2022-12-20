@@ -1,4 +1,4 @@
-package com.wutsi.membership.manager.`delegate`
+package com.wutsi.membership.manager.delegate
 
 import com.wutsi.membership.manager.dto.RegisterMemberRequest
 import com.wutsi.membership.manager.workflow.RegisterMemberWorkflow
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 @Service
 class RegisterMemberDelegate(
     private val workflow: RegisterMemberWorkflow,
-    private val logger: KVLogger
+    private val logger: KVLogger,
 ) {
     fun invoke(request: RegisterMemberRequest) {
         logger.add("request_phone_number", request.phoneNumber)

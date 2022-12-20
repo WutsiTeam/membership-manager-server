@@ -20,7 +20,7 @@ import java.net.URL
 class ImportPlaceWorkflow(
     eventStream: EventStream,
     @Value("\${wutsi.application.services.place.url-prefix}") private val csvUrlPrefix: String,
-    @Value("\${wutsi.application.services.place.min-population}") private val minPopulation: Int
+    @Value("\${wutsi.application.services.place.min-population}") private val minPopulation: Int,
 ) : AbstractCsvImportWorkflow<String, CsvImportResponse>(eventStream) {
     companion object {
         private const val RECORD_ID = 0
@@ -43,7 +43,7 @@ class ImportPlaceWorkflow(
             Charsets.UTF_8,
             CSVFormat.Builder.create()
                 .setDelimiter("\t")
-                .build()
+                .build(),
         )
 
         for (record in parser) {
@@ -64,7 +64,7 @@ class ImportPlaceWorkflow(
 
         return CsvImportResponse(
             imported = imported,
-            errors = errors
+            errors = errors,
         )
     }
 
@@ -78,7 +78,7 @@ class ImportPlaceWorkflow(
                 "PPLA2",
                 "PPLA3",
                 "PPLA4",
-                "PPLA5"
+                "PPLA5",
             ).contains(record.get(RECORD_FEATURE_CODE)) &&
             record.get(RECORD_POPULATION) != null &&
             record.get(RECORD_POPULATION).toInt() > minPopulation
@@ -93,8 +93,8 @@ class ImportPlaceWorkflow(
                 type = PlaceType.CITY.name,
                 longitude = record.get(RECORD_LONGITUDE).toDouble(),
                 latitude = record.get(RECORD_LATITUDE).toDouble(),
-                timezoneId = record.get(RECORD_TIMEZONE)
-            )
+                timezoneId = record.get(RECORD_TIMEZONE),
+            ),
         )
     }
 

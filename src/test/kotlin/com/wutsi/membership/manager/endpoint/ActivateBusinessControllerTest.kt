@@ -34,7 +34,7 @@ class ActivateBusinessControllerTest : AbstractSecuredControllerTest() {
         displayName = "Yo Man",
         whatsapp = true,
         biography = "This is a description",
-        categoryId = 1213232L
+        categoryId = 1213232L,
     )
 
     @Test
@@ -59,7 +59,7 @@ class ActivateBusinessControllerTest : AbstractSecuredControllerTest() {
 
         verify(eventStream).publish(
             EventURN.BUSINESS_ACTIVATED.urn,
-            MemberEventPayload(accountId = ACCOUNT_ID)
+            MemberEventPayload(accountId = ACCOUNT_ID),
         )
     }
 

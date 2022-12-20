@@ -15,7 +15,7 @@ class DeactivateMemberWorkflow(eventStream: EventStream) : AbstractMembershipWor
     override fun getEventType(request: Void?, response: Unit, context: WorkflowContext) = EventURN.MEMBER_DELETED.urn
 
     override fun toEventPayload(request: Void?, response: Unit, context: WorkflowContext) = MemberEventPayload(
-        accountId = SecurityUtil.getAccountId()
+        accountId = SecurityUtil.getAccountId(),
     )
 
     override fun getValidationRules(request: Void?, context: WorkflowContext) = RuleSet.NONE
@@ -24,8 +24,8 @@ class DeactivateMemberWorkflow(eventStream: EventStream) : AbstractMembershipWor
         membershipAccessApi.updateAccountStatus(
             id = SecurityUtil.getAccountId(),
             request = UpdateAccountStatusRequest(
-                status = AccountStatus.INACTIVE.name
-            )
+                status = AccountStatus.INACTIVE.name,
+            ),
         )
     }
 }

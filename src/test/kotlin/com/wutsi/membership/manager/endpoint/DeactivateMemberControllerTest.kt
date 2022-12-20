@@ -32,13 +32,13 @@ class DeactivateMemberControllerTest : AbstractSecuredControllerTest() {
         verify(membershipAccess).updateAccountStatus(
             ACCOUNT_ID,
             UpdateAccountStatusRequest(
-                status = AccountStatus.INACTIVE.name
-            )
+                status = AccountStatus.INACTIVE.name,
+            ),
         )
 
         verify(eventStream).publish(
             EventURN.MEMBER_DELETED.urn,
-            MemberEventPayload(accountId = ACCOUNT_ID)
+            MemberEventPayload(accountId = ACCOUNT_ID),
         )
     }
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 @Service
 class EventHandler(
     private val store: StoreEventHandler,
-    private val business: BusinessEventHandler
+    private val business: BusinessEventHandler,
 ) {
     @EventListener
     fun handleEvent(event: Event) {
