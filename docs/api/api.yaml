@@ -139,7 +139,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SaveAccountDeviceRequest'
+              $ref: '#/components/schemas/SaveDeviceRequest'
       responses:
         200:
           description: Success
@@ -605,7 +605,7 @@ components:
           type: string
           description: Category title
 
-    SaveAccountDeviceRequest:
+    SaveDeviceRequest:
       type: object
       properties:
         token:
