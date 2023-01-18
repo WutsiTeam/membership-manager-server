@@ -18,4 +18,6 @@ public data class ActivateBusinessRequest(
     @get:Size(max = 160)
     public val biography: String? = null,
     public val whatsapp: Boolean = false,
+    @get:NotBlank
+    public val email: String = "",
 )

@@ -35,6 +35,7 @@ class ActivateBusinessControllerTest : AbstractSecuredControllerTest() {
         whatsapp = true,
         biography = "This is a description",
         categoryId = 1213232L,
+        email = "info@fake-news.com",
     )
 
     @Test
@@ -56,6 +57,7 @@ class ActivateBusinessControllerTest : AbstractSecuredControllerTest() {
         assertEquals(request.whatsapp, req.firstValue.whatsapp)
         assertEquals(request.displayName, req.firstValue.displayName)
         assertEquals(request.biography, req.firstValue.biography)
+        assertEquals(request.email, req.firstValue.email)
 
         verify(eventStream).publish(
             EventURN.BUSINESS_ACTIVATED.urn,

@@ -48,6 +48,7 @@ class ActivateBusinessWorkflow(
                 categoryId = request.categoryId,
                 biography = request.biography,
                 whatsapp = request.whatsapp,
+                email = request.email,
             ),
         )
     }

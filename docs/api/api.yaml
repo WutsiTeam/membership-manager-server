@@ -302,10 +302,14 @@ components:
           type: boolean
           default: false
           description: TRUE this account is associated with WhatsApp
+        email:
+          type: string
+          description: Email address
       required:
         - displayName
         - categoryId
         - cityId
+        - email
 
     SearchMemberRequest:
       type: object
