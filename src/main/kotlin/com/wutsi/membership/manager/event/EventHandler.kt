@@ -16,6 +16,7 @@ class EventHandler(
             EventURN.STORE_ACTIVATED.urn -> store.onStoreActivated(event)
             EventURN.STORE_DEACTIVATED.urn -> store.onStoreDeactivated(event)
             EventURN.BUSINESS_CREATED.urn -> business.onBusinessCreated(event)
+            EventURN.BUSINESS_DEACTIVATED.urn -> business.onBusinessDeactivated(event)
             else -> {}
         }
     }

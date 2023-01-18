@@ -86,7 +86,7 @@ internal class EventHandlerTest {
     }
 
     @Test
-    fun onStoreCreated() {
+    fun onBusinessCreated() {
         // GIVEN
         val payload = BusinessEventPayload(
             accountId = 11L,
@@ -109,6 +109,34 @@ internal class EventHandlerTest {
             UpdateAccountAttributeRequest(
                 name = "business-id",
                 value = payload.businessId.toString(),
+            ),
+        )
+    }
+
+    @Test
+    fun onBusinessDeactivated() {
+        // GIVEN
+        val payload = BusinessEventPayload(
+            accountId = 11L,
+            businessId = 22L,
+        )
+
+        val account = Fixtures.createAccount(businessId = payload.businessId)
+        doReturn(GetAccountResponse(account)).whenever(membershipAccessApi).getAccount(any())
+
+        // WHEN
+        val event = Event(
+            type = EventURN.BUSINESS_DEACTIVATED.urn,
+            payload = mapper.writeValueAsString(payload),
+        )
+        handler.handleEvent(event)
+
+        // THEN
+        verify(membershipAccessApi).updateAccountAttribute(
+            id = payload.accountId,
+            UpdateAccountAttributeRequest(
+                name = "business-id",
+                value = null,
             ),
         )
     }

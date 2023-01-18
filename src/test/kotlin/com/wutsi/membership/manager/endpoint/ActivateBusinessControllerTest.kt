@@ -10,8 +10,8 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.enums.AccountStatus
 import com.wutsi.error.ErrorURN
+import com.wutsi.event.BusinessEventPayload
 import com.wutsi.event.EventURN
-import com.wutsi.event.MemberEventPayload
 import com.wutsi.membership.access.dto.GetAccountResponse
 import com.wutsi.membership.manager.Fixtures
 import com.wutsi.membership.manager.dto.ActivateBusinessRequest
@@ -59,7 +59,7 @@ class ActivateBusinessControllerTest : AbstractSecuredControllerTest() {
 
         verify(eventStream).publish(
             EventURN.BUSINESS_ACTIVATED.urn,
-            MemberEventPayload(accountId = ACCOUNT_ID),
+            BusinessEventPayload(accountId = ACCOUNT_ID),
         )
     }
 

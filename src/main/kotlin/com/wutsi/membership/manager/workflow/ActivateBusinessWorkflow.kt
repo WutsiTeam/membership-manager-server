@@ -1,7 +1,7 @@
 package com.wutsi.membership.manager.workflow
 
+import com.wutsi.event.BusinessEventPayload
 import com.wutsi.event.EventURN
-import com.wutsi.event.MemberEventPayload
 import com.wutsi.membership.manager.dto.ActivateBusinessRequest
 import com.wutsi.membership.manager.util.SecurityUtil
 import com.wutsi.platform.core.stream.EventStream
@@ -17,12 +17,12 @@ import org.springframework.stereotype.Service
 class ActivateBusinessWorkflow(
     private val regulationEngine: RegulationEngine,
     eventStream: EventStream,
-) : AbstractMembershipWorkflow<ActivateBusinessRequest, Unit>(eventStream) {
+) : AbstractBusinessWorkflow<ActivateBusinessRequest, Unit>(eventStream) {
     override fun getEventType(request: ActivateBusinessRequest, response: Unit, context: WorkflowContext) =
         EventURN.BUSINESS_ACTIVATED.urn
 
     override fun toEventPayload(request: ActivateBusinessRequest, response: Unit, context: WorkflowContext) =
-        MemberEventPayload(
+        BusinessEventPayload(
             accountId = SecurityUtil.getAccountId(),
         )
 

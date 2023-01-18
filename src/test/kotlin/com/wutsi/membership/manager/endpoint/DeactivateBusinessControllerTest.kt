@@ -1,26 +1,17 @@
 package com.wutsi.membership.manager.endpoint
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import com.wutsi.enums.AccountStatus
-import com.wutsi.error.ErrorURN
+import com.wutsi.event.BusinessEventPayload
 import com.wutsi.event.EventURN
-import com.wutsi.event.MemberEventPayload
 import com.wutsi.membership.access.dto.GetAccountResponse
 import com.wutsi.membership.manager.Fixtures
-import com.wutsi.platform.core.error.ErrorResponse
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
-import org.springframework.http.HttpStatus
-import org.springframework.web.client.HttpClientErrorException
-import kotlin.test.assertEquals
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DeactivateBusinessControllerTest : AbstractSecuredControllerTest() {
@@ -30,59 +21,31 @@ public class DeactivateBusinessControllerTest : AbstractSecuredControllerTest() 
     @Test
     public fun disable() {
         // GIVEN
-        val account = Fixtures.createAccount(business = true)
+        val account = Fixtures.createAccount(id = ACCOUNT_ID, business = true, businessId = 7777L)
         doReturn(GetAccountResponse(account)).whenever(membershipAccess).getAccount(any())
 
         // WHEN
         rest.delete(url())
 
         // THEN
-        verify(membershipAccess).disableBusiness(eq(ACCOUNT_ID))
+        verify(membershipAccess).disableBusiness(account.id)
 
         verify(eventStream).publish(
             EventURN.BUSINESS_DEACTIVATED.urn,
-            MemberEventPayload(accountId = ACCOUNT_ID),
+            BusinessEventPayload(accountId = account.id, businessId = account.businessId!!),
         )
     }
 
     @Test
-    fun notBusiness() {
+    fun noBusinessId() {
         // GIVEN
-        val account = Fixtures.createAccount(business = false)
+        val account = Fixtures.createAccount(businessId = null)
         doReturn(GetAccountResponse(account)).whenever(membershipAccess).getAccount(any())
 
         // WHEN
-        val ex = assertThrows<HttpClientErrorException> {
-            rest.delete(url())
-        }
+        rest.delete(url())
 
         // THEN
-        assertEquals(HttpStatus.CONFLICT, ex.statusCode)
-
-        val response = ObjectMapper().readValue(ex.responseBodyAsString, ErrorResponse::class.java)
-        assertEquals(ErrorURN.MEMBER_NOT_BUSINESS.urn, response.error.code)
-
-        verify(membershipAccess, never()).updateAccountAttribute(any(), any())
-        verify(eventStream, never()).publish(any(), any())
-    }
-
-    @Test
-    fun notActive() {
-        // GIVEN
-        val account = Fixtures.createAccount(status = AccountStatus.INACTIVE)
-        doReturn(GetAccountResponse(account)).whenever(membershipAccess).getAccount(any())
-
-        // WHEN
-        val ex = assertThrows<HttpClientErrorException> {
-            rest.delete(url())
-        }
-
-        // THEN
-        assertEquals(HttpStatus.CONFLICT, ex.statusCode)
-
-        val response = ObjectMapper().readValue(ex.responseBodyAsString, ErrorResponse::class.java)
-        assertEquals(ErrorURN.MEMBER_NOT_ACTIVE.urn, response.error.code)
-
         verify(membershipAccess, never()).updateAccountAttribute(any(), any())
         verify(eventStream, never()).publish(any(), any())
     }
