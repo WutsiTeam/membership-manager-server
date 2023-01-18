@@ -58,34 +58,6 @@ internal class EventHandlerTest {
     }
 
     @Test
-    fun onStoreSuspended() {
-        // GIVEN
-        val payload = StoreEventPayload(
-            accountId = 11L,
-            storeId = 22L,
-        )
-
-        val account = Fixtures.createAccount(storeId = payload.storeId)
-        doReturn(GetAccountResponse(account)).whenever(membershipAccessApi).getAccount(any())
-
-        // WHEN
-        val event = Event(
-            type = EventURN.STORE_DEACTIVATED.urn,
-            payload = mapper.writeValueAsString(payload),
-        )
-        handler.handleEvent(event)
-
-        // THEN
-        verify(membershipAccessApi).updateAccountAttribute(
-            id = payload.accountId,
-            UpdateAccountAttributeRequest(
-                name = "store-id",
-                value = null,
-            ),
-        )
-    }
-
-    @Test
     fun onBusinessCreated() {
         // GIVEN
         val payload = BusinessEventPayload(
@@ -109,34 +81,6 @@ internal class EventHandlerTest {
             UpdateAccountAttributeRequest(
                 name = "business-id",
                 value = payload.businessId.toString(),
-            ),
-        )
-    }
-
-    @Test
-    fun onBusinessDeactivated() {
-        // GIVEN
-        val payload = BusinessEventPayload(
-            accountId = 11L,
-            businessId = 22L,
-        )
-
-        val account = Fixtures.createAccount(businessId = payload.businessId)
-        doReturn(GetAccountResponse(account)).whenever(membershipAccessApi).getAccount(any())
-
-        // WHEN
-        val event = Event(
-            type = EventURN.BUSINESS_DEACTIVATED.urn,
-            payload = mapper.writeValueAsString(payload),
-        )
-        handler.handleEvent(event)
-
-        // THEN
-        verify(membershipAccessApi).updateAccountAttribute(
-            id = payload.accountId,
-            UpdateAccountAttributeRequest(
-                name = "business-id",
-                value = null,
             ),
         )
     }

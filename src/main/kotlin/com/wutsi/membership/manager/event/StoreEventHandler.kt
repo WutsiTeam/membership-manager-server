@@ -30,21 +30,6 @@ class StoreEventHandler(
         )
     }
 
-    fun onStoreDeactivated(event: Event) {
-        val payload = toStorePayload(event)
-        log(payload)
-
-        updateMemberAttributeWorkflow.execute(
-            request = UpdateMemberAttributeRequest(
-                name = "store-id",
-                value = null,
-            ),
-            context = WorkflowContext(
-                accountId = payload.accountId,
-            ),
-        )
-    }
-
     private fun toStorePayload(event: Event): StoreEventPayload =
         mapper.readValue(event.payload, StoreEventPayload::class.java)
 

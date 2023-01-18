@@ -14,9 +14,7 @@ class EventHandler(
     fun handleEvent(event: Event) {
         when (event.type) {
             EventURN.STORE_ACTIVATED.urn -> store.onStoreActivated(event)
-            EventURN.STORE_DEACTIVATED.urn -> store.onStoreDeactivated(event)
             EventURN.BUSINESS_CREATED.urn -> business.onBusinessCreated(event)
-            EventURN.BUSINESS_DEACTIVATED.urn -> business.onBusinessDeactivated(event)
             else -> {}
         }
     }

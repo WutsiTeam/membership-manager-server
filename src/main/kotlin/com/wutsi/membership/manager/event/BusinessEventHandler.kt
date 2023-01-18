@@ -30,21 +30,6 @@ class BusinessEventHandler(
         )
     }
 
-    fun onBusinessDeactivated(event: Event) {
-        val payload = toBusinessEvent(event)
-        log(payload)
-
-        updateMemberAttributeWorkflow.execute(
-            request = UpdateMemberAttributeRequest(
-                name = "business-id",
-                value = null,
-            ),
-            context = WorkflowContext(
-                accountId = payload.accountId,
-            ),
-        )
-    }
-
     private fun toBusinessEvent(event: Event): BusinessEventPayload =
         mapper.readValue(event.payload, BusinessEventPayload::class.java)
 
