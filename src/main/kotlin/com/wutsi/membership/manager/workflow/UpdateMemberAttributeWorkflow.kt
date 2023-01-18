@@ -7,7 +7,6 @@ import com.wutsi.membership.manager.dto.UpdateMemberAttributeRequest
 import com.wutsi.platform.core.stream.EventStream
 import com.wutsi.workflow.RuleSet
 import com.wutsi.workflow.WorkflowContext
-import com.wutsi.workflow.rule.account.AccountShouldBeActiveRule
 import org.springframework.stereotype.Service
 
 @Service
@@ -21,14 +20,7 @@ class UpdateMemberAttributeWorkflow(eventStream: EventStream) :
             accountId = getCurrentAccountId(context),
         )
 
-    override fun getValidationRules(request: UpdateMemberAttributeRequest, context: WorkflowContext): RuleSet {
-        val account = getCurrentAccount(context)
-        return RuleSet(
-            listOf(
-                AccountShouldBeActiveRule(account),
-            ),
-        )
-    }
+    override fun getValidationRules(request: UpdateMemberAttributeRequest, context: WorkflowContext) = RuleSet.NONE
 
     override fun doExecute(request: UpdateMemberAttributeRequest, context: WorkflowContext) {
         membershipAccessApi.updateAccountAttribute(
