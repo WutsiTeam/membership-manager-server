@@ -33,7 +33,7 @@
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
     <libphonenumber.version>8.12.57</libphonenumber.version>
 
-    <wutsi-workflow.version>1.0.86</wutsi-workflow.version>
+    <wutsi-workflow.version>1.0.91</wutsi-workflow.version>
   </properties>
 
   <dependencies>
