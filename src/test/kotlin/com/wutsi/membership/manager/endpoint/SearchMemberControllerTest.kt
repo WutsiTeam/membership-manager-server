@@ -33,6 +33,9 @@ public class SearchMemberControllerTest : AbstractControllerTest() {
             phoneNumber = "+237990000001",
             limit = 3,
             offset = 100,
+            store = true,
+            business = true,
+            cityId = 1111,
         )
         val response = rest.postForEntity(url(), request, SearchMemberResponse::class.java)
 
@@ -45,6 +48,9 @@ public class SearchMemberControllerTest : AbstractControllerTest() {
                 limit = request.limit,
                 offset = request.offset,
                 status = AccountStatus.ACTIVE.name,
+                store = request.store,
+                business = request.business,
+                cityId = request.cityId,
             ),
         )
 

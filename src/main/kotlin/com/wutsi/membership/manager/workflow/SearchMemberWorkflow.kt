@@ -33,8 +33,11 @@ class SearchMemberWorkflow(eventStream: EventStream) :
             request = SearchAccountRequest(
                 phoneNumber = request.phoneNumber,
                 status = AccountStatus.ACTIVE.name,
+                business = request.business,
+                store = request.store,
                 limit = request.limit,
                 offset = request.offset,
+                cityId = request.cityId,
             ),
         ).accounts
         return SearchMemberResponse(

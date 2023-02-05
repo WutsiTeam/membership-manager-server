@@ -319,6 +319,19 @@ components:
           description: |
             Phone number in the [E164](https://en.wikipedia.org/wiki/E.164) format
           nullable: true
+        business:
+          type: boolean
+          description: Filter business account
+          nullable: true
+        store:
+          type: boolean
+          description: Filter account with store
+          nullable: true
+        cityId:
+          type: integer
+          format: int64
+          description: City of the account
+          nullable: true
         limit:
           type: integer
           default: 100
