@@ -37,6 +37,7 @@ class GetMemberWorkflow(eventStream: EventStream) :
             return GetMemberResponse(
                 member = Member(
                     id = account.id,
+                    name = account.name,
                     displayName = account.displayName,
                     pictureUrl = account.pictureUrl,
                     business = account.business,
