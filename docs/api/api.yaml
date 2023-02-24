@@ -305,6 +305,10 @@ components:
         email:
           type: string
           description: Email address
+        name:
+          type: string
+          description: Name of the account
+          nullable: true
       required:
         - displayName
         - categoryId
@@ -392,7 +396,6 @@ components:
       type: object
       properties:
         member:
-          type: object
           $ref: "#/components/schemas/Member"
 
     Member:
@@ -402,6 +405,10 @@ components:
           type: integer
           format: int64
           description: Unique identifier of the member
+        name:
+          type: string
+          description: Name of the member
+          nullable: true
         phoneNumber:
           type: string
           description: Phone number
@@ -478,13 +485,13 @@ components:
           description: ID of the account's business
           nullable: true
         city:
-          type: object
-          $ref: "#/components/schemas/Place"
-          nullable: true
+          anyOf:
+            - type: "null"
+            - $ref: "#/components/schemas/Place"
         category:
-          type: object
-          $ref: "#/components/schemas/Category"
-          nullable: true
+          anyOf:
+            - type: "null"
+            - $ref: "#/components/schemas/Category"
 
     Place:
       type: object
@@ -560,7 +567,6 @@ components:
         places:
           type: array
           items:
-            type: array
             $ref: "#/components/schemas/PlaceSummary"
 
     PlaceSummary:

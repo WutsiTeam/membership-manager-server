@@ -1,7 +1,12 @@
 package com.wutsi.membership.manager.dto
 
+import kotlin.Boolean
+import kotlin.Long
+import kotlin.String
+
 public data class Member(
     public val id: Long = 0,
+    public val name: String? = null,
     public val phoneNumber: String = "",
     public val email: String? = null,
     public val pictureUrl: String? = null,
