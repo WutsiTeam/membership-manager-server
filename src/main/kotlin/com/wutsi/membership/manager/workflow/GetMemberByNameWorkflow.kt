@@ -32,7 +32,7 @@ class GetMemberByNameWorkflow(
         try {
             GetMemberResponse(
                 member = toMember(
-                    membershipAccessApi.getAccountByName(name).account
+                    membershipAccessApi.getAccountByName(name).account,
                 ),
             )
         } catch (ex: NotFoundException) {

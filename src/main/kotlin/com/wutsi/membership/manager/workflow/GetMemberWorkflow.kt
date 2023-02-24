@@ -32,7 +32,7 @@ class GetMemberWorkflow(
         try {
             GetMemberResponse(
                 member = toMember(
-                    getAccount(memberId)
+                    getAccount(memberId),
                 ),
             )
         } catch (ex: NotFoundException) {
