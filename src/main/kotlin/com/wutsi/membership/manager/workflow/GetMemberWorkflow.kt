@@ -1,10 +1,8 @@
 package com.wutsi.membership.manager.workflow
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.wutsi.error.ErrorURN
 import com.wutsi.event.MemberEventPayload
 import com.wutsi.membership.manager.dto.GetMemberResponse
-import com.wutsi.membership.manager.dto.Member
 import com.wutsi.platform.core.error.Error
 import com.wutsi.platform.core.error.exception.NotFoundException
 import com.wutsi.platform.core.stream.EventStream
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Service
 
 @Service
 class GetMemberWorkflow(
-    private val objectMapper: ObjectMapper,
     eventStream: EventStream,
 ) : AbstractMembershipWorkflow<Long, GetMemberResponse>(eventStream) {
     override fun getEventType(
@@ -31,13 +28,11 @@ class GetMemberWorkflow(
 
     override fun getValidationRules(memberId: Long, context: WorkflowContext) = RuleSet.NONE
 
-    override fun doExecute(memberId: Long, context: WorkflowContext): GetMemberResponse {
+    override fun doExecute(memberId: Long, context: WorkflowContext): GetMemberResponse =
         try {
-            val account = getAccount(memberId)
-            return GetMemberResponse(
-                member = objectMapper.readValue(
-                    objectMapper.writeValueAsString(account),
-                    Member::class.java,
+            GetMemberResponse(
+                member = toMember(
+                    getAccount(memberId)
                 ),
             )
         } catch (ex: NotFoundException) {
@@ -50,5 +45,4 @@ class GetMemberWorkflow(
                 ),
             )
         }
-    }
 }
