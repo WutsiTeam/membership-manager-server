@@ -56,6 +56,30 @@ paths:
       tags:
         - Member
 
+  /v1/members/@{name}:
+    get:
+      operationId: "get-member-by-name"
+      description: Return information about an account by name
+      parameters:
+        - in: path
+          name: name
+          description: account username
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMemberResponse'
+        404:
+          description: The account not found
+      tags:
+        - Account
+
+
   /v1/members:
     post:
       operationId: "register-member"

@@ -13,27 +13,27 @@ import com.wutsi.workflow.WorkflowContext
 import org.springframework.stereotype.Service
 
 @Service
-class GetMemberWorkflow(
+class GetMemberByNameWorkflow(
     private val objectMapper: ObjectMapper,
     eventStream: EventStream,
-) : AbstractMembershipWorkflow<Long, GetMemberResponse>(eventStream) {
+) : AbstractMembershipWorkflow<String, GetMemberResponse>(eventStream) {
     override fun getEventType(
-        memberId: Long,
+        name: String,
         response: GetMemberResponse,
         context: WorkflowContext,
     ): String? = null
 
     override fun toEventPayload(
-        memberId: Long,
+        name: String,
         response: GetMemberResponse,
         context: WorkflowContext,
     ): MemberEventPayload? = null
 
-    override fun getValidationRules(memberId: Long, context: WorkflowContext) = RuleSet.NONE
+    override fun getValidationRules(name: String, context: WorkflowContext) = RuleSet.NONE
 
-    override fun doExecute(memberId: Long, context: WorkflowContext): GetMemberResponse {
+    override fun doExecute(name: String, context: WorkflowContext): GetMemberResponse {
         try {
-            val account = getAccount(memberId)
+            val account = membershipAccessApi.getAccountByName(name).account
             return GetMemberResponse(
                 member = objectMapper.readValue(
                     objectMapper.writeValueAsString(account),
@@ -45,7 +45,7 @@ class GetMemberWorkflow(
                 error = Error(
                     code = ErrorURN.MEMBER_NOT_FOUND.urn,
                     data = mapOf(
-                        "account-id" to memberId,
+                        "name" to name,
                     ),
                 ),
             )

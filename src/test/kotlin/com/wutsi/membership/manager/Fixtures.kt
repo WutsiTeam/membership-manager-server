@@ -28,9 +28,11 @@ object Fixtures {
         storeId: Long? = null,
         businessId: Long? = null,
         country: String = "CM",
+        name: String? = null,
     ) = Account(
         id = id,
         status = status.name,
+        name = name,
         business = business,
         storeId = storeId,
         businessId = businessId,

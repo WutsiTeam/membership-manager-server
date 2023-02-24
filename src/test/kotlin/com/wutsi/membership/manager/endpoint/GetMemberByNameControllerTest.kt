@@ -1,5 +1,6 @@
 package com.wutsi.membership.manager.endpoint
 
+import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.membership.access.dto.GetAccountResponse
@@ -13,7 +14,7 @@ import org.springframework.web.client.RestTemplate
 import kotlin.test.assertEquals
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class GetMemberControllerTest : AbstractControllerTest() {
+public class GetMemberByNameControllerTest : AbstractControllerTest() {
     @LocalServerPort
     val port: Int = 0
 
@@ -28,10 +29,10 @@ class GetMemberControllerTest : AbstractControllerTest() {
             businessId = 22L,
             name = "ray.sponsible",
         )
-        doReturn(GetAccountResponse(account)).whenever(membershipAccess).getAccount(accountId)
+        doReturn(GetAccountResponse(account)).whenever(membershipAccess).getAccountByName(any())
 
         // WHEN
-        val response = RestTemplate().getForEntity(url(accountId), GetMemberResponse::class.java)
+        val response = RestTemplate().getForEntity(url("ray.sponsible"), GetMemberResponse::class.java)
 
         // THEN
         assertEquals(HttpStatus.OK, response.statusCode)
@@ -51,5 +52,5 @@ class GetMemberControllerTest : AbstractControllerTest() {
         assertEquals(account.city?.name, member.city?.name)
     }
 
-    private fun url(id: Long) = "http://localhost:$port/v1/members/$id"
+    private fun url(name: String) = "http://localhost:$port/v1/members/@$name"
 }
