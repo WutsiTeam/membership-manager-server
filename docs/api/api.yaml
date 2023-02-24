@@ -383,6 +383,10 @@ components:
           format: url
           description: URL of the member picture
           nullable: true
+        name:
+          type: string
+          description: Name of the account
+          nullable: true
         displayName:
           type: string
           description: Display Name

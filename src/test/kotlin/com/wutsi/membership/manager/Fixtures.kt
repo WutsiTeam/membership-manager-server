@@ -19,6 +19,7 @@ object Fixtures {
         categoryId = 2222L,
         status = AccountStatus.ACTIVE.name,
         pictureUrl = "https://www.img.com/100.png",
+        name = "ray.sponsible",
     )
 
     fun createAccount(

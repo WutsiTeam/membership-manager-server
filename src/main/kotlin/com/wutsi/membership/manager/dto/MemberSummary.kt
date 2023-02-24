@@ -7,6 +7,7 @@ import kotlin.String
 public data class MemberSummary(
     public val id: Long = 0,
     public val pictureUrl: String? = null,
+    public val name: String? = null,
     public val displayName: String = "",
     public val active: Boolean = false,
     public val language: String = "",

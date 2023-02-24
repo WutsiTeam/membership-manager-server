@@ -53,6 +53,7 @@ class SearchMemberWorkflow(eventStream: EventStream) :
                     language = it.language,
                     active = it.status == AccountStatus.ACTIVE.name,
                     superUser = it.superUser,
+                    name = it.name,
                 )
             },
         )
