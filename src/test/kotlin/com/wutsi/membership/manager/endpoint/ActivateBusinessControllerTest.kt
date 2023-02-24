@@ -36,7 +36,6 @@ class ActivateBusinessControllerTest : AbstractSecuredControllerTest() {
         biography = "This is a description",
         categoryId = 1213232L,
         email = "info@fake-news.com",
-        name = "ray.sponsible",
     )
 
     @Test
@@ -59,7 +58,6 @@ class ActivateBusinessControllerTest : AbstractSecuredControllerTest() {
         assertEquals(request.displayName, req.firstValue.displayName)
         assertEquals(request.biography, req.firstValue.biography)
         assertEquals(request.email, req.firstValue.email)
-        assertEquals(request.name, req.firstValue.name)
 
         verify(eventStream).publish(
             EventURN.BUSINESS_ACTIVATED.urn,

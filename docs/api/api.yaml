@@ -305,10 +305,6 @@ components:
         email:
           type: string
           description: Email address
-        name:
-          type: string
-          description: Name of the account
-          nullable: true
       required:
         - displayName
         - categoryId
