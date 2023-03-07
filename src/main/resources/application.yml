@@ -62,12 +62,6 @@ wutsi:
   client-id: membership-manager
   application:
     name: membership-manager
-    services:
-      category:
-        url: https://int-wutsi.s3.amazonaws.com/static/membership-manager-server/csv/business-categories.csv
-      place:
-        url-prefix: https://int-wutsi.s3.amazonaws.com/static/membership-manager-server/csv
-        min-population: 1000
   platform:
     cache:
       name: ${wutsi.application.name}

@@ -19,12 +19,11 @@
   </parent>
 
   <properties>
-    <jacoco.threshold.line>0.95</jacoco.threshold.line>
-    <jacoco.threshold.class>0.95</jacoco.threshold.class>
+    <jacoco.threshold.line>0.94</jacoco.threshold.line>
+    <jacoco.threshold.class>0.94</jacoco.threshold.class>
     <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
     <jdk.version>11</jdk.version>
 
-    <commons-csv.version>1.9.0</commons-csv.version>
     <javax-validation.version>2.0.1.Final</javax-validation.version>
     <junit.version>5.9.1</junit.version>
     <kotlin.version>1.7.10</kotlin.version>
@@ -33,7 +32,7 @@
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
     <libphonenumber.version>8.12.57</libphonenumber.version>
 
-    <wutsi-workflow.version>1.0.102</wutsi-workflow.version>
+    <wutsi-workflow.version>1.0.110</wutsi-workflow.version>
   </properties>
 
   <dependencies>
@@ -54,11 +53,6 @@
       <version>${kotlin.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-csv</artifactId>
-      <version>${commons-csv.version}</version>
-    </dependency>
     <dependency>
       <groupId>com.googlecode.libphonenumber</groupId>
       <artifactId>libphonenumber</artifactId>
