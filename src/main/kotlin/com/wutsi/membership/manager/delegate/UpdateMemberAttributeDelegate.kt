@@ -1,6 +1,7 @@
 package com.wutsi.membership.manager.delegate
 
 import com.wutsi.membership.manager.dto.UpdateMemberAttributeRequest
+import com.wutsi.membership.manager.util.SecurityUtil
 import com.wutsi.membership.manager.workflow.UpdateMemberAttributeWorkflow
 import com.wutsi.platform.core.logging.KVLogger
 import com.wutsi.workflow.WorkflowContext
@@ -15,6 +16,11 @@ class UpdateMemberAttributeDelegate(
         logger.add("request_value", request.value)
         logger.add("request_name", request.name)
 
-        workflow.execute(request, WorkflowContext())
+        workflow.execute(
+            WorkflowContext(
+                accountId = SecurityUtil.getAccountId(),
+                input = request,
+            ),
+        )
     }
 }

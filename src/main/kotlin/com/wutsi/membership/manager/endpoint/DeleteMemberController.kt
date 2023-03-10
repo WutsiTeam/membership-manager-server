@@ -1,12 +1,12 @@
 package com.wutsi.membership.manager.endpoint
 
-import com.wutsi.membership.manager.`delegate`.DeactivateMemberDelegate
+import com.wutsi.membership.manager.`delegate`.DeleteMemberDelegate
 import org.springframework.web.bind.`annotation`.DeleteMapping
 import org.springframework.web.bind.`annotation`.RestController
 
 @RestController
-public class DeactivateMemberController(
-    public val `delegate`: DeactivateMemberDelegate,
+public class DeleteMemberController(
+    public val `delegate`: DeleteMemberDelegate,
 ) {
     @DeleteMapping("/v1/members")
     public fun invoke() {

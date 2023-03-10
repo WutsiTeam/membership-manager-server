@@ -9,6 +9,6 @@ class ImportCategoryDelegate(
     private val workflow: ImportCategoryWorkflow,
 ) {
     fun invoke(language: String) {
-        workflow.execute(language, WorkflowContext())
+        workflow.execute(WorkflowContext(input = language))
     }
 }

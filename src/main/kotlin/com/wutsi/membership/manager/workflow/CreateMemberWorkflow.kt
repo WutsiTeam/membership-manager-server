@@ -1,50 +1,48 @@
 package com.wutsi.membership.manager.workflow
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wutsi.event.EventURN
-import com.wutsi.event.MemberEventPayload
+import com.wutsi.membership.access.MembershipAccessApi
 import com.wutsi.membership.access.dto.CreateAccountRequest
 import com.wutsi.membership.access.error.ErrorURN
 import com.wutsi.membership.manager.dto.RegisterMemberRequest
 import com.wutsi.membership.manager.util.PhoneUtil
+import com.wutsi.membership.manager.workflow.task.CreatePaymentMethodTask
 import com.wutsi.platform.core.error.Error
 import com.wutsi.platform.core.error.ErrorResponse
 import com.wutsi.platform.core.error.exception.ConflictException
-import com.wutsi.platform.core.stream.EventStream
-import com.wutsi.workflow.RuleSet
 import com.wutsi.workflow.WorkflowContext
+import com.wutsi.workflow.engine.Workflow
+import com.wutsi.workflow.engine.WorkflowEngine
+import com.wutsi.workflow.util.WorkflowIdGenerator
 import feign.FeignException
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.stereotype.Service
+import javax.annotation.PostConstruct
 
 @Service
-class RegisterMemberWorkflow(
-    private val mapper: ObjectMapper,
-    eventStream: EventStream,
-) : AbstractMembershipWorkflow<RegisterMemberRequest, Long>(eventStream) {
-    override fun getEventType(
-        request: RegisterMemberRequest,
-        accountId: Long,
-        context: WorkflowContext,
-    ) = EventURN.MEMBER_REGISTERED.urn
-
-    override fun toEventPayload(
-        request: RegisterMemberRequest,
-        accountId: Long,
-        context: WorkflowContext,
-    ): MemberEventPayload {
-        return MemberEventPayload(
-            accountId = accountId,
-            phoneNumber = request.phoneNumber,
-            pin = request.pin,
-        )
+class CreateMemberWorkflow(
+    private val workflowEngine: WorkflowEngine,
+    private val membershipAccessApi: MembershipAccessApi,
+    private val objectMapper: ObjectMapper,
+) : Workflow {
+    companion object {
+        val ID = WorkflowIdGenerator.generate("membership-manager", "create-member")
     }
 
-    override fun getValidationRules(request: RegisterMemberRequest, context: WorkflowContext) = RuleSet.NONE
+    @PostConstruct
+    fun init() {
+        workflowEngine.register(ID, this)
+    }
 
-    override fun doExecute(request: RegisterMemberRequest, context: WorkflowContext): Long {
+    override fun execute(context: WorkflowContext) {
+        val request = context.input as RegisterMemberRequest
+        val accountId = createAccount(request)
+        createPaymentMethod(accountId)
+    }
+
+    private fun createAccount(request: RegisterMemberRequest): Long =
         try {
-            return membershipAccessApi.createAccount(
+            membershipAccessApi.createAccount(
                 request = CreateAccountRequest(
                     phoneNumber = request.phoneNumber,
                     displayName = request.displayName,
@@ -68,12 +66,10 @@ class RegisterMemberWorkflow(
                 throw ex
             }
         }
-    }
+
+    private fun createPaymentMethod(accountId: Long) =
+        workflowEngine.executeAsync(CreatePaymentMethodTask.ID, WorkflowContext(accountId = accountId))
 
     private fun toErrorResponse(ex: FeignException): ErrorResponse? =
-        try {
-            mapper.readValue(ex.contentUTF8(), ErrorResponse::class.java)
-        } catch (e: Exception) {
-            null
-        }
+        objectMapper.readValue(ex.contentUTF8(), ErrorResponse::class.java)
 }

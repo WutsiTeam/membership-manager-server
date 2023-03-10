@@ -1,32 +1,17 @@
 package com.wutsi.membership.manager.workflow
 
-import com.wutsi.event.MemberEventPayload
+import com.wutsi.membership.access.MembershipAccessApi
 import com.wutsi.membership.manager.dto.PlaceSummary
 import com.wutsi.membership.manager.dto.SearchPlaceRequest
 import com.wutsi.membership.manager.dto.SearchPlaceResponse
-import com.wutsi.platform.core.stream.EventStream
-import com.wutsi.workflow.RuleSet
 import com.wutsi.workflow.WorkflowContext
+import com.wutsi.workflow.engine.Workflow
 import org.springframework.stereotype.Service
 
 @Service
-class SearchPlaceWorkflow(eventStream: EventStream) :
-    AbstractMembershipWorkflow<SearchPlaceRequest, SearchPlaceResponse>(eventStream) {
-    override fun getEventType(
-        request: SearchPlaceRequest,
-        response: SearchPlaceResponse,
-        context: WorkflowContext,
-    ): String? = null
-
-    override fun toEventPayload(
-        request: SearchPlaceRequest,
-        response: SearchPlaceResponse,
-        context: WorkflowContext,
-    ): MemberEventPayload? = null
-
-    override fun getValidationRules(request: SearchPlaceRequest, context: WorkflowContext) = RuleSet.NONE
-
-    override fun doExecute(request: SearchPlaceRequest, context: WorkflowContext): SearchPlaceResponse {
+class SearchPlaceWorkflow(private val membershipAccessApi: MembershipAccessApi) : Workflow {
+    override fun execute(context: WorkflowContext) {
+        val request = context.input as SearchPlaceRequest
         val places = membershipAccessApi.searchPlace(
             request = com.wutsi.membership.access.dto.SearchPlaceRequest(
                 keyword = request.keyword,
@@ -36,7 +21,8 @@ class SearchPlaceWorkflow(eventStream: EventStream) :
                 offset = request.offset,
             ),
         ).places
-        return SearchPlaceResponse(
+
+        context.output = SearchPlaceResponse(
             places = places.map {
                 PlaceSummary(
                     id = it.id,

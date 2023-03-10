@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service
 
 @Service
 public class SearchCategoryDelegate(private val workflow: SearchCategoryWorkflow) {
-    public fun invoke(request: SearchCategoryRequest): SearchCategoryResponse =
-        workflow.execute(request, WorkflowContext())
+    public fun invoke(request: SearchCategoryRequest): SearchCategoryResponse {
+        val context = WorkflowContext(input = request)
+        workflow.execute(context)
+        return context.output as SearchCategoryResponse
+    }
 }

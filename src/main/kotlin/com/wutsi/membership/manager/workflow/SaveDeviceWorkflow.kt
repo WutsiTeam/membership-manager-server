@@ -1,34 +1,19 @@
 package com.wutsi.membership.manager.workflow
 
-import com.wutsi.event.MemberEventPayload
+import com.wutsi.membership.access.MembershipAccessApi
 import com.wutsi.membership.access.dto.SaveAccountDeviceRequest
 import com.wutsi.membership.manager.dto.SaveDeviceRequest
-import com.wutsi.platform.core.stream.EventStream
-import com.wutsi.workflow.RuleSet
 import com.wutsi.workflow.WorkflowContext
+import com.wutsi.workflow.engine.Workflow
 import org.springframework.stereotype.Service
 
 @Service
-class SaveDeviceWorkflow(
-    eventStream: EventStream,
-) : AbstractMembershipWorkflow<SaveDeviceRequest, Unit>(eventStream) {
-    override fun getEventType(
-        request: SaveDeviceRequest,
-        response: Unit,
-        context: WorkflowContext,
-    ): String? = null
+class SaveDeviceWorkflow(private val membershipAccessApi: MembershipAccessApi) : Workflow {
+    override fun execute(context: WorkflowContext) {
+        val request = context.input as SaveDeviceRequest
 
-    override fun toEventPayload(
-        request: SaveDeviceRequest,
-        response: Unit,
-        context: WorkflowContext,
-    ): MemberEventPayload? = null
-
-    override fun getValidationRules(request: SaveDeviceRequest, context: WorkflowContext) = RuleSet.NONE
-
-    override fun doExecute(request: SaveDeviceRequest, context: WorkflowContext) {
         membershipAccessApi.saveAccountDevice(
-            id = getCurrentAccountId(context),
+            id = context.accountId!!,
             request = SaveAccountDeviceRequest(
                 token = request.token,
                 type = request.type,

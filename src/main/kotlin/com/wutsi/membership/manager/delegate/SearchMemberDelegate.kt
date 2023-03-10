@@ -16,6 +16,9 @@ public class SearchMemberDelegate(
         logger.add("request_phone_number", request.phoneNumber)
         logger.add("request_limit", request.limit)
         logger.add("request_offset", request.offset)
-        return workflow.execute(request, WorkflowContext())
+
+        val context = WorkflowContext(input = request)
+        workflow.execute(context)
+        return context.output as SearchMemberResponse
     }
 }

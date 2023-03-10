@@ -4,18 +4,21 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
+import com.wutsi.checkout.access.dto.PaymentMethodSummary
+import com.wutsi.checkout.access.dto.SearchPaymentMethodResponse
+import com.wutsi.checkout.access.dto.UpdatePaymentMethodStatusRequest
 import com.wutsi.enums.AccountStatus
-import com.wutsi.event.EventURN
-import com.wutsi.event.MemberEventPayload
+import com.wutsi.enums.PaymentMethodStatus
 import com.wutsi.membership.access.dto.GetAccountResponse
 import com.wutsi.membership.access.dto.UpdateAccountStatusRequest
 import com.wutsi.membership.manager.Fixtures
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
+import java.util.UUID
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class DeactivateMemberControllerTest : AbstractSecuredControllerTest() {
+class DeleteMemberControllerTest : AbstractSecuredController2Test() {
     @LocalServerPort
     val port: Int = 0
 
@@ -24,6 +27,15 @@ class DeactivateMemberControllerTest : AbstractSecuredControllerTest() {
         // GIVEN
         val account = Fixtures.createAccount()
         doReturn(GetAccountResponse(account)).whenever(membershipAccess).getAccount(any())
+
+        val token = UUID.randomUUID().toString()
+        doReturn(
+            SearchPaymentMethodResponse(
+                paymentMethods = listOf(
+                    PaymentMethodSummary(token = token),
+                ),
+            ),
+        ).whenever(checkoutAccessApi).searchPaymentMethod(any())
 
         // WHEN
         rest.delete(url())
@@ -36,9 +48,12 @@ class DeactivateMemberControllerTest : AbstractSecuredControllerTest() {
             ),
         )
 
-        verify(eventStream).publish(
-            EventURN.MEMBER_DELETED.urn,
-            MemberEventPayload(accountId = ACCOUNT_ID),
+        Thread.sleep(10000) // Wait for async processing
+        verify(securityManagerApi).deletePassword()
+        verify(securityManagerApi).logout()
+        verify(checkoutAccessApi).updatePaymentMethodStatus(
+            token,
+            UpdatePaymentMethodStatusRequest((PaymentMethodStatus.INACTIVE.name)),
         )
     }
 

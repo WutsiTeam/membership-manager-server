@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service
 @Service
 public class GetMemberByNameDelegate(private val workflow: GetMemberByNameWorkflow) {
     public fun invoke(name: String): GetMemberResponse {
-        return workflow.execute(name, WorkflowContext())
+        val context = WorkflowContext(input = name)
+        workflow.execute(context)
+        return context.output as GetMemberResponse
     }
 }

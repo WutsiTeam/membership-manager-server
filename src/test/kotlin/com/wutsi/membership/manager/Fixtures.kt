@@ -1,10 +1,13 @@
 package com.wutsi.membership.manager
 
+import com.wutsi.checkout.access.dto.PaymentProviderSummary
 import com.wutsi.enums.AccountStatus
+import com.wutsi.enums.PaymentMethodType
 import com.wutsi.membership.access.dto.Account
 import com.wutsi.membership.access.dto.AccountSummary
 import com.wutsi.membership.access.dto.Category
 import com.wutsi.membership.access.dto.CategorySummary
+import com.wutsi.membership.access.dto.Phone
 import com.wutsi.membership.access.dto.Place
 import com.wutsi.membership.access.dto.PlaceSummary
 
@@ -30,6 +33,7 @@ object Fixtures {
         businessId: Long? = null,
         country: String = "CM",
         name: String? = null,
+        phoneNumber: String = "",
     ) = Account(
         id = id,
         status = status.name,
@@ -51,6 +55,11 @@ object Fixtures {
             id = 555,
             title = "Ads",
         ),
+        phone = Phone(
+            id = id,
+            number = phoneNumber,
+            country = country,
+        ),
     )
 
     fun createPlaceSummary(id: Long = -1, name: String = "Yaounde") = PlaceSummary(
@@ -61,5 +70,16 @@ object Fixtures {
     fun createCategorySummary(id: Long = -1, title: String = "Foo") = CategorySummary(
         id = id,
         title = title,
+    )
+
+    fun createPaymentProviderSummary(
+        id: Long = System.currentTimeMillis(),
+        type: PaymentMethodType = PaymentMethodType.MOBILE_MONEY,
+        code: String = "MTN",
+    ) = PaymentProviderSummary(
+        id = id,
+        code = code,
+        type = type.name,
+        logoUrl = "https://prod-wutsi.s3.amazonaws.com/static/wutsi-assets/images/payment-providers/mtn.png",
     )
 }

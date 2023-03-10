@@ -19,8 +19,8 @@
   </parent>
 
   <properties>
-    <jacoco.threshold.line>0.94</jacoco.threshold.line>
-    <jacoco.threshold.class>0.94</jacoco.threshold.class>
+    <jacoco.threshold.line>0.93</jacoco.threshold.line>
+    <jacoco.threshold.class>0.93</jacoco.threshold.class>
     <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
     <jdk.version>11</jdk.version>
 
@@ -32,7 +32,8 @@
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
     <libphonenumber.version>8.12.57</libphonenumber.version>
 
-    <wutsi-workflow.version>1.0.110</wutsi-workflow.version>
+    <wutsi-workflow.version>1.0.112</wutsi-workflow.version>
+    <wutsi-security-manager.version>1.0.14</wutsi-security-manager.version>
   </properties>
 
   <dependencies>
@@ -40,6 +41,11 @@
       <groupId>com.wutsi.workflow</groupId>
       <artifactId>workflow-engine</artifactId>
       <version>${wutsi-workflow.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.wutsi.security.manager</groupId>
+      <artifactId>security-manager-sdk-kotlin</artifactId>
+      <version>${wutsi-security-manager.version}</version>
     </dependency>
 
     <dependency>

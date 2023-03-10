@@ -6,8 +6,6 @@ import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.doThrow
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import com.wutsi.event.EventURN
-import com.wutsi.event.MemberEventPayload
 import com.wutsi.membership.access.dto.GetAccountResponse
 import com.wutsi.membership.access.dto.UpdateAccountAttributeRequest
 import com.wutsi.membership.access.error.ErrorURN
@@ -50,11 +48,6 @@ class UpdateMemberAttributeControllerTest : AbstractSecuredControllerTest() {
                 name = request.name,
                 value = request.value,
             ),
-        )
-
-        verify(eventStream).publish(
-            EventURN.MEMBER_ATTRIBUTE_UPDATED.urn,
-            MemberEventPayload(accountId = ACCOUNT_ID),
         )
     }
 

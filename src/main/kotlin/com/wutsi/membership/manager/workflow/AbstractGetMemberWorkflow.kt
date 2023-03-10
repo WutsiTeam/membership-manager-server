@@ -1,35 +1,53 @@
 package com.wutsi.membership.manager.workflow
 
 import com.wutsi.enums.AccountStatus
-import com.wutsi.event.MemberEventPayload
+import com.wutsi.error.ErrorURN
 import com.wutsi.membership.access.MembershipAccessApi
 import com.wutsi.membership.access.dto.Account
 import com.wutsi.membership.manager.dto.Category
+import com.wutsi.membership.manager.dto.GetMemberResponse
 import com.wutsi.membership.manager.dto.Member
 import com.wutsi.membership.manager.dto.Place
-import com.wutsi.membership.manager.util.SecurityUtil
-import com.wutsi.platform.core.stream.EventStream
-import com.wutsi.workflow.AbstractWorkflow
+import com.wutsi.platform.core.error.Error
+import com.wutsi.platform.core.error.exception.NotFoundException
 import com.wutsi.workflow.WorkflowContext
+import com.wutsi.workflow.engine.Workflow
+import com.wutsi.workflow.engine.WorkflowEngine
+import feign.FeignException
 import org.springframework.beans.factory.annotation.Autowired
+import javax.annotation.PostConstruct
 
-abstract class AbstractMembershipWorkflow<Req, Resp>(eventStream: EventStream) :
-    AbstractWorkflow<Req, Resp, MemberEventPayload>(eventStream) {
+abstract class AbstractGetMemberWorkflow : Workflow {
+    @Autowired
+    protected lateinit var workflowEngine: WorkflowEngine
+
     @Autowired
     protected lateinit var membershipAccessApi: MembershipAccessApi
 
-    protected fun getCurrentAccountId(context: WorkflowContext): Long =
-        context.accountId ?: SecurityUtil.getAccountId()
+    protected abstract fun id(): String
 
-    protected fun getCurrentAccount(context: WorkflowContext): Account {
-        val accountId = getCurrentAccountId(context)
-        return getAccount(accountId)
+    protected abstract fun findAccount(context: WorkflowContext): Account
+
+    @PostConstruct
+    fun init() {
+        workflowEngine.register(id(), this)
     }
 
-    protected fun getAccount(accountId: Long): Account =
-        membershipAccessApi.getAccount(accountId).account
+    override fun execute(context: WorkflowContext) {
+        try {
+            context.output = GetMemberResponse(
+                member = toMember(findAccount(context)),
+            )
+        } catch (ex: FeignException.NotFound) {
+            throw NotFoundException(
+                error = Error(
+                    code = ErrorURN.MEMBER_NOT_FOUND.urn,
+                ),
+            )
+        }
+    }
 
-    protected fun toMember(account: Account) = Member(
+    private fun toMember(account: Account) = Member(
         id = account.id,
         name = account.name,
         displayName = account.displayName,

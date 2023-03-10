@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service
 
 @Service
 public class SearchPlaceDelegate(private val workflow: SearchPlaceWorkflow) {
-    public fun invoke(request: SearchPlaceRequest): SearchPlaceResponse =
-        workflow.execute(request, WorkflowContext())
+    public fun invoke(request: SearchPlaceRequest): SearchPlaceResponse {
+        val context = WorkflowContext(input = request)
+        workflow.execute(context)
+
+        return context.output as SearchPlaceResponse
+    }
 }

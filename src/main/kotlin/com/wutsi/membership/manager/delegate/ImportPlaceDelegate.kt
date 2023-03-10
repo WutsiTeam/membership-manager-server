@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service
 @Service
 class ImportPlaceDelegate(private val workflow: ImportPlaceWorkflow) {
     fun invoke(country: String) {
-        workflow.execute(country, WorkflowContext())
+        workflow.execute(WorkflowContext(input = country))
     }
 }

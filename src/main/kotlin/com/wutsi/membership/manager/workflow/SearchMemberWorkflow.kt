@@ -1,34 +1,19 @@
 package com.wutsi.membership.manager.workflow
 
 import com.wutsi.enums.AccountStatus
-import com.wutsi.event.MemberEventPayload
+import com.wutsi.membership.access.MembershipAccessApi
 import com.wutsi.membership.access.dto.SearchAccountRequest
 import com.wutsi.membership.manager.dto.MemberSummary
 import com.wutsi.membership.manager.dto.SearchMemberRequest
 import com.wutsi.membership.manager.dto.SearchMemberResponse
-import com.wutsi.platform.core.stream.EventStream
-import com.wutsi.workflow.RuleSet
 import com.wutsi.workflow.WorkflowContext
+import com.wutsi.workflow.engine.Workflow
 import org.springframework.stereotype.Service
 
 @Service
-class SearchMemberWorkflow(eventStream: EventStream) :
-    AbstractMembershipWorkflow<SearchMemberRequest, SearchMemberResponse>(eventStream) {
-    override fun getEventType(
-        request: SearchMemberRequest,
-        response: SearchMemberResponse,
-        context: WorkflowContext,
-    ): String? = null
-
-    override fun toEventPayload(
-        request: SearchMemberRequest,
-        response: SearchMemberResponse,
-        context: WorkflowContext,
-    ): MemberEventPayload? = null
-
-    override fun getValidationRules(request: SearchMemberRequest, context: WorkflowContext) = RuleSet.NONE
-
-    override fun doExecute(request: SearchMemberRequest, context: WorkflowContext): SearchMemberResponse {
+class SearchMemberWorkflow(private val membershipAccessApi: MembershipAccessApi) : Workflow {
+    override fun execute(context: WorkflowContext) {
+        val request = context.input as SearchMemberRequest
         val accounts = membershipAccessApi.searchAccount(
             request = SearchAccountRequest(
                 phoneNumber = request.phoneNumber,
@@ -40,7 +25,8 @@ class SearchMemberWorkflow(eventStream: EventStream) :
                 cityId = request.cityId,
             ),
         ).accounts
-        return SearchMemberResponse(
+
+        context.output = SearchMemberResponse(
             members = accounts.map {
                 MemberSummary(
                     id = it.id,
