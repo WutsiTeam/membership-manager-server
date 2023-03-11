@@ -16,7 +16,7 @@ import com.wutsi.membership.access.dto.CreateAccountResponse
 import com.wutsi.membership.access.dto.GetAccountResponse
 import com.wutsi.membership.access.error.ErrorURN
 import com.wutsi.membership.manager.Fixtures
-import com.wutsi.membership.manager.dto.RegisterMemberRequest
+import com.wutsi.membership.manager.dto.CreateMemberRequest
 import com.wutsi.platform.core.error.ErrorResponse
 import com.wutsi.security.manager.dto.CreatePasswordRequest
 import org.junit.jupiter.api.Test
@@ -32,7 +32,7 @@ class CreateMemberControllerTest : AbstractController2Test() {
     @LocalServerPort
     val port: Int = 0
 
-    private val request = RegisterMemberRequest(
+    private val request = CreateMemberRequest(
         phoneNumber = "+237670000010",
         displayName = "Ray Sponsible",
         pin = "123456",

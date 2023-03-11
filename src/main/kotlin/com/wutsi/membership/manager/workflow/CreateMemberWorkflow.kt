@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.wutsi.membership.access.MembershipAccessApi
 import com.wutsi.membership.access.dto.CreateAccountRequest
 import com.wutsi.membership.access.error.ErrorURN
-import com.wutsi.membership.manager.dto.RegisterMemberRequest
+import com.wutsi.membership.manager.dto.CreateMemberRequest
 import com.wutsi.membership.manager.util.PhoneUtil
 import com.wutsi.membership.manager.workflow.task.CreatePasswordTask
 import com.wutsi.membership.manager.workflow.task.CreatePaymentMethodTask
@@ -36,13 +36,13 @@ class CreateMemberWorkflow(
     }
 
     override fun execute(context: WorkflowContext) {
-        val request = context.input as RegisterMemberRequest
+        val request = context.input as CreateMemberRequest
         val accountId = createAccount(request)
         createPassword(accountId, request)
         createPaymentMethod(accountId)
     }
 
-    private fun createAccount(request: RegisterMemberRequest): Long =
+    private fun createAccount(request: CreateMemberRequest): Long =
         try {
             membershipAccessApi.createAccount(
                 request = CreateAccountRequest(
@@ -69,7 +69,7 @@ class CreateMemberWorkflow(
             }
         }
 
-    private fun createPassword(accountId: Long, request: RegisterMemberRequest) =
+    private fun createPassword(accountId: Long, request: CreateMemberRequest) =
         workflowEngine.executeAsync(
             CreatePasswordTask.ID,
             WorkflowContext(
