@@ -6,6 +6,7 @@ import com.wutsi.membership.access.dto.CreateAccountRequest
 import com.wutsi.membership.access.error.ErrorURN
 import com.wutsi.membership.manager.dto.RegisterMemberRequest
 import com.wutsi.membership.manager.util.PhoneUtil
+import com.wutsi.membership.manager.workflow.task.CreatePasswordTask
 import com.wutsi.membership.manager.workflow.task.CreatePaymentMethodTask
 import com.wutsi.platform.core.error.Error
 import com.wutsi.platform.core.error.ErrorResponse
@@ -37,6 +38,7 @@ class CreateMemberWorkflow(
     override fun execute(context: WorkflowContext) {
         val request = context.input as RegisterMemberRequest
         val accountId = createAccount(request)
+        createPassword(accountId, request)
         createPaymentMethod(accountId)
     }
 
@@ -66,6 +68,18 @@ class CreateMemberWorkflow(
                 throw ex
             }
         }
+
+    private fun createPassword(accountId: Long, request: RegisterMemberRequest) =
+        workflowEngine.executeAsync(
+            CreatePasswordTask.ID,
+            WorkflowContext(
+                accountId = accountId,
+                data = mutableMapOf(
+                    CreatePasswordTask.CONTEXT_ATTR_USERNAME to request.phoneNumber,
+                    CreatePasswordTask.CONTEXT_ATTR_PASSWORD to request.pin
+                )
+            )
+        )
 
     private fun createPaymentMethod(accountId: Long) =
         workflowEngine.executeAsync(CreatePaymentMethodTask.ID, WorkflowContext(accountId = accountId))

@@ -18,6 +18,7 @@ import com.wutsi.membership.access.error.ErrorURN
 import com.wutsi.membership.manager.Fixtures
 import com.wutsi.membership.manager.dto.RegisterMemberRequest
 import com.wutsi.platform.core.error.ErrorResponse
+import com.wutsi.security.manager.dto.CreatePasswordRequest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.boot.test.context.SpringBootTest
@@ -67,6 +68,13 @@ class CreateMemberControllerTest : AbstractController2Test() {
         assertEquals(language, req.firstValue.language)
 
         Thread.sleep(10000) // Wait for async
+        verify(securityManagerApi).createPassword(
+            CreatePasswordRequest(
+                accountId = accountId,
+                username = request.phoneNumber,
+                value = request.pin
+            )
+        )
         verify(checkoutAccessApi).createPaymentMethod(
             CreatePaymentMethodRequest(
                 accountId = accountId,
@@ -102,6 +110,14 @@ class CreateMemberControllerTest : AbstractController2Test() {
         assertEquals("CM", req.firstValue.country)
         assertEquals(language, req.firstValue.language)
 
+        Thread.sleep(10000) // Wait for async
+        verify(securityManagerApi).createPassword(
+            CreatePasswordRequest(
+                accountId = accountId,
+                username = request.phoneNumber,
+                value = request.pin
+            )
+        )
         verify(checkoutAccessApi, never()).createPaymentMethod(any())
     }
 
@@ -135,6 +151,14 @@ class CreateMemberControllerTest : AbstractController2Test() {
         assertEquals("CM", req.firstValue.country)
         assertEquals(language, req.firstValue.language)
 
+        Thread.sleep(10000) // Wait for async
+        verify(securityManagerApi).createPassword(
+            CreatePasswordRequest(
+                accountId = accountId,
+                username = request.phoneNumber,
+                value = request.pin
+            )
+        )
         verify(checkoutAccessApi, never()).createPaymentMethod(any())
     }
 
@@ -154,6 +178,9 @@ class CreateMemberControllerTest : AbstractController2Test() {
 
         val response = ObjectMapper().readValue(ex.responseBodyAsString, ErrorResponse::class.java)
         assertEquals(com.wutsi.error.ErrorURN.PHONE_NUMBER_ALREADY_ASSIGNED.urn, response.error.code)
+
+        verify(checkoutAccessApi, never()).createPaymentMethod(any())
+        verify(securityManagerApi, never()).createPassword(any())
     }
 
     private fun url() = "http://localhost:$port/v1/members"
