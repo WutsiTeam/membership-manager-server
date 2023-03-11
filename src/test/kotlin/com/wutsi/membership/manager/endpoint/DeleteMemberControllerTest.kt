@@ -50,7 +50,6 @@ class DeleteMemberControllerTest : AbstractSecuredController2Test() {
 
         Thread.sleep(10000) // Wait for async processing
         verify(securityManagerApi).deletePassword()
-        verify(securityManagerApi).logout()
         verify(checkoutAccessApi).updatePaymentMethodStatus(
             token,
             UpdatePaymentMethodStatusRequest((PaymentMethodStatus.INACTIVE.name)),

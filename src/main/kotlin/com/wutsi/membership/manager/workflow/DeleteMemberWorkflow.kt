@@ -5,7 +5,6 @@ import com.wutsi.membership.access.MembershipAccessApi
 import com.wutsi.membership.access.dto.UpdateAccountStatusRequest
 import com.wutsi.membership.manager.workflow.task.DeactivatePaymentMethod
 import com.wutsi.membership.manager.workflow.task.DeletePasswordTask
-import com.wutsi.membership.manager.workflow.task.LogoutPasswordTask
 import com.wutsi.workflow.WorkflowContext
 import com.wutsi.workflow.engine.Workflow
 import com.wutsi.workflow.engine.WorkflowEngine
@@ -31,7 +30,6 @@ class DeleteMemberWorkflow(
         deactivateAccount(context)
         deletePassword(context)
         deactivatePaymentMethod(context)
-        logout(context)
     }
 
     private fun deactivateAccount(context: WorkflowContext) =
@@ -47,7 +45,4 @@ class DeleteMemberWorkflow(
 
     private fun deactivatePaymentMethod(context: WorkflowContext) =
         workflowEngine.executeAsync(DeactivatePaymentMethod.ID, context)
-
-    private fun logout(context: WorkflowContext) =
-        workflowEngine.executeAsync(LogoutPasswordTask.ID, context)
 }
