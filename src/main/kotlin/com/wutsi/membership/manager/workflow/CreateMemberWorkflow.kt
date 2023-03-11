@@ -76,9 +76,9 @@ class CreateMemberWorkflow(
                 accountId = accountId,
                 data = mutableMapOf(
                     CreatePasswordTask.CONTEXT_ATTR_USERNAME to request.phoneNumber,
-                    CreatePasswordTask.CONTEXT_ATTR_PASSWORD to request.pin
-                )
-            )
+                    CreatePasswordTask.CONTEXT_ATTR_PASSWORD to request.pin,
+                ),
+            ),
         )
 
     private fun createPaymentMethod(accountId: Long) =

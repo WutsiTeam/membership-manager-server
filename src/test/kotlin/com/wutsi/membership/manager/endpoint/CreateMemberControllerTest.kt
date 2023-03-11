@@ -72,8 +72,8 @@ class CreateMemberControllerTest : AbstractController2Test() {
             CreatePasswordRequest(
                 accountId = accountId,
                 username = request.phoneNumber,
-                value = request.pin
-            )
+                value = request.pin,
+            ),
         )
         verify(checkoutAccessApi).createPaymentMethod(
             CreatePaymentMethodRequest(
@@ -115,8 +115,8 @@ class CreateMemberControllerTest : AbstractController2Test() {
             CreatePasswordRequest(
                 accountId = accountId,
                 username = request.phoneNumber,
-                value = request.pin
-            )
+                value = request.pin,
+            ),
         )
         verify(checkoutAccessApi, never()).createPaymentMethod(any())
     }
@@ -156,8 +156,8 @@ class CreateMemberControllerTest : AbstractController2Test() {
             CreatePasswordRequest(
                 accountId = accountId,
                 username = request.phoneNumber,
-                value = request.pin
-            )
+                value = request.pin,
+            ),
         )
         verify(checkoutAccessApi, never()).createPaymentMethod(any())
     }

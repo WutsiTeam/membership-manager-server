@@ -31,7 +31,7 @@ class CreatePasswordTask(
                 accountId = context.accountId!!,
                 username = context.data[CONTEXT_ATTR_USERNAME] as String,
                 value = context.data[CONTEXT_ATTR_PASSWORD] as String,
-            )
+            ),
         )
     }
 }
