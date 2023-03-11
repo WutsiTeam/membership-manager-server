@@ -1,6 +1,5 @@
 package com.wutsi.membership.manager.workflow
 
-import com.wutsi.membership.access.MembershipAccessApi
 import com.wutsi.membership.manager.workflow.task.DeactivateAccountTask
 import com.wutsi.membership.manager.workflow.task.DeactivatePaymentMethod
 import com.wutsi.security.manager.SecurityManagerApi
@@ -14,7 +13,6 @@ import javax.annotation.PostConstruct
 @Service
 class DeleteMemberWorkflow(
     private val workflowEngine: WorkflowEngine,
-    private val membershipAccessApi: MembershipAccessApi,
     private val securityManagerApi: SecurityManagerApi,
 ) : Workflow {
     companion object {
